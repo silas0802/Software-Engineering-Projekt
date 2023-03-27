@@ -8,6 +8,7 @@ public class Activity {
     GregorianCalendar startTime;
     GregorianCalendar endTime;
     String name;
+    String description; 
     int expectedDuration;
     public GregorianCalendar getStartTime() {
         return startTime;
@@ -33,15 +34,15 @@ public class Activity {
         this.expectedDuration = expectedDuration;
     }
 
-    public String getDescribtion() {
-        return describtion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribtion(String describtion) {
-        this.describtion = describtion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    String describtion; 
+    
 
     public void setProject(Project project){
         this.project=project;

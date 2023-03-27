@@ -27,6 +27,20 @@ public class ProjectManagerApp {
         return projects.contains(project);
     }
 
+    public boolean hasUser(User user){
+        return users.contains(user);
+    }
+
+
+    public User searchByName(String name){
+        for (User user : users) {
+            if(user.getUserName().equals(name)){
+                return user;
+            }   
+        }
+        return null;
+    }
+
     public void assignLeader(Project project, User user){
 
     project.setProjectLeader(user);

@@ -7,6 +7,10 @@ public class ProjectManagerApp {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
 
+    public boolean isLoggedIn(){
+        return loggedUser != null;
+    }
+
     public void login(User user){
         loggedUser = user;
     }

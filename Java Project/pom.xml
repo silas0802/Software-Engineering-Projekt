@@ -7,8 +7,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dtu</groupId>
-	<artifactId>Hello_JavaFX</artifactId>
-	<name>Hello_JavaFX</name>
+	<artifactId>Java_Project</artifactId>
+	<name>Java Project</name>
 	<version>SNAPSHOT 0.0.1</version>
 
 	<properties>

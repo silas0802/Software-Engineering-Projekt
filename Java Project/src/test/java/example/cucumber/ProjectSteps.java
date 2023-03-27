@@ -13,10 +13,14 @@ import io.cucumber.java.en.When;
 public class ProjectSteps {
     User user;
     Project project;
+    VariablesHolder variablesHolder;
 
     ProjectManagerApp projectManagerApp;
-    public ProjectSteps(ProjectManagerApp projectManagerApp){
+    public ProjectSteps(ProjectManagerApp projectManagerApp, VariablesHolder variablesHolder){
         this.projectManagerApp = projectManagerApp;
+        this.variablesHolder= variablesHolder;
+        user=variablesHolder.user;
+        project=variablesHolder.project;
     }
 
     @Given("user with username {string} logs in")

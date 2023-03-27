@@ -14,12 +14,8 @@ public class User {
     public String user (String userName){
 
         this.userName = userName;
-
-
         return this.userName;
     }
-
-
 
     public String getUserName() {
         return userName;

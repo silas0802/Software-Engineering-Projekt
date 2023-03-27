@@ -30,10 +30,11 @@ public class User {
         this.timeWorked = timeWorked;
     }
 
+    void joinActivity(Activity activity){
+        activities.add(activity);
+    }
 
-    void registerTimeWorked(Activity active, int workingHours){
-        // ToDO activity.workload(int)
-        activities.add(active);
+    void registerTimeWorked(int workingHours){
         timeWorked += workingHours;
     }
 

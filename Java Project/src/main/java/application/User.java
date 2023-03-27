@@ -11,10 +11,9 @@ public class User {
 
 
 
-    public String user (String userName){
+    public User(String userName){
 
         this.userName = userName;
-        return this.userName;
     }
 
     public String getUserName() {

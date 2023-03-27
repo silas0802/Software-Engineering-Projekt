@@ -12,7 +12,11 @@ public class Project {
     private int expTime;
     private int timeWorked;
     private ArrayList<Activity> Activities = new ArrayList<>();
+    private User projectLeader;
 
+    public Project(String name){
+        this.name = name;
+    }
     //get and set for all varribles
     public String getName() {
         return this.name;
@@ -74,5 +78,12 @@ public class Project {
     public void setActivity(Activity activity){
         Activities.add(activity);
     }
+    public User getProjectLeader() {
+        return projectLeader;
+    }
+    public void setProjectLeader(User projectLeader) {
+        this.projectLeader = projectLeader;
+    }
+    
 
 }

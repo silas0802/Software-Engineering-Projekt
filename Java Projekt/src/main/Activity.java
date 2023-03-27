@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Activity {
-    
+    Project project;
     GregorianCalendar startTime;
     GregorianCalendar endTime;
     String name;
@@ -42,6 +42,14 @@ public class Activity {
     }
 
     String describtion; 
+
+    public void setProject(Project project){
+        this.project=project;
+    }
+
+    public Project getProject(){
+        return project;
+    }
 
     public Activity(String name){
         this.name=name;

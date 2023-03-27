@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Project {
@@ -10,6 +11,7 @@ public class Project {
     private Calendar endTime;
     private int expTime;
     private int timeWorked;
+    private ArrayList<Activity> Activities = new ArrayList<>();
 
     //get and set for all varribles
     public String getName() {
@@ -67,6 +69,10 @@ public class Project {
 
     public void giveRapport(){
         //tbd
+    }
+
+    public void setActivity(Activity activity){
+        Activities.add(activity);
     }
 
 }

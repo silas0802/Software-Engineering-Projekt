@@ -3,11 +3,6 @@ package example.cucumber;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import application.Activity;
 import application.ProjectManagerApp;
 import application.User;
 import io.cucumber.java.en.Given;
@@ -18,8 +13,6 @@ public class UserSteps {
     
      
     String input;
-    
-    
     String userChoice;
 
     ProjectManagerApp projectManagerApp;

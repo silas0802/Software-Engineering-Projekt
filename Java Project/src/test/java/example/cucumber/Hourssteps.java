@@ -5,6 +5,8 @@ import io.cucumber.java.en.Then;
 
 public class Hourssteps {
 
+
+
     @Given("entered work {double} hours")
     public void enteredWorkHours(Double double1) {
         VariablesHolder.workHours = double1;
@@ -16,10 +18,10 @@ public class Hourssteps {
     }
 
 
-    @Then("register the timeworked in user and project.")
+    @Then("register the timeworked in user")
     public void registerTheTimeworkedInUserAndProject() {
         VariablesHolder.user.registerTimeWorked(VariablesHolder.workHours);
-        VariablesHolder.project.registerTimeWorked(VariablesHolder.workHours);
+       
     }
 
     private static double roundTo(double v, double r) {

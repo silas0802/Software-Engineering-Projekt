@@ -21,11 +21,10 @@ public class UserSteps {
     List<User> users = new ArrayList<User>();
     Activity activity;
     String userChoice;
-    VariablesHolder variablesholder;
 
     ProjectManagerApp projectManagerApp;
 
-    public UserSteps(ProjectManagerApp projectManagerApp, VariablesHolder variablesHolder){
+    public UserSteps(ProjectManagerApp projectManagerApp){
         this.projectManagerApp = projectManagerApp;
         
     }

@@ -12,8 +12,7 @@ import io.cucumber.java.en.Then;
 public class UserSteps {
     
      
-    String input;
-    String userChoice;
+    String tempUser;
 
     ProjectManagerApp projectManagerApp;
 
@@ -55,13 +54,13 @@ public class UserSteps {
 
     @Given("{string} does not exist")
     public void doesNotExist(String string) {
-        input = string;
+        tempUser = string;
         assertFalse(projectManagerApp.hasUser(VariablesHolder.user));
     }
 
     @Given("the user’s initials has {int} or less characters")
     public void theUserSInitialsHasOrLessCharacters(Integer i) {
-        assertTrue(input.length() <= i);
+        assertTrue(tempUser.length() <= i);
     }
 
     @Then("Promt the user if they wanna create user with {string}")
@@ -70,9 +69,6 @@ public class UserSteps {
     //     Scanner in = new Scanner(System.in);
     //     userChoice = in.nextLine();
     //     in.close();
-    //     assertFalse(userChoice != "y");
-        userChoice = "y";
-        assertTrue(userChoice == "y");
         VariablesHolder.user = new User(string);
 
 

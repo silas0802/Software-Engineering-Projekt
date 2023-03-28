@@ -22,6 +22,10 @@ public class ProjectManagerApp {
     public boolean hasProject(Project project){
         return projects.contains(project);
     }
+    public boolean hasActivity(Project project,Activity activity){
+        ArrayList<Activity> a = project.getActivities();
+        return a.contains(activity);
+    }
 
     public void assignLeader(Project project, User user){
 

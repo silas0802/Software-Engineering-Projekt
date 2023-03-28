@@ -78,6 +78,9 @@ public class Project {
     public void setActivity(Activity activity){
         Activities.add(activity);
     }
+    public ArrayList<Activity> getActivities(){
+        return Activities;
+    }
     public User getProjectLeader() {
         return projectLeader;
     }

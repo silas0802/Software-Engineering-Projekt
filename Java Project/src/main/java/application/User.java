@@ -5,7 +5,7 @@ import java.util.List;
 
 public class User {
     String userName;
-    String timeWorked;
+    double timeWorked;
     List<Activity> activities = new ArrayList<Activity>();
 
 
@@ -22,18 +22,15 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public String getTimeWorked() {
+    public double getTimeWorked() {
         return timeWorked;
     }
-    public void setTimeWorked(String timeWorked) {
-        this.timeWorked = timeWorked;
-    }
 
-    void joinActivity(Activity activity){
+    public void joinActivity(Activity activity){
         activities.add(activity);
     }
 
-    void registerTimeWorked(int workingHours){
+    public void registerTimeWorked(Double workingHours){
         timeWorked += workingHours;
     }
 

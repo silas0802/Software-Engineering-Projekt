@@ -10,7 +10,7 @@ public class Project {
     private Calendar startTime;
     private Calendar endTime;
     private int expTime;
-    private int timeWorked;
+    private Double timeWorked;
     private ArrayList<Activity> Activities = new ArrayList<>();
     private User projectLeader;
 
@@ -58,12 +58,8 @@ public class Project {
         this.expTime = expTime;
     }
 
-    public int getTimeWorked() {
+    public double getTimeWorked() {
         return this.timeWorked;
-    }
-
-    public void setTimeWorked(int timeWorked) {
-        this.timeWorked = timeWorked;
     }
 
     
@@ -86,6 +82,10 @@ public class Project {
     }
     public void setProjectLeader(User projectLeader) {
         this.projectLeader = projectLeader;
+    }
+
+    public void registerTimeWorked(Double timeWorked){
+        this.timeWorked += timeWorked;
     }
     
 

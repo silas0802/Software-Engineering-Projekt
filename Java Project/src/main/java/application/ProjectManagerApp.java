@@ -20,7 +20,10 @@ public class ProjectManagerApp {
     public void createProject(Project project){
         projects.add(project);
     }
-    public void createActivity(Project project, Activity activity){
+    public void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
+        if(project.getActivities().size()>=100){
+            throw new OperationNotAllowedException("Too many activities");
+        }
         project.setActivity(activity);
     }
     public boolean hasProject(Project project){

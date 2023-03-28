@@ -13,13 +13,13 @@ public class Hourssteps {
     }
 
     @Then("round the work time to the closest {int} min.")
-    public void roundTheWorkTimeToTheClosestMin(Integer int1) {
-        VariablesHolder.workHours = roundTo(VariablesHolder.workHours,0.5);
+    public void roundTheWorkTimeToTheClosestMin(Integer i) {
+        VariablesHolder.workHours = roundTo(VariablesHolder.workHours,i/60);
     }
 
 
     @Then("register the timeworked in user")
-    public void registerTheTimeworkedInUserAndProject() {
+    public void registerTheTimeworkedInUser() {
         VariablesHolder.user.registerTimeWorked(VariablesHolder.workHours);
        
     }

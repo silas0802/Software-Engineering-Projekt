@@ -79,7 +79,7 @@ public class UserSteps {
     //     userChoice = in.nextLine();
     //     in.close();
     //     assertFalse(userChoice != "y");
-        userChoice = "y"
+        userChoice = "y";
         assertTrue(userChoice == "y");
         user = new User(string);
 

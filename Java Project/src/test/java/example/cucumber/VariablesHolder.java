@@ -12,6 +12,7 @@ public class VariablesHolder {
    public static Project project;
    public static ProjectManagerApp projectManagerApp;
    public static List<User> users = new ArrayList<User>();
+   public static double workHours;
 
     
 }

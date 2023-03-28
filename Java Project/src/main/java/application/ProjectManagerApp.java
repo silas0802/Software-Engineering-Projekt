@@ -7,6 +7,10 @@ public class ProjectManagerApp {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
 
+    public boolean isLoggedIn(){
+        return loggedUser != null;
+    }
+
     public void login(User user){
         loggedUser = user;
     }
@@ -25,6 +29,20 @@ public class ProjectManagerApp {
     public boolean hasActivity(Project project,Activity activity){
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
+    }
+
+    public boolean hasUser(User user){
+        return users.contains(user);
+    }
+
+
+    public User searchByName(String name){
+        for (User user : users) {
+            if(user.getUserName().equals(name)){
+                return user;
+            }   
+        }
+        return null;
     }
 
     public void assignLeader(Project project, User user){

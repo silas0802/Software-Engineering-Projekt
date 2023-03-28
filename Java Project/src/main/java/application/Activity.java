@@ -10,7 +10,9 @@ public class Activity {
     public String name;
     String description; 
     int expectedDuration;
+    
     public GregorianCalendar getStartTime() {
+        Calendar.getInstance();
         return startTime;
     }
 

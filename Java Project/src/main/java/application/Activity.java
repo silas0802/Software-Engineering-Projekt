@@ -7,7 +7,7 @@ public class Activity {
     Project project;
     GregorianCalendar startTime;
     GregorianCalendar endTime;
-    String name;
+    public String name;
     String description; 
     int expectedDuration;
     

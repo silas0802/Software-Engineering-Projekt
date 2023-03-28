@@ -16,10 +16,10 @@ import io.cucumber.java.en.Then;
 
 public class UserSteps {
     
-    User user; 
+     
     String input;
-    List<User> users = new ArrayList<User>();
-    Activity activity;
+    
+    
     String userChoice;
 
     ProjectManagerApp projectManagerApp;
@@ -37,14 +37,14 @@ public class UserSteps {
     @Given("the user {string} is in the system.")
     public void theUserIsInTheSystem(String userName) {
         projectManagerApp.createUser(new User("ABC"));
-        user = projectManagerApp.searchByName(userName);
+        VariablesHolder.user = projectManagerApp.searchByName(userName);
 
     }
 
     @Then("the user login succeeds")
     public void theUserLoginSucceeds() {
-        assertTrue(projectManagerApp.hasUser(user));
-        projectManagerApp.login(user);
+        assertTrue(projectManagerApp.hasUser(VariablesHolder.user));
+        projectManagerApp.login(VariablesHolder.user);
     }
 
     @Then("the user is logged in")
@@ -63,7 +63,7 @@ public class UserSteps {
     @Given("{string} does not exist")
     public void doesNotExist(String string) {
         input = string;
-        assertFalse(projectManagerApp.hasUser(user));
+        assertFalse(projectManagerApp.hasUser(VariablesHolder.user));
     }
 
     @Given("the user’s initials has {int} or less characters")
@@ -80,16 +80,16 @@ public class UserSteps {
     //     assertFalse(userChoice != "y");
         userChoice = "y";
         assertTrue(userChoice == "y");
-        user = new User(string);
+        VariablesHolder.user = new User(string);
 
 
     }
 
     @Then("Creating the new user")
     public void creatingTheNewUser() {
-        projectManagerApp.createUser(user);
-        assertTrue(projectManagerApp.hasUser(user));
-        projectManagerApp.login(user);
+        projectManagerApp.createUser(VariablesHolder.user);
+        assertTrue(projectManagerApp.hasUser(VariablesHolder.user));
+        projectManagerApp.login(VariablesHolder.user);
     }
 
    

@@ -65,6 +65,7 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("Maximum of 20 activities are already assigned to user this week");
         }
         user.joinActivity(activity);
+        activity.setActiveUser(user);
     }
     public static List<Activity> getUserActivities(User user){
         return user.getActivities();
@@ -74,6 +75,7 @@ public class ProjectManagerApp {
 
         List<Activity> userActivities = getUserActivities(user);
         return userActivities.contains(activity);
+
     }
 
     public List<User> getUsersWithoutActivities(){

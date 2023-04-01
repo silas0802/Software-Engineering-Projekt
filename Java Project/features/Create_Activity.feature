@@ -38,10 +38,10 @@ And a project with name "kill everyone" is created
 And an activity with name "start with oxygen supply" under the project is created
 Then the project which the activity belongs to is shown
 
-#Scenario: show active users
-#Given 20 users are logged in 
-#And 10 users has active activities
-#And a project with name "try the system" is created
-#And an activity with name "small stuff" under the project is created
-#When searching for users without activities
-#Then all users without activities are assigned to the activity
+Scenario: show active users
+Given 20 users are logged in 
+And 10 users has active activities
+And a project with name "try the system" is created
+And an activity with name "small stuff" under the project is created
+When searching for users without activities
+Then all users without activities are assigned to the activity

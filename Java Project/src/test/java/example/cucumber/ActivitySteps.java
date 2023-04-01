@@ -2,9 +2,13 @@ package example.cucumber;
 
 import static org.junit.Assume.assumeTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import application.Activity;
 import application.OperationNotAllowedException;
@@ -141,13 +145,19 @@ public void usersHasActiveActivities(Integer operations) throws OperationNotAllo
 }
 
 @When("searching for users without activities")
-public void searchingForUsersWithoutActivities() {
-   
+public void searchingForUsersWithoutActivities() throws OperationNotAllowedException {
+   List<User> users = ProjectManagerApp.getUsers();
+   List<User> temp = new ArrayList<>();
+   List<User> unactveUsers =users.stream().filter(user -> user.getActivities().equals(temp)).collect(Collectors.toList());
+   for (int i = 0; i < unactveUsers.size(); i++) {
+    ProjectManagerApp.assignActivityToUser(unactveUsers.get(i),VariablesHolder.activity);
+   }
+
 }
 
 @Then("all users without activities are assigned to the activity")
-public void allUsersWithoutActivitiesAreAssignedToTheActivity() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+public void allUsersWithoutActivitieAreAssignedToTheActivity() {
+    
+    assertEquals(10,VariablesHolder.activity.getUsersOnActivity().size() );
 }
 }

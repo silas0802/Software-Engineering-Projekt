@@ -45,3 +45,10 @@ And a project with name "try the system" is created
 And an activity with name "small stuff" under the project is created
 When searching for users without activities
 Then all users without activities are assigned to the activity
+
+Scenario: create activity Description
+Given user with username "EH" logs in
+And a project with name "Buy groceris" is created
+And an activity with name "purchasing meat" under the project is created
+When a Description with name "we need this done asap" is added
+Then the Description is added to the activity

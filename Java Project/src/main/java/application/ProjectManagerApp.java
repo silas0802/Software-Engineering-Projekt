@@ -82,5 +82,11 @@ public class ProjectManagerApp {
         return null;
         
     }
+
+    public void setActiveDescription(Activity activity, String desciption){
+
+        activity.setDescription(desciption);
+
+    }
     
 }

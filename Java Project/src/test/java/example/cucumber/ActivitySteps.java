@@ -160,4 +160,19 @@ public void allUsersWithoutActivitieAreAssignedToTheActivity() {
     
     assertEquals(10,VariablesHolder.activity.getUsersOnActivity().size() );
 }
+
+
+@When("a Description with name {string} is added")
+public void aDescriptionWithNameIsAdded(String description) {
+    VariablesHolder.desciption=description;
+   projectManagerApp.setActiveDescription(VariablesHolder.activity, description);
 }
+
+@Then("the Description is added to the activity")
+public void theDescriptionIsAddedToTheActivity() {
+    assertEquals(VariablesHolder.desciption, VariablesHolder.activity.getDescription());
+    
+}
+}
+
+

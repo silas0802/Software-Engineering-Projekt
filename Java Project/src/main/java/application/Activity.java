@@ -1,7 +1,9 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Activity {
     Project project;
@@ -10,6 +12,7 @@ public class Activity {
     public String name;
     String description; 
     int expectedDuration;
+    List<User> activeUsers = new ArrayList<>();
     
     public GregorianCalendar getStartTime() {
         Calendar.getInstance();
@@ -52,6 +55,12 @@ public class Activity {
 
     public Project getProject(){
         return project;
+    }
+    public void setActiveUser(User user){
+        activeUsers.add(user);
+    }
+    public List<User> getUsersOnActivity(){
+        return activeUsers;
     }
 
     public Activity(String name){

@@ -7,7 +7,7 @@ public class User {
     String userName;
     double timeWorked;
     List<Activity> activities = new ArrayList<Activity>();
-
+    
 
 
 
@@ -29,11 +29,13 @@ public class User {
     public void joinActivity(Activity activity){
         activities.add(activity);
     }
+    public List<Activity> getActivities(){
+        return activities;
+    }
 
     public void registerTimeWorked(Double workingHours){
         timeWorked += workingHours;
     }
-
 
     
 }

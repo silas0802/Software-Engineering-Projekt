@@ -9,7 +9,7 @@ When a project with name "Fun graphical UI" is created
 Then a project with name "Fun graphical UI" is added to project list
 
 
-Scenario: create project with project leader
+Scenario: Create project with project leader
 Given user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 When the user is assigned to the project as leader

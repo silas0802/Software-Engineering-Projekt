@@ -1,10 +1,13 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ProjectManagerApp {
     User loggedUser;
-    ArrayList<User> users = new ArrayList<>();
+    static ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
 
     public boolean isLoggedIn(){
@@ -14,17 +17,18 @@ public class ProjectManagerApp {
     public void login(User user){
         loggedUser = user;
     }
-    public void createUser(User user){
+    public static void createUser(User user){
         users.add(user);
     }
     public void createProject(Project project){
         projects.add(project);
     }
-    public void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
+    public static void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
         if(project.getActivities().size()>=100){
             throw new OperationNotAllowedException("Too many activities");
         }
         project.setActivity(activity);
+        activity.setProject(project);
     }
     public boolean hasProject(Project project){
         return projects.contains(project);
@@ -44,14 +48,45 @@ public class ProjectManagerApp {
             if(user.getUserName().equals(name)){
                 return user;
             }   
+
         }
         return null;
+    }
+    public static List<User> getUsers(){
+        return users;
     }
 
     public void assignLeader(Project project, User user){
 
     project.setProjectLeader(user);
     }
+    public static void assignActivityToUser(User user, Activity activity) throws OperationNotAllowedException{
+        if(user.getActivities().size()>=20){
+            throw new OperationNotAllowedException("Maximum of 20 activities are already assigned to user this week");
+        }
+        user.joinActivity(activity);
+        activity.setActiveUser(user);
+    }
+    public static List<Activity> getUserActivities(User user){
+        return user.getActivities();
+    }
 
+    public boolean userHasActivity(Activity activity,User user){
+
+        List<Activity> userActivities = getUserActivities(user);
+        return userActivities.contains(activity);
+
+    }
+
+    public List<User> getUsersWithoutActivities(){
+        return null;
+        
+    }
+
+    public void setActiveDescription(Activity activity, String desciption){
+
+        activity.setDescription(desciption);
+
+    }
     
 }

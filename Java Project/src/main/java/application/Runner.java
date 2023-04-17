@@ -21,12 +21,17 @@ public class Runner {
         System.out.println("type in initials:");
         
         String ini = scanner.nextLine();
-         user = new User(ini);
-        if(projectManagerApp.hasUser(user)){
+        
+        user = new User(ini);
+        if(ini.length()==0){
+            System.out.println("Please type in initials");
+            logIn();
+        }
+        else if(projectManagerApp.hasUser(user)){
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.login(user);
             mainMenu();
-        }else{
+        }else if(!projectManagerApp.hasUser(user)){
             System.out.println("new User registered");
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.createUser(user);
@@ -41,6 +46,7 @@ public class Runner {
         System.out.println("3. see all projects");
         System.out.println("4. Create new project");
         System.out.println("5. log out");
+        System.out.println("6. close app");
         System.out.println("Type number");
         Activity ag = new Activity("jesper er sej");
         ag.setActiveUser(user);
@@ -61,7 +67,9 @@ public class Runner {
         else if(ans==5){
             System.out.println("Sytem logged out");
             logIn();
-            scanner.nextLine();
+            
+        }else if(ans==5){
+            scanner.close();
         }
     }
 
@@ -117,6 +125,7 @@ public class Runner {
         }else if(ans==2){
             seeYourActivities(user);
         }
+        viewActivity(activity);
     }
 
     public static boolean yesno(String String){

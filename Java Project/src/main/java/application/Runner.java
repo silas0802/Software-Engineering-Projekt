@@ -68,8 +68,9 @@ public class Runner {
             System.out.println("Sytem logged out");
             logIn();
             
-        }else if(ans==5){
-            scanner.close();
+        }else if(ans==6){
+            System.out.println("System shutting down");
+            System.exit(0);
         }
     }
 

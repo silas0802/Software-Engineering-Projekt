@@ -42,6 +42,14 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
     }
+    public void setProjectDescription(Project project, String des)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setDescription(des);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
 
     public boolean hasProject(Project project){
         return projects.contains(project);

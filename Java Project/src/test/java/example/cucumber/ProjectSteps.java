@@ -128,7 +128,11 @@ public class ProjectSteps {
 
     @When("the user edits the project description to {string}")
     public void the_user_edits_the_project_description_to(String description) {
-        VariablesHolder.project.setDescription(description);
+        try {
+            projectManagerApp.setProjectDescription(VariablesHolder.project ,description);
+		} catch (OperationNotAllowedException e) {
+			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+		}
     }
 
     @Given("a user with username {string} is added to the system")

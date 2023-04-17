@@ -1,14 +1,13 @@
 package application;
 
 import java.util.List;
-import java.time.Year;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Runner {
 
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
-     static Scanner scanner;
+    static Scanner scanner;
     static User user;
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -149,8 +148,8 @@ public class Runner {
         if(yesno("Set expected duration? (y/n)")){
             String weekString;
             int weekInt;
-            System.out.println("What is the expected number of weeks? (int)");
             while(true){
+                System.out.println("What is the expected number of weeks? (int)");
                 try {
                 weekString = scanner.nextLine();
                 weekInt = Integer.parseInt(weekString);
@@ -166,6 +165,7 @@ public class Runner {
             int month;
             int year;
             while(true){
+                System.out.println("DD-MM-YYYY");
                 String time = scanner.nextLine();
                 String date[] = time.split("-");
                 try {
@@ -174,7 +174,6 @@ public class Runner {
                     year = Integer.parseInt(date[2]); 
                     activity.setStartTime(new GregorianCalendar(year, month, day));           
                 } catch (Exception e) {
-                    System.out.println("DD-MM-YYYY");
                     continue;
                 }
                 break;

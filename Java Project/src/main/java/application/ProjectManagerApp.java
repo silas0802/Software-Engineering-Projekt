@@ -42,7 +42,7 @@ public class ProjectManagerApp {
         }
     }
     public void setProjectDescription(Project project, String des)throws OperationNotAllowedException{
-        if (loggedUser == project.getProjectLeader()) {
+        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
             project.setDescription(des);
         }
         else{
@@ -150,10 +150,9 @@ public class ProjectManagerApp {
     }
 
     public void setExpProjectTime(Project project, int expTime)throws OperationNotAllowedException{
-        if (loggedUser == project.getProjectLeader()) {
+        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
             project.setExpTime(expTime);
-        }
-        else{
+        } else{
             throw new OperationNotAllowedException("User doesn't have permission");
         }
     }

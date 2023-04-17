@@ -6,9 +6,12 @@ import java.util.List;
 
 public class ProjectManagerApp {
     User loggedUser;
+    Boolean registeredHours = false;
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
-    ArrayList<Project> finishedProjects = new ArrayList<>();
+    ArrayList<Project> finishedProjects = new ArrayList<>(); 
+    
+    
     
     public boolean isLoggedIn(){
         return loggedUser != null;
@@ -16,6 +19,15 @@ public class ProjectManagerApp {
 
     public void login(User user){
         loggedUser = user;
+    }
+
+    public void logout() throws OperationNotAllowedException{
+        if(hasRegisteredHours()){
+            loggedUser = null;
+        }else {
+            throw new OperationNotAllowedException("Has not registered hours");
+        }
+        
     }
 
     public void createUser(User user){
@@ -33,6 +45,14 @@ public class ProjectManagerApp {
         project.setActivity(activity);
         activity.setProject(project);
     }
+    public Boolean hasRegisteredHours() {
+        return registeredHours;
+    }
+
+    public void RegisterHours(Boolean registeredHours) {
+        this.registeredHours = registeredHours;
+    }
+
     public void setProjectName(Project project, String name)throws OperationNotAllowedException{
         if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
             project.setName(name);

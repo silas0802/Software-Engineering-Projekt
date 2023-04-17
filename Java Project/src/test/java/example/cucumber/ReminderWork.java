@@ -9,7 +9,8 @@ public class ReminderWork {
 
     @Given("If user hasn't entered a timer")
     public void ifUserHasnTEnteredATimer() {
-        assertTrue(VariablesHolder.registeredHours = false);
+        VariablesHolder.registeredHours = false;
+        assertTrue(VariablesHolder.registeredHours == false);
     }
     @Then("Give reminder to the user to enter work hours.")
     public void giveReminderToTheUserToEnterWorkHours() {

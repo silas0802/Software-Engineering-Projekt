@@ -52,12 +52,18 @@ And a project with name "Fun graphical UI" is created
 When the user edits the project description to "ABC"
 Then the error message "User doesn't have permission" is given
 
-# Scenario: Set expected work time
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# And the user is assigned to the project as leader
-# When the user edits the expected work time to 10
-# Then the expected work time is 10
+Scenario: edit expected work time
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+When the user edits the expected work time to 10
+Then the expected work time is 10
+
+Scenario: a worker tries to edit expected work time
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+When the user edits the expected work time to 20
+Then the error message "User doesn't have permission" is given
 
 Scenario: Finish Project
 Given user with username "SM" logs in

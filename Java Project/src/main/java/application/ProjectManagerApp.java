@@ -149,4 +149,13 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
     }
+
+    public void setExpProjectTime(Project project, int expTime)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setExpTime(expTime);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
 }

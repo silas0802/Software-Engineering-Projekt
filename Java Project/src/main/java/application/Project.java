@@ -11,6 +11,7 @@ public class Project {
     private Calendar endTime;
     private int expTime;
     private Double timeWorked;
+    private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();
     private User projectLeader;
@@ -66,10 +67,12 @@ public class Project {
     public double getTimeWorked() {
         return this.timeWorked;
     }
-
+    public boolean isFinished() {
+        return isFinished;
+    }
     
     public void finishProject(){
-        //do somthing 
+        isFinished = true;
     }
 
     public void giveRapport(){
@@ -96,9 +99,21 @@ public class Project {
     public void setActivity(Activity activity){
         activities.add(activity);
     }
+
     public ArrayList<Activity> getActivities(){
         return activities;
     }
+
+    public Activity searchActivity(String name){
+        ArrayList<Activity> activ = getActivities();
+        for(int i = 0; i < activ.size(); i++){
+            if(activ.get(i).getName().contains(name)){
+                return activ.get(i);
+            }
+        }
+        return null;
+    }
+
     public void setFinishedActivity(Activity activity){
         finishedActivities.add(activity);
         activities.remove(activity);

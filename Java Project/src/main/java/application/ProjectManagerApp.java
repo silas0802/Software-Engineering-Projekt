@@ -34,6 +34,14 @@ public class ProjectManagerApp {
         project.setActivity(activity);
         activity.setProject(project);
     }
+    public void setProjectName(Project project, String name)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setName(name);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
 
     public boolean hasProject(Project project){
         return projects.contains(project);

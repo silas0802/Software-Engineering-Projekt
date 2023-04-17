@@ -14,6 +14,7 @@ public class VariablesHolder {
    public static List<User> users = new ArrayList<User>();
    public static double workHours;
    public static String desciption;
+   public static Boolean registeredHours;
 
     
 }

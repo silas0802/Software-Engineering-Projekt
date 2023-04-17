@@ -1,7 +1,5 @@
 package example.cucumber;
 
-
-
 import application.*;
 
 public class VariablesHolder {

@@ -2,15 +2,14 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+
 
 public class ProjectManagerApp {
     User loggedUser;
-    static ArrayList<User> users = new ArrayList<>();
+    ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
-
+    ArrayList<Project> finishedProjects = new ArrayList<>();
+    
     public boolean isLoggedIn(){
         return loggedUser != null;
     }
@@ -34,6 +33,22 @@ public class ProjectManagerApp {
         project.setActivity(activity);
         activity.setProject(project);
     }
+    public void setProjectName(Project project, String name)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setName(name);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
+    public void setProjectDescription(Project project, String des)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setDescription(des);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
 
     public boolean hasProject(Project project){
         return projects.contains(project);
@@ -43,9 +58,25 @@ public class ProjectManagerApp {
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
     }
+    public boolean projectIsFinished(Project project){
+        for (Project project2 : finishedProjects) {
+            if (project.equals(project2)&&project.isFinished()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean hasUser(User user){
         return users.contains(user);
+    }
+    public boolean projectHasUsers(Project project, User[] users){
+        for (User user : project.getWorkers()) {
+            if (!hasUser(user)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -100,5 +131,30 @@ public class ProjectManagerApp {
 
     public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
+    }
+    public void finishProject(Project project)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            if (project.getActivities().isEmpty()) {
+                project.finishProject();
+                projects.remove(project);
+                finishedProjects.add(project);
+                
+            }
+            else{
+                throw new OperationNotAllowedException("Project contains unfinished activities");
+            }
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
+
+    public void setExpProjectTime(Project project, int expTime)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setExpTime(expTime);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
     }
 }

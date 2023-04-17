@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Runner {
 
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
-     static Scanner scanner;
+    static Scanner scanner;
     static User user;
     public static void main(String[] args) {
         scanner = new Scanner(System.in);

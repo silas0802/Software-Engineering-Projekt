@@ -54,11 +54,19 @@ And the user is assigned to the project as leader
 When the user edits the project description to "boring, not fun"
 Then the project description is changed to "boring, not fun"
 
-Scenario: a worker tries to edit project description
+Scenario: a worker tries to edit project description with PM
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+And user with username "AS" logs in
+When the user edits the project description to "ABC"
+Then the error message "User doesn't have permission" is given
+
+Scenario: a worker tries to edit project description without PM
 Given user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 When the user edits the project description to "ABC"
-Then the error message "User doesn't have permission" is given
+Then the project description is changed to "ABC"
 
 # Auth - Daniel
 Scenario: edit expected work time
@@ -69,11 +77,19 @@ When the user edits the expected work time to 10
 Then the expected work time is 10
 
 # Auth - Daniel
-Scenario: a worker tries to edit expected work time
+Scenario: a worker tries to edit expected work time with PM
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+And user with username "AS" logs in
+When the user edits the expected work time to 20
+Then the error message "User doesn't have permission" is given
+
+Scenario: a worker tries to edit expected work time without PM
 Given user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 When the user edits the expected work time to 20
-Then the error message "User doesn't have permission" is given
+Then the expected work time is 20
 
 Scenario: Finish Project
 Given user with username "SM" logs in
@@ -82,10 +98,10 @@ And the user is assigned to the project as leader
 When the user finishes the project
 Then the project is moved to finished projects
 
-# Scenario: Finish Project with unfinished activities
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# And the user is assigned to the project as leader
-# And the project has an unfinished activity
-# When the user finishes the project
-# Then throw an error saying "Project contains unfinished activities"
+Scenario: Finish Project with unfinished activities
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+And an activity with name "starting with the basics" under the project is created
+When the user finishes the project
+Then the error message "Project contains unfinished activities" is given

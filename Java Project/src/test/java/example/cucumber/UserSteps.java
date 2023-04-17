@@ -54,24 +54,18 @@ public class UserSteps {
 
     @Given("{string} does not exist")
     public void doesNotExist(String string) {
-        tempUser = string;
-        assertFalse(projectManagerApp.hasUser(VariablesHolder.user));
+        
+        assertTrue(projectManagerApp.searchByName(string) == null);
     }
 
-    @Given("the user’s initials has {int} or less characters")
+    @Given("the user's initials has {int} or less characters")
     public void theUserSInitialsHasOrLessCharacters(Integer i) {
         assertTrue(tempUser.length() <= i);
     }
 
     @Then("Promt the user if they wanna create user with {string}")
     public void promtTheUserIfTheyWannaCreateUserWith(String string) {   
-    //     System.out.println("Do you want to create: " + string + " y or n");
-    //     Scanner in = new Scanner(System.in);
-    //     userChoice = in.nextLine();
-    //     in.close();
         VariablesHolder.user = new User(string);
-
-
     }
 
     @Then("Creating the new user")

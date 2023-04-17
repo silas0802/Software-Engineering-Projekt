@@ -13,7 +13,11 @@ public class VariablesHolder {
    public static User[] users;
    public static double workHours;
    public static String desciption;
+<<<<<<< HEAD
+   public static Boolean registeredHours;
+=======
    public static ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+>>>>>>> 11148d59d6151bea8d7f598ea7608a4fe3423e27
 
     
 }

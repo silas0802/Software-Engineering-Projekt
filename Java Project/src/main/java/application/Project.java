@@ -12,6 +12,7 @@ public class Project {
     private int expTime;
     private Double timeWorked;
     private ArrayList<Activity> Activities = new ArrayList<>();
+    private ArrayList<Activity> finishedActivities = new ArrayList<>();
     private User projectLeader;
 
     public Project(String name){
@@ -76,6 +77,13 @@ public class Project {
     }
     public ArrayList<Activity> getActivities(){
         return Activities;
+    }
+    public void setFinishedActivity(Activity activity){
+        finishedActivities.add(activity);
+        Activities.remove(activity);
+    }
+    public ArrayList<Activity> getFinishedActivities(){
+        return finishedActivities;
     }
     public User getProjectLeader() {
         return projectLeader;

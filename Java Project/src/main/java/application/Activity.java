@@ -9,7 +9,7 @@ public class Activity {
     Project project;
     GregorianCalendar startTime;
     GregorianCalendar endTime;
-    public String name;
+     String name;
     String description; 
     int expectedDuration;
     List<User> activeUsers = new ArrayList<>();
@@ -61,6 +61,13 @@ public class Activity {
     }
     public List<User> getUsersOnActivity(){
         return activeUsers;
+    }
+
+    public void setName(String name){
+        this.name=name;
+    }
+    public String getName(){
+        return name;
     }
 
     public Activity(String name){

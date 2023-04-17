@@ -6,6 +6,7 @@ import java.util.List;
 public class User {
     String userName;
     double timeWorked;
+    Project assignedProject;
     List<Activity> activities = new ArrayList<Activity>();
     
 
@@ -35,6 +36,14 @@ public class User {
 
     public void registerTimeWorked(Double workingHours){
         timeWorked += workingHours;
+    }
+
+    public Project getAssignedProject() {
+        return assignedProject;
+    }
+
+    public void setAssignedProject(Project assignedProject) {
+        this.assignedProject = assignedProject;
     }
 
     

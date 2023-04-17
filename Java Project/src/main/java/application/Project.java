@@ -1,7 +1,9 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 
 public class Project {
     //Class specific varribles
@@ -11,9 +13,13 @@ public class Project {
     private Calendar endTime;
     private int expTime;
     private Double timeWorked;
-    private ArrayList<Activity> Activities = new ArrayList<>();
+    private ArrayList<Activity> activities = new ArrayList<>();
     private User projectLeader;
+    private ArrayList<User> workers = new ArrayList<>();
 
+    public ArrayList<User> getWorkers() {
+        return workers;
+    }
     public Project(String name){
         this.name = name;
     }
@@ -70,12 +76,29 @@ public class Project {
     public void giveRapport(){
         //tbd
     }
+    public void assignWorker(User user) throws OperationNotAllowedException{
+        if (user.getAssignedProject()!=null) {
+            workers.add(user);
+        } else {
+            throw new OperationNotAllowedException("Worker is already assigned to a project");
+        }
+        
+    }
+    public void assignWorkers(User[] users) throws OperationNotAllowedException{
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].getAssignedProject()!=null) {
+                workers.add(users[i]);
+            } else {
+                throw new OperationNotAllowedException("Worker is already assigned to a project");
+            }
+        }
+    }
 
     public void setActivity(Activity activity){
-        Activities.add(activity);
+        activities.add(activity);
     }
     public ArrayList<Activity> getActivities(){
-        return Activities;
+        return activities;
     }
     public User getProjectLeader() {
         return projectLeader;

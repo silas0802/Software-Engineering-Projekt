@@ -1,9 +1,5 @@
 package example.cucumber;
 
-
-
-import java.util.ArrayList;
-
 import application.*;
 
 public class VariablesHolder {

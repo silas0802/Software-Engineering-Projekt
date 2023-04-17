@@ -182,7 +182,12 @@ public void theUserIsAssignedToTheActivity() throws OperationNotAllowedException
 
 @When("the user is assigned to the actitivy")
 public void theUserIsAssignedToTheActitivy() throws OperationNotAllowedException {
-    projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
+    try {
+        projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
+        
+    } catch (OperationNotAllowedException e) {
+        VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+    }
 }
 
 @Then("the Description {string} is on the activity")

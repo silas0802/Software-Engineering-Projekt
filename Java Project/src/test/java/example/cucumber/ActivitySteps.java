@@ -223,12 +223,12 @@ public void userSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
 
 @When("the user finishes the activity")
 public void theUserFinishesTheActivity() {
-    ProjectManagerApp.finishActivity(VariablesHolder.project, VariablesHolder.activity);
+    projectManagerApp.finishActivity(VariablesHolder.project, VariablesHolder.activity);
 }
 
 @Then("the activity is moved to finished activities under the project")
 public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
-    assertFalse(ProjectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
+    assertFalse(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
     assertEquals(VariablesHolder.project.getFinishedActivities().size(), 1);
 
 }
@@ -237,7 +237,7 @@ public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
 public void theProjectHasActivities(Integer numOfActivities) {
     assertEquals(VariablesHolder.project.getActivities().size(), numOfActivities);
     
-    assertTrue(ProjectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
+    assertTrue(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
 }
 
 

@@ -101,5 +101,4 @@ public class ProjectManagerApp {
     public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
     }
-    
 }

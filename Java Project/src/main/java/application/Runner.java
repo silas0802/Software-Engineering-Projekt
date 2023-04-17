@@ -10,10 +10,7 @@ public class Runner {
      static Scanner scanner;
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
-        Project project = new Project("TestTest");
-        project.setActivity(new Activity("test"));
-        Activity ac = project.searchActivity("test");
-        editActivity(ac);
+        
     }
 
     public static boolean yesno(String String){

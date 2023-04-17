@@ -3,10 +3,13 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.Port;
+
 public class ProjectManagerApp {
     User loggedUser;
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
+    ArrayList<Project> finishedProjects = new ArrayList<>();
     
     public boolean isLoggedIn(){
         return loggedUser != null;
@@ -55,6 +58,14 @@ public class ProjectManagerApp {
     public boolean hasActivity(Project project,Activity activity){
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
+    }
+    public boolean projectIsFinished(Project project){
+        for (Project project2 : finishedProjects) {
+            if (project.equals(project2)&&project.isFinished()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasUser(User user){
@@ -121,5 +132,21 @@ public class ProjectManagerApp {
 
     public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
+    }
+    public void finishProject(Project project)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            if (project.getActivities().isEmpty()) {
+                project.finishProject();
+                projects.remove(project);
+                finishedProjects.add(project);
+                
+            }
+            else{
+                throw new OperationNotAllowedException("Project contains unfinished activities");
+            }
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
     }
 }

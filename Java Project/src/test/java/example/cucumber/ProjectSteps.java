@@ -85,13 +85,17 @@ public class ProjectSteps {
     @Then("the project is moved to finished projects")
     public void the_project_is_moved_to_finished_projects() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        projectManagerApp.projectIsFinished(VariablesHolder.project);
     }
 
     @When("the user finishes the project")
     public void the_user_finishes_the_project() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        try {
+            projectManagerApp.finishProject(VariablesHolder.project);
+		} catch (OperationNotAllowedException e) {
+			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+		}
     }
 
     @Then("the expected work time is {int}")

@@ -11,6 +11,7 @@ public class Project {
     private Calendar endTime;
     private int expTime;
     private Double timeWorked;
+    private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();
     private User projectLeader;
@@ -66,10 +67,12 @@ public class Project {
     public double getTimeWorked() {
         return this.timeWorked;
     }
-
+    public boolean isFinished() {
+        return isFinished;
+    }
     
     public void finishProject(){
-        //do somthing 
+        isFinished = true;
     }
 
     public void giveRapport(){

@@ -115,7 +115,11 @@ public class ProjectSteps {
     @When("the user edits the project name to {string}")
     public void the_user_edits_the_project_name_to(String s) {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        try {
+            projectManagerApp.setProjectName(VariablesHolder.project,s);
+		} catch (OperationNotAllowedException e) {
+			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+		}
     }
 
     @Then("the project description is changed to {string}")

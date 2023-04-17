@@ -146,9 +146,9 @@ public void usersHasActiveActivities(Integer operations) throws OperationNotAllo
 
 @When("searching for users without activities")
 public void searchingForUsersWithoutActivities() throws OperationNotAllowedException {
-   List<User> users = projectManagerApp.getUsers();
-   List<User> temp = new ArrayList<>();
-   List<User> unactveUsers =users.stream().filter(user -> user.getActivities().equals(temp)).collect(Collectors.toList());
+    List<User> users = projectManagerApp.getUsers();
+    List<User> temp = new ArrayList<>();
+    List<User> unactveUsers =users.stream().filter(user -> user.getActivities().equals(temp)).collect(Collectors.toList());
    for (int i = 0; i < unactveUsers.size(); i++) {
     projectManagerApp.assignActivityToUser(unactveUsers.get(i),VariablesHolder.activity);
    }

@@ -1,18 +1,15 @@
 package example.cucumber;
 
-import static org.junit.Assume.assumeTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import application.Activity;
 import application.OperationNotAllowedException;
-import application.Project;
 import application.ProjectManagerApp;
 import application.User;
 import io.cucumber.java.en.Given;

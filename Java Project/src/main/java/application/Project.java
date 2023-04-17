@@ -1,9 +1,7 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 
 public class Project {
     //Class specific varribles

@@ -17,26 +17,28 @@ And a project with name "Fun graphical UI" is created
 When the user is assigned to the project as leader
 Then the user is project leader of the project
 
-Scenario: Add a list of users to a project
+# Scenario: Add a list of users to a project
+# Given user with username "SM" logs in
+# And a project with name "Fun graphical UI" is created
+# And the user is assigned to the project as leader
+# When user adds a list of users to the project
+# Then the users are assigned to the project
+
+# Auth - Daniel
+Scenario: Edit project description
 Given user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 And the user is assigned to the project as leader
-When user adds a list of users to the project
-Then the users are assigned to the project
+When the user edits the project description to "boring, not fun"
+Then the project description is changed to "boring, not fun"
 
-# Scenario: Edit project description
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# And the user is assigned to the project as leader
-# When the user edits the project description to "boring, not fun"
-# Then the project description is changed to "boring, not fun"
-
-# Scenario: Edit project name
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# And the user is assigned to the project as leader
-# When the user edits the project name to "Boring graphical UI"
-# Then the project name is changed to "Boring graphical UI"
+# Auth - Daniel
+Scenario: Edit project name
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+When the user edits the project name to "Boring graphical UI"
+Then the project name is changed to "Boring graphical UI"
 
 # Scenario: a worker tries to edit project name
 # Given user with username "SM" logs in
@@ -44,7 +46,7 @@ Then the users are assigned to the project
 # When the user edits the project name to "Boring graphical UI"
 # Then throw an error saying "User doesn't have permission"
 
-# Scenario: a worker tries to edit project name
+# Scenario: a worker tries to edit project description
 # Given user with username "SM" logs in
 # And a project with name "Fun graphical UI" is created
 # When the user edits the project description to "ABC"

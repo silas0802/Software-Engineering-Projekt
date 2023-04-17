@@ -1,7 +1,6 @@
 package application;
 
 import java.util.List;
-import java.time.Year;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 

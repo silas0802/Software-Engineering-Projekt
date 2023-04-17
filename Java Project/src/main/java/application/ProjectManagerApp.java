@@ -117,4 +117,13 @@ public class ProjectManagerApp {
     public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
     }
+
+    public void setExpProjectTime(Project project, int expTime)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setExpTime(expTime);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
 }

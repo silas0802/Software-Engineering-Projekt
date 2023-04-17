@@ -95,15 +95,18 @@ public class ProjectSteps {
     }
 
     @Then("the expected work time is {int}")
-    public void the_expected_work_time_is(int i) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void the_expected_work_time_is(int expTime) {
+        assertEquals(VariablesHolder.project.getExpTime(), expTime);
     }
 
     @When("the user edits the expected work time to {int}")
-    public void the_user_edits_the_expected_work_time_to(int i) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void the_user_edits_the_expected_work_time_to(int expTime) {
+        try {
+            projectManagerApp.setExpProjectTime(VariablesHolder.project, expTime);
+        } catch (OperationNotAllowedException e) {
+			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+        
     }
 
     @Then("the project name is changed to {string}")

@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class ProjectManagerApp {
     User loggedUser;
-    static ArrayList<User> users = new ArrayList<>();
+    ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
-
+    
     public boolean isLoggedIn(){
         return loggedUser != null;
     }
@@ -46,6 +46,14 @@ public class ProjectManagerApp {
 
     public boolean hasUser(User user){
         return users.contains(user);
+    }
+    public boolean projectHasUsers(Project project, User[] users){
+        for (User user : project.getWorkers()) {
+            if (!hasUser(user)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

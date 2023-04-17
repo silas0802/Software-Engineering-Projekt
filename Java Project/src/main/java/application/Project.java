@@ -14,6 +14,7 @@ public class Project {
     private int expTime;
     private Double timeWorked;
     private ArrayList<Activity> activities = new ArrayList<>();
+    private ArrayList<Activity> finishedActivities = new ArrayList<>();
     private User projectLeader;
     private ArrayList<User> workers = new ArrayList<>();
 
@@ -99,6 +100,13 @@ public class Project {
     }
     public ArrayList<Activity> getActivities(){
         return activities;
+    }
+    public void setFinishedActivity(Activity activity){
+        finishedActivities.add(activity);
+        activities.remove(activity);
+    }
+    public ArrayList<Activity> getFinishedActivities(){
+        return finishedActivities;
     }
     public User getProjectLeader() {
         return projectLeader;

@@ -173,6 +173,70 @@ public void theDescriptionIsAddedToTheActivity() {
     assertEquals(VariablesHolder.desciption, VariablesHolder.activity.getDescription());
     
 }
+
+
+@Given("the user is assigned to the activity")
+public void theUserIsAssignedToTheActivity() throws OperationNotAllowedException {
+    ProjectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
+}
+
+@When("the user is assigned to the actitivy")
+public void theUserIsAssignedToTheActitivy() throws OperationNotAllowedException {
+    ProjectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
+}
+
+@Then("the Description {string} is on the activity")
+public void theDescriptionIsOnTheActivity(String descrip) {
+    assertEquals(VariablesHolder.activity.getDescription(), descrip);
+}
+
+@When("the activities name is edited to {string}")
+public void theActivitiesNameIsEditedTo(String actiname) {
+    VariablesHolder.activity.setName(actiname);
+}
+
+@Then("the name of the activity is {string}")
+public void theNameOfTheActivityIs(String activiname) {
+    assertEquals(VariablesHolder.activity.getName(), activiname);
+}
+
+@When("the user sets the expected work time of the activity to {int}")
+public void theUserSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
+    VariablesHolder.activity.setExpectedDuration(exptime);
+}
+
+@Then("the expected work time of the activity is {int}")
+public void theExpectedWorkTimeOfTheActivityIs(Integer exptime) {
+    assertEquals(VariablesHolder.activity.getExpectedDuration(), exptime);
+}
+
+@Given("user sets the expected work time of the activity to {int}")
+public void userSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
+   VariablesHolder.activity.setExpectedDuration(exptime);
+}
+
+
+@When("the user finishes the activity")
+public void theUserFinishesTheActivity() {
+    ProjectManagerApp.finishActivity(VariablesHolder.project, VariablesHolder.activity);
+}
+
+@Then("the activity is moved to finished activities under the project")
+public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
+    assertFalse(ProjectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
+    assertEquals(VariablesHolder.project.getFinishedActivities().size(), 1);
+
+}
+
+@Then("the project has {int} activities")
+public void theProjectHasActivities(Integer numOfActivities) {
+    assertEquals(VariablesHolder.project.getActivities().size(), numOfActivities);
+    
+    assertTrue(ProjectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
+}
+
+
+
 }
 
 

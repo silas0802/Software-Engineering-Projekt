@@ -33,7 +33,7 @@ public class ProjectManagerApp {
     public boolean hasProject(Project project){
         return projects.contains(project);
     }
-    public boolean hasActivity(Project project,Activity activity){
+    public static boolean hasActivity(Project project,Activity activity){
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
     }
@@ -64,6 +64,9 @@ public class ProjectManagerApp {
         if(user.getActivities().size()>=20){
             throw new OperationNotAllowedException("Maximum of 20 activities are already assigned to user this week");
         }
+        if (userHasActivity(activity, user)) {
+            throw new OperationNotAllowedException("Worker is already assigned to a project");
+        }
         user.joinActivity(activity);
         activity.setActiveUser(user);
     }
@@ -71,7 +74,7 @@ public class ProjectManagerApp {
         return user.getActivities();
     }
 
-    public boolean userHasActivity(Activity activity,User user){
+    public static boolean userHasActivity(Activity activity,User user){
 
         List<Activity> userActivities = getUserActivities(user);
         return userActivities.contains(activity);
@@ -87,6 +90,9 @@ public class ProjectManagerApp {
 
         activity.setDescription(desciption);
 
+    }
+    public static void finishActivity(Project project,Activity activity){
+        project.setFinishedActivity(activity);
     }
     
 }

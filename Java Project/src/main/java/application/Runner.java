@@ -1,6 +1,7 @@
 package application;
 
 import java.util.List;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -108,8 +109,14 @@ public class Runner {
         System.out.println("Description: "+activity.getDescription());
         System.out.println("number of workers on activity: "+activity.getUsersOnActivity().size());
         System.out.println("Expected Work time: "+activity.getExpectedDuration());
-        System.out.println("Start date: "+activity.getStartTime());
-        System.out.println("Set end date: "+activity.getEndTime());
+        GregorianCalendar calen = activity.getStartTime();
+        GregorianCalendar calen2 = activity.getEndTime();
+        if(!(calen==null)){
+        System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
+        }
+        if(!(calen2==null)){
+        System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
+        }
         System.out.println("");
         System.out.println("");
         System.out.println("0. main menu");

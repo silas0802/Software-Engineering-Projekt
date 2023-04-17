@@ -53,9 +53,9 @@ public class UserSteps {
 
 
     @Given("{string} does not exist")
-    public void doesNotExist(String string) {
-        
-        assertTrue(projectManagerApp.searchByName(string) == null);
+    public void doesNotExist(String username) {
+        tempUser = username;
+        assertTrue(projectManagerApp.searchByName(username) == null);
     }
 
     @Given("the user's initials has {int} or less characters")

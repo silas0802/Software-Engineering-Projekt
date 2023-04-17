@@ -62,10 +62,9 @@ public class ProjectSteps {
     @Then("the users are assigned to the project")
     public void the_users_are_assigned_to_the_project() {
         // Write code here that turns the phrase above into concrete actions
-        User[] users = (User[]) VariablesHolder.project.getWorkers().toArray();
-        for (int i = 0; i < users.length; i++) {
-            assertEquals(VariablesHolder.users[i],users[i] );
-        }
+       
+
+        assertTrue(projectManagerApp.projectHasUsers(VariablesHolder.project, VariablesHolder.users));
        
     }
 
@@ -73,7 +72,7 @@ public class ProjectSteps {
     public void user_adds_a_list_of_users_to_the_project() {
         // Write code here that turns the phrase above into concrete actions
         VariablesHolder.users = new User[] {new User("user1"),new User("user2"),new User("user3"),new User("user4")};
-
+        
         try {
 			VariablesHolder.project.assignWorkers(VariablesHolder.users);
 		} catch (OperationNotAllowedException e) {
@@ -113,8 +112,13 @@ public class ProjectSteps {
     }
 
     @When("the user edits the project name to {string}")
-    public void the_user_edits_the_project_name_to(String projectName) {
-        VariablesHolder.project.setName(projectName);
+    public void the_user_edits_the_project_name_to(String s) {
+        // Write code here that turns the phrase above into concrete actions
+        try {
+            projectManagerApp.setProjectName(VariablesHolder.project,s);
+		} catch (OperationNotAllowedException e) {
+			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+		}
     }
 
     @Then("the project description is changed to {string}")

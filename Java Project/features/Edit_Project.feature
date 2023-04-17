@@ -40,11 +40,11 @@ And the user is assigned to the project as leader
 When the user edits the project name to "Boring graphical UI"
 Then the project name is changed to "Boring graphical UI"
 
-# Scenario: a worker tries to edit project name
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# When the user edits the project name to "Boring graphical UI"
-# Then throw an error saying "User doesn't have permission"
+Scenario: a worker tries to edit project name
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+When the user edits the project name to "Boring graphical UI"
+Then the error message "User doesn't have permission" is given
 
 # Scenario: a worker tries to edit project description
 # Given user with username "SM" logs in

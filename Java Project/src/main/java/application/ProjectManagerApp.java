@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class ProjectManagerApp {
     User loggedUser;
-    static ArrayList<User> users = new ArrayList<>();
+    ArrayList<User> users = new ArrayList<>();
     ArrayList<Project> projects = new ArrayList<>();
-
+    
     public boolean isLoggedIn(){
         return loggedUser != null;
     }
@@ -34,6 +34,14 @@ public class ProjectManagerApp {
         project.setActivity(activity);
         activity.setProject(project);
     }
+    public void setProjectName(Project project, String name)throws OperationNotAllowedException{
+        if (loggedUser == project.getProjectLeader()) {
+            project.setName(name);
+        }
+        else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
 
     public boolean hasProject(Project project){
         return projects.contains(project);
@@ -46,6 +54,14 @@ public class ProjectManagerApp {
 
     public boolean hasUser(User user){
         return users.contains(user);
+    }
+    public boolean projectHasUsers(Project project, User[] users){
+        for (User user : project.getWorkers()) {
+            if (!hasUser(user)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

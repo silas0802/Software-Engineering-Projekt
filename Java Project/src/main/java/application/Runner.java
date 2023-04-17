@@ -23,7 +23,7 @@ public class Runner {
     
     public void editActivity(Activity activity){
         if(yesno("Change expected duration? (y/n)")){
-           int a = scanner.nextint;
+           int a = scanner.nextInt();
            activity.setExpectedDuration(a);
         }
         else if(yesno("Change start time? (y/n)")){

@@ -98,10 +98,10 @@ And the user is assigned to the project as leader
 When the user finishes the project
 Then the project is moved to finished projects
 
-# Scenario: Finish Project with unfinished activities
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# And the user is assigned to the project as leader
-# And the project has an unfinished activity
-# When the user finishes the project
-# Then throw an error saying "Project contains unfinished activities"
+Scenario: Finish Project with unfinished activities
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+And an activity with name "starting with the basics" under the project is created
+When the user finishes the project
+Then the error message "Project contains unfinished activities" is given

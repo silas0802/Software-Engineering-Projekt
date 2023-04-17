@@ -98,9 +98,21 @@ public class Project {
     public void setActivity(Activity activity){
         activities.add(activity);
     }
+
     public ArrayList<Activity> getActivities(){
         return activities;
     }
+
+    public Activity searchActivity(String name){
+        ArrayList<Activity> activ = getActivities();
+        for(int i = 0; i < activ.size(); i++){
+            if(activ.get(i).getName().contains(name)){
+                return activ.get(i);
+            }
+        }
+        return null;
+    }
+
     public void setFinishedActivity(Activity activity){
         finishedActivities.add(activity);
         activities.remove(activity);

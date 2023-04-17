@@ -17,13 +17,13 @@ public class ProjectManagerApp {
     public void login(User user){
         loggedUser = user;
     }
-    public static void createUser(User user){
+    public void createUser(User user){
         users.add(user);
     }
     public void createProject(Project project){
         projects.add(project);
     }
-    public static void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
+    public void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
         if(project.getActivities().size()>=100){
             throw new OperationNotAllowedException("Too many activities");
         }
@@ -52,7 +52,7 @@ public class ProjectManagerApp {
         }
         return null;
     }
-    public static List<User> getUsers(){
+    public  List<User> getUsers(){
         return users;
     }
 
@@ -60,7 +60,7 @@ public class ProjectManagerApp {
 
     project.setProjectLeader(user);
     }
-    public static void assignActivityToUser(User user, Activity activity) throws OperationNotAllowedException{
+    public void assignActivityToUser(User user, Activity activity) throws OperationNotAllowedException{
         if(user.getActivities().size()>=20){
             throw new OperationNotAllowedException("Maximum of 20 activities are already assigned to user this week");
         }
@@ -70,7 +70,7 @@ public class ProjectManagerApp {
         user.joinActivity(activity);
         activity.setActiveUser(user);
     }
-    public static List<Activity> getUserActivities(User user){
+    public List<Activity> getUserActivities(User user){
         return user.getActivities();
     }
 

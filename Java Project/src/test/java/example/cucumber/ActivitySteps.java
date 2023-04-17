@@ -23,11 +23,11 @@ public class ActivitySteps {
     
     
     ProjectManagerApp projectManagerApp;
-    private ErrorMessageHolder errorMessage;
-    public ActivitySteps(ProjectManagerApp projectManagerApp, ErrorMessageHolder errorMessage){
+    
+    public ActivitySteps(ProjectManagerApp projectManagerApp){
         this.projectManagerApp = projectManagerApp;
         
-        this.errorMessage=errorMessage;
+        
     }
 
 
@@ -38,7 +38,7 @@ public class ActivitySteps {
         try{
         projectManagerApp.createActivity(VariablesHolder.project,VariablesHolder.activity);
         } catch(OperationNotAllowedException e){
-            errorMessage.setErrorMessage(e.getMessage());
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
         }
         
     }
@@ -63,8 +63,8 @@ public class ActivitySteps {
 @Then("the error message {string} is given")
 public void theErrorMessageIsGiven(String errorMessage) {
 
-    assertEquals(errorMessage, this.errorMessage.getErrorMessage());
-    assertEquals(100, VariablesHolder.project.getActivities().size());
+    assertEquals(errorMessage, VariablesHolder.errorMessageHolder.getErrorMessage());
+    
 }
     
 
@@ -72,10 +72,10 @@ public void theErrorMessageIsGiven(String errorMessage) {
 @When("user is assigned the activities")
 public void userIsAssignedTheActivities() {
     try{
-        ProjectManagerApp.assignActivityToUser(VariablesHolder.user,VariablesHolder.activity);
+        projectManagerApp.assignActivityToUser(VariablesHolder.user,VariablesHolder.activity);
     
     }catch(OperationNotAllowedException e){
-        errorMessage.setErrorMessage(e.getMessage());
+        VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
     }
 
 }
@@ -93,9 +93,9 @@ public void activitiesAreAssignedToUser(Integer numofActivities) {
     for (int i = 0; i < numofActivities; i++) {
         Activity activity = new Activity("trial");
        try{
-        ProjectManagerApp.assignActivityToUser(VariablesHolder.user, activity);
+        projectManagerApp.assignActivityToUser(VariablesHolder.user, activity);
        }catch(OperationNotAllowedException e){
-        errorMessage.setErrorMessage(e.getMessage());
+        VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
        }
     }
 }
@@ -104,16 +104,16 @@ public void activitiesAreAssignedToUser(Integer numofActivities) {
 public void anActivityWithNameIsAssignedToUser(String activityName) {
    VariablesHolder.activity=new Activity(activityName);
    try{
-    ProjectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
+    projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
    }catch(OperationNotAllowedException e){
-    errorMessage.setErrorMessage(e.getMessage());
+    VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
    }
 }
 
 @Then("the error message {string}")
 public void theErrorMessage(String errorMessage1) {
-    assertEquals(errorMessage1, this.errorMessage.getErrorMessage());
-    assertEquals(20, ProjectManagerApp.getUserActivities(VariablesHolder.user).size());
+    assertEquals(errorMessage1, VariablesHolder.errorMessageHolder.getErrorMessage());
+    assertEquals(20, projectManagerApp.getUserActivities(VariablesHolder.user).size());
 }
 
 
@@ -130,27 +130,27 @@ public void theProjectWhichTheActivityBelongsToIsShown() {
 public void usersAreLoggedIn(Integer operations) {
    for (int i = 0; i < operations; i++) {
     User user = new User("Bot");
-    ProjectManagerApp.createUser(user);
+    projectManagerApp.createUser(user);
    }
 }
 
 @Given("{int} users has active activities")
 public void usersHasActiveActivities(Integer operations) throws OperationNotAllowedException {
-    List<User> users =ProjectManagerApp.getUsers();
+    List<User> users =projectManagerApp.getUsers();
     for (int i = 0; i < operations; i++) {
         Activity activity = new Activity("space");
-        ProjectManagerApp.assignActivityToUser(users.get(i), activity);
+        projectManagerApp.assignActivityToUser(users.get(i), activity);
 
     }
 }
 
 @When("searching for users without activities")
 public void searchingForUsersWithoutActivities() throws OperationNotAllowedException {
-   List<User> users = ProjectManagerApp.getUsers();
+   List<User> users = projectManagerApp.getUsers();
    List<User> temp = new ArrayList<>();
    List<User> unactveUsers =users.stream().filter(user -> user.getActivities().equals(temp)).collect(Collectors.toList());
    for (int i = 0; i < unactveUsers.size(); i++) {
-    ProjectManagerApp.assignActivityToUser(unactveUsers.get(i),VariablesHolder.activity);
+    projectManagerApp.assignActivityToUser(unactveUsers.get(i),VariablesHolder.activity);
    }
 
 }

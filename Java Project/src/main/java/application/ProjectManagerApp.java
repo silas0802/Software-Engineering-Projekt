@@ -17,12 +17,15 @@ public class ProjectManagerApp {
     public void login(User user){
         loggedUser = user;
     }
+
     public void createUser(User user){
         users.add(user);
     }
+
     public void createProject(Project project){
         projects.add(project);
     }
+
     public void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
         if(project.getActivities().size()>=100){
             throw new OperationNotAllowedException("Too many activities");
@@ -30,10 +33,12 @@ public class ProjectManagerApp {
         project.setActivity(activity);
         activity.setProject(project);
     }
+
     public boolean hasProject(Project project){
         return projects.contains(project);
     }
-    public static boolean hasActivity(Project project,Activity activity){
+
+    public boolean hasActivity(Project project,Activity activity){
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
     }
@@ -74,7 +79,7 @@ public class ProjectManagerApp {
         return user.getActivities();
     }
 
-    public  boolean userHasActivity(Activity activity,User user){
+    public boolean userHasActivity(Activity activity,User user){
 
         List<Activity> userActivities = getUserActivities(user);
         return userActivities.contains(activity);
@@ -91,9 +96,12 @@ public class ProjectManagerApp {
         activity.setDescription(desciption);
 
     }
-    public static void finishActivity(Project project,Activity activity){
+
+    public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
     }
     
-    
+    public void editActivity(Activity activity){
+        activity.setExpectedDuration();
+    }
 }

@@ -74,7 +74,7 @@ public class ProjectManagerApp {
         return user.getActivities();
     }
 
-    public static boolean userHasActivity(Activity activity,User user){
+    public  boolean userHasActivity(Activity activity,User user){
 
         List<Activity> userActivities = getUserActivities(user);
         return userActivities.contains(activity);
@@ -94,5 +94,6 @@ public class ProjectManagerApp {
     public static void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
     }
+    
     
 }

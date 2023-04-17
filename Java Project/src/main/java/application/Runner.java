@@ -1,13 +1,14 @@
 package application;
 
 import java.util.List;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Runner {
 
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
-     static Scanner scanner;
+    static Scanner scanner;
     static User user;
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -20,12 +21,17 @@ public class Runner {
         System.out.println("type in initials:");
         
         String ini = scanner.nextLine();
-         user = new User(ini);
-        if(projectManagerApp.hasUser(user)){
+        
+        user = new User(ini);
+        if(ini.length()==0){
+            System.out.println("Please type in initials");
+            logIn();
+        }
+        else if(projectManagerApp.hasUser(user)){
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.login(user);
             mainMenu();
-        }else{
+        }else if(!projectManagerApp.hasUser(user)){
             System.out.println("new User registered");
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.createUser(user);
@@ -40,6 +46,7 @@ public class Runner {
         System.out.println("3. see all projects");
         System.out.println("4. Create new project");
         System.out.println("5. log out");
+        System.out.println("6. close app");
         System.out.println("Type number");
         Activity ag = new Activity("jesper er sej");
         ag.setActiveUser(user);
@@ -60,7 +67,10 @@ public class Runner {
         else if(ans==5){
             System.out.println("Sytem logged out");
             logIn();
-            scanner.nextLine();
+            
+        }else if(ans==6){
+            System.out.println("System shutting down");
+            System.exit(0);
         }
     }
 
@@ -100,8 +110,14 @@ public class Runner {
         System.out.println("Description: "+activity.getDescription());
         System.out.println("number of workers on activity: "+activity.getUsersOnActivity().size());
         System.out.println("Expected Work time: "+activity.getExpectedDuration());
-        System.out.println("Start date: "+activity.getStartTime());
-        System.out.println("Set end date: "+activity.getEndTime());
+        GregorianCalendar calen = activity.getStartTime();
+        GregorianCalendar calen2 = activity.getEndTime();
+        if(!(calen==null)){
+        System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
+        }
+        if(!(calen2==null)){
+        System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
+        }
         System.out.println("");
         System.out.println("");
         System.out.println("0. main menu");
@@ -116,6 +132,7 @@ public class Runner {
         }else if(ans==2){
             seeYourActivities(user);
         }
+        viewActivity(activity);
     }
 
     public static boolean yesno(String String){
@@ -139,8 +156,8 @@ public class Runner {
         if(yesno("Set expected duration? (y/n)")){
             String weekString;
             int weekInt;
-            System.out.println("What is the expected number of weeks? (int)");
             while(true){
+                System.out.println("What is the expected number of weeks? (int)");
                 try {
                 weekString = scanner.nextLine();
                 weekInt = Integer.parseInt(weekString);
@@ -156,6 +173,7 @@ public class Runner {
             int month;
             int year;
             while(true){
+                System.out.println("DD-MM-YYYY");
                 String time = scanner.nextLine();
                 String date[] = time.split("-");
                 try {
@@ -164,7 +182,6 @@ public class Runner {
                     year = Integer.parseInt(date[2]); 
                     activity.setStartTime(new GregorianCalendar(year, month, day));           
                 } catch (Exception e) {
-                    System.out.println("DD-MM-YYYY");
                     continue;
                 }
                 break;

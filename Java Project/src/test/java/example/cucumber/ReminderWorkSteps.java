@@ -2,15 +2,20 @@ package example.cucumber;
 
 import static org.junit.Assert.assertTrue;
 
+import application.ProjectManagerApp;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-public class ReminderWork {
+public class ReminderWorkSteps {
+
+    ProjectManagerApp projectManagerApp;
+    public ReminderWorkSteps(ProjectManagerApp projectManagerApp){
+        this.projectManagerApp = projectManagerApp;
+    }
 
     @Given("If user hasn't entered a timer")
     public void ifUserHasnTEnteredATimer() {
-        VariablesHolder.registeredHours = false;
-        assertTrue(VariablesHolder.registeredHours == false);
+        assertTrue(!projectManagerApp.hasRegisteredHours());
     }
     @Then("Give reminder to the user to enter work hours.")
     public void giveReminderToTheUserToEnterWorkHours() {

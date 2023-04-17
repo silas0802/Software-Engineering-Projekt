@@ -7,6 +7,7 @@ package example.junit;
  *
  * Remove the tests in your own projects.
  */
+
 public class TestJUnit4AndJUnit5 {
 	
 	@org.junit.Before // Junit 4
@@ -20,10 +21,10 @@ public class TestJUnit4AndJUnit5 {
 		org.junit.Assert.assertTrue(true); // JUnit 4
 	}
 	
-	@org.junit.jupiter.api.Test // Junit 5
-	public void junit5Test() {
-		System.out.println("JUnit 5");
-		org.junit.jupiter.api.Assertions.assertTrue(true); // JUnit 5
-	}
+	// @org.junit.jupiter.api.Test // Junit 5
+	// public void junit5Test() {
+	// 	System.out.println("JUnit 5");
+	// 	org.junit.jupiter.api.Assertions.assertTrue(true); // JUnit 5
+	// }
 
 }

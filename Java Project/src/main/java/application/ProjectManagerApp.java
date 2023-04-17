@@ -32,7 +32,7 @@ public class ProjectManagerApp {
         activity.setProject(project);
     }
     public void setProjectName(Project project, String name)throws OperationNotAllowedException{
-        if (loggedUser == project.getProjectLeader()) {
+        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
             project.setName(name);
         }
         else{

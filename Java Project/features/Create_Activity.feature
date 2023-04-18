@@ -8,7 +8,7 @@ And a project with name "Destroy C language" is created
 When an activity with name "starting with the basics" under the project is created
 Then the project contains the activity
 
-Scenario: too many activities
+Scenario: too many on project
 Given user with username "HB" logs in
 And a project with name "build a Holograaphic city" is created
 And the project has 100 active activities
@@ -24,7 +24,7 @@ And an activity with name "buying salad" under the project is created
 And user is assigned the activities
 Then user has the assigned activities
 
-Scenario: too many activities
+Scenario: too many activities for user
 Given user with username "JP" logs in
 And a project with name "Bully JP" is created
 And 20 activities are assigned to user

@@ -108,7 +108,7 @@ And an activity with name "starting with the basics" under the project is create
 When the user finishes the project
 Then the error message "Project contains unfinished activities" is given
 
-# Scenario: Set starttime for project
+# Scenario: Edit starttime for project
 # Given user with username "KD" logs in
 # And a project with name "Everything is okay" is created
 # And the user is assigned to the project as leader
@@ -129,7 +129,7 @@ Then the error message "Project contains unfinished activities" is given
 # When the user sets the starttime to 11-12-2022
 # Then the project starttime is set to 11-12-2022
 
-# Scenario: Set endtime for project
+# Scenario: Edit endtime for project
 # Given user with username "KD" logs in
 # And a project with name "Everything is okay" is created
 # And the user is assigned to the project as leader

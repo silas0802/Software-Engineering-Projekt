@@ -9,6 +9,7 @@ public class User {
     Project assignedProject;
     List<Activity> activities = new ArrayList<Activity>();
     
+    ProjectManagerApp project = new ProjectManagerApp();
 
 
 
@@ -36,6 +37,7 @@ public class User {
 
     public void registerTimeWorked(Double workingHours){
         timeWorked += workingHours;
+        project.RegisterHours(true);
     }
 
     public Project getAssignedProject() {
@@ -45,6 +47,5 @@ public class User {
     public void setAssignedProject(Project assignedProject) {
         this.assignedProject = assignedProject;
     }
-
     
 }

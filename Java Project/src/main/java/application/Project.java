@@ -9,7 +9,7 @@ public class Project {
     private String description;
     private Calendar startTime;
     private Calendar endTime;
-    private int expTime;
+    private int expTime;  //should be removed.
     private Double timeWorked;
     private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();

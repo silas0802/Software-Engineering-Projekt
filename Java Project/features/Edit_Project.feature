@@ -2,7 +2,7 @@ Feature: Edit Project
     Description: editing different properties of an existing project
     Actors: Project Manager, User
 
-
+#author - Silas
 Scenario: Add a user to a project that already is assigned to a project
 Given user with username "SM" logs in
 And a user with username "TY" is added to the system
@@ -11,18 +11,20 @@ And the user is assigned to the project as worker
 When the user is assigned to the project as worker
 Then the error message "Worker is already assigned to a project" is given
 
+#author - Silas
 Scenario: Assign project manager
 Given user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 When the user is assigned to the project as leader
 Then the user is project leader of the project
 
-# Scenario: Add a list of users to a project
-# Given user with username "SM" logs in
-# And a project with name "Fun graphical UI" is created
-# And the user is assigned to the project as leader
-# When user adds a list of users to the project
-# Then the users are assigned to the project
+#author - Silas
+Scenario: Add a list of users to a project
+Given user with username "SM" logs in
+And a project with name "Fun graphical UI" is created
+And the user is assigned to the project as leader
+When user adds a list of users to the project
+Then the users are assigned to the project
 
 # Auth - Daniel
 Scenario: Edit project name
@@ -105,3 +107,45 @@ And the user is assigned to the project as leader
 And an activity with name "starting with the basics" under the project is created
 When the user finishes the project
 Then the error message "Project contains unfinished activities" is given
+
+# Scenario: Edit starttime for project
+# Given user with username "KD" logs in
+# And a project with name "Everything is okay" is created
+# And the user is assigned to the project as leader
+# When the user sets the starttime to 11-12-2022
+# Then the project starttime is set to 11-12-2022
+
+# Scenario: Worker edits starttime for project with PM
+# Given user with username "KD" logs in
+# And a project with name "Everything is okay" is created
+# And the user is assigned to the project as leader
+# And user with username "SK" logs in
+# When the user sets the starttime to 11-12-2022
+# Then the error message "User doesn't have permission" is given
+
+# Scenario: Worker edits starttime for project without PM
+# Given user with username "KD" logs in
+# And a project with name "Everything is okay" is created
+# When the user sets the starttime to 11-12-2022
+# Then the project starttime is set to 11-12-2022
+
+# Scenario: Edit endtime for project
+# Given user with username "KD" logs in
+# And a project with name "Everything is okay" is created
+# And the user is assigned to the project as leader
+# When the user sets the endtime to 11-12-2022
+# Then the project endtime is set to 11-12-2022
+
+# Scenario: Worker edits endtime for project with PM
+# Given user with username "KD" logs in
+# And a project with name "Everything is okay" is created
+# And the user is assigned to the project as leader
+# And user with username "SK" logs in
+# When the user sets the endtime to 11-12-2022
+# Then the error message "User doesn't have permission" is given
+
+# Scenario: Worker edits endtime for project without PM
+# Given user with username "KD" logs in
+# And a project with name "Everything is okay" is created
+# When the user sets the endtime to 11-12-2022
+# Then the project endtime is set to 11-12-2022

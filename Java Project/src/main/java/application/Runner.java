@@ -151,7 +151,7 @@ public class Runner {
         
         newPage();
         System.out.println("project succesfully created");
-        if(yesno("Create activity under project? (y/n)")){
+        if(yesno("Create activity under project?")){
             createActivity(project);
         }else{
             System.out.println("returning to main menu");
@@ -170,7 +170,7 @@ public class Runner {
         newPage();
         System.out.println("Activity succesfulle created");
         
-        if(yesno("assign "+user.getUserName()+" to activity? (y/n)")){
+        if(yesno("assign "+user.getUserName()+" to activity?")){
             projectManagerApp.assignActivityToUser(user, activity);
             System.out.println("User assigned to activity");
             mainMenu();
@@ -181,7 +181,7 @@ public class Runner {
     }
 
     public static boolean yesno(String String){
-        System.out.println(String);
+        System.out.println(String+ " (y/n)");
         char ans =scanner.next().charAt(0);
         scanner.nextLine();
         if(ans=='y'){
@@ -191,14 +191,45 @@ public class Runner {
             return false;
         }
     }
+
     public static void newPage(){
         System.out.println("");
         System.out.println("");
         System.out.println("----------------------------------------------------------------");
     }
     
+    //takes input and checks if it is in valid format for date
+    public static int[] calenderInputCheck(){
+        int[] dato = new int[3];
+        while(true){
+            System.out.println("DD-MM-YYYY");
+            String time = scanner.nextLine();
+            String date[] = time.split("-");
+            try {
+                dato[0] = Integer.parseInt(date[0]);
+                dato[1] = Integer.parseInt(date[1]);
+                dato[2] = Integer.parseInt(date[2]); 
+            } catch (Exception e) {
+                continue;
+            }
+            break;
+        }
+        return dato;
+    }
+
     public static void editActivity(Activity activity){
-        if(yesno("Set expected duration? (y/n)")){
+        //change name
+        if(yesno("Set name?")){
+            System.out.println("Name:");
+            activity.setName(scanner.nextLine());
+        }
+        //Description
+        if(yesno("Set description?")){
+            System.out.println("Description:");
+            activity.setDescription(scanner.nextLine());
+        }
+        //exp dur
+        if(yesno("Set expected duration?")){
             String weekString;
             int weekInt;
             while(true){
@@ -213,26 +244,38 @@ public class Runner {
             }
             activity.setExpectedDuration(weekInt);
         }
-        if(yesno("Set start time? (y/n)")){
-            int day;
-            int month;
-            int year;
-            while(true){
-                System.out.println("DD-MM-YYYY");
-                String time = scanner.nextLine();
-                String date[] = time.split("-");
-                try {
-                    day = Integer.parseInt(date[0]);
-                    month = Integer.parseInt(date[1]);
-                    year = Integer.parseInt(date[2]); 
-                    activity.setStartTime(new GregorianCalendar(year, month, day));           
-                } catch (Exception e) {
-                    continue;
-                }
-                break;
-            }
-            
+        // start time
+        if(yesno("Set start time?")){
+            int[] dato = calenderInputCheck();
+            activity.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
         }
-        
+        //end time
+        if(yesno("Set end time?")){
+            int[] dato = calenderInputCheck();
+            activity.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+        }
+    }
+    
+    public static void editProject(Project project) {
+        //Name of project
+        if(yesno("Set name of project?")){
+            System.out.println("Name of project:");
+            project.setName(scanner.nextLine());
+        }
+        //discription of project
+        if(yesno("Set project description")){
+            System.out.println("Description:");
+            project.setDescription(scanner.nextLine());
+        }
+        // start time
+        if(yesno("Set start time?")){
+            int[] dato = calenderInputCheck();
+            project.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
+        }
+        //end time
+        if(yesno("Set end time?")){
+            int[] dato = calenderInputCheck();
+            project.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+        }
     }
 }

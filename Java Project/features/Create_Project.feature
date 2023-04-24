@@ -14,3 +14,6 @@ Given user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 When the user is assigned to the project as leader
 Then the user is project leader of the project
+
+Scenario: Project Numbering
+Given user with username "SM" logs in

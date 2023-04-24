@@ -1,15 +1,18 @@
 package application;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Project {
     //Class specific varribles
+    private static int idCounter =1;
+    private static int idYear = Year.now().getValue();
+    private int id;
     private String name;
     private String description;
     private Calendar startTime;
     private Calendar endTime;
-    private int expTime;
     private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();
@@ -21,6 +24,10 @@ public class Project {
     }
     public Project(String name){
         this.name = name;
+        if (idYear != Year.now().getValue()) {
+            idCounter=1;
+        }
+        this.id = (Year.now().getValue() % 100)*1000+idCounter;
     }
     //get and set for all varribles
     public String getName() {
@@ -56,11 +63,11 @@ public class Project {
     }
 
     public int getExpTime() {
-        return this.expTime;
-    }
-
-    public void setExpTime(int expTime) {
-        this.expTime = expTime;
+        int sum = 0;
+        for (Activity activity : activities) {
+            sum += activity.getExpectedDuration();
+        }
+        return sum;
     }
 
     public double getTimeWorked() {

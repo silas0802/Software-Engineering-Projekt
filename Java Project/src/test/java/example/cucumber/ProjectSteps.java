@@ -103,15 +103,7 @@ public class ProjectSteps {
         assertEquals(VariablesHolder.project.getExpTime(), expTime);
     }
 
-    @When("the user edits the expected work time to {int}")
-    public void the_user_edits_the_expected_work_time_to(int expTime) {
-        try {
-            projectManagerApp.setExpProjectTime(VariablesHolder.project, expTime);
-        } catch (OperationNotAllowedException e) {
-			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-        
-    }
+    
 
     @Then("the project name is changed to {string}")
     public void the_project_name_is_changed_to(String projectName) {

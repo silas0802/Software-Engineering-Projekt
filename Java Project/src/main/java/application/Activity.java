@@ -14,6 +14,7 @@ public class Activity {
     int expectedDuration;
     WorkerTimeList timeWorkedList;
     List<User> activeUsers = new ArrayList<>();
+    boolean activityFinished=false;
     
     public GregorianCalendar getStartTime() {
         Calendar.getInstance();
@@ -74,6 +75,13 @@ public class Activity {
     public Activity(String name){
         this.name=name;
     }   
+    public void finishActivity(){
+        activityFinished=true;
+    }
+    public boolean isActivityfinished(){
+        return activityFinished;
+    }
+
 }
 
 

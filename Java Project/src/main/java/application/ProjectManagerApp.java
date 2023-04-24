@@ -37,6 +37,9 @@ public class ProjectManagerApp {
     public void createProject(Project project){
         projects.add(project);
     }
+    public List<Project> getProjects(){
+        return projects;
+    }
 
     public void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
         if(project.getActivities().size()>=100){
@@ -146,11 +149,13 @@ public class ProjectManagerApp {
     public void setActiveDescription(Activity activity, String desciption){
 
         activity.setDescription(desciption);
-
+        
     }
 
     public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
+        activity.finishActivity();
+        
     }
     public void finishProject(Project project)throws OperationNotAllowedException{
         if (loggedUser == project.getProjectLeader()) {
@@ -168,4 +173,6 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
     }
+
+    
 }

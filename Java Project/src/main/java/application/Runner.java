@@ -31,7 +31,7 @@ public class Runner {
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.login(user);
             mainMenu();
-        }else if(!projectManagerApp.hasUser(user)){
+        }else if(!(projectManagerApp.hasUser(user))){
             System.out.println("new User registered");
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.createUser(user);
@@ -57,7 +57,7 @@ public class Runner {
         }else if(ans==2){
 
         }else if(ans==3){
-
+            seeAllProjects();
         }else if(ans==4){
             createProject();
         }
@@ -107,6 +107,9 @@ public class Runner {
         System.out.println("0. main menu");
         System.out.println("1. Edit activity");
         System.out.println("2. back");
+        if (activity.getProject().getProjectLeader()==user&&activity.isActivityfinished()==false) {
+            System.out.println("3. Finish project");
+        }
         System.out.println("type number:");
         int ans = scanner.nextInt();
         if(ans==0){
@@ -115,11 +118,25 @@ public class Runner {
             editActivity(activity);
         }else if(ans==2){
             seeYourActivities(user);
+        }else if(activity.getProject().getProjectLeader()==user&&activity.activityFinished==false){
+            if(ans==3){
+                
+                
+                if(yesno("Would you like to finish the activity?")){
+                    System.out.println("Activity is now finished");
+                    projectManagerApp.finishActivity(activity.getProject(), activity);
+                }else{
+                    System.out.println("Activity remains unfinished");
+                }
+            }
         }
         viewActivity(activity);
     }
     public static void activityDetails(Activity activity){
         System.out.println("Activity details on "+activity.getName()+":");
+        if(activity.isActivityfinished()){
+            System.out.println("***FINISHED***");
+        }
         System.out.println("Name: "+activity.getName());
         System.out.println("Belongs to project: "+activity.getProject().getName());
         System.out.println("Description: "+activity.getDescription());
@@ -180,6 +197,209 @@ public class Runner {
         }
     }
 
+    public static void seeAllProjects() throws OperationNotAllowedException{
+        newPage();
+        List<Project> projects = projectManagerApp.getProjects();
+        if(projects.size()==0){
+         System.out.println("no active projects");
+         System.out.println("0. Main menu");
+         System.out.println("Type number:");
+         int ans= scanner.nextInt();
+         if(ans==0){
+             mainMenu();
+         }
+        }
+        else{
+         System.out.println("0. Main menu");
+         for (int i = 0; i < projects.size(); i++) {
+             System.out.println((i+1)+". "+projects.get(i).getName());
+         }
+         System.out.println("Type number:");
+         int ans= scanner.nextInt();
+         if(ans==0){
+             mainMenu();
+         }else{
+         Project project = projects.get(ans-1);
+            viewProject(project);
+         }
+        }
+    }
+
+    public static void viewProject(Project project) throws OperationNotAllowedException{
+        newPage();
+        projectDetails(project);
+
+        System.out.println("");
+        System.out.println("");
+        System.out.println("0. main menu");
+        if(project.getProjectLeader()==null){
+            System.out.println("1. Edit project");
+            System.out.println("2. Set project leader");
+            System.out.println("3. See active activities");
+            System.out.println("4. See finished activities");
+            System.out.println("5. Workers assigned to project");
+        }else{
+        System.out.println("1. Edit project");
+        System.out.println("2. See active activities");
+        System.out.println("3. See finished activities");
+        System.out.println("4. Workers assigned to project");
+        }
+
+        System.out.println("Type number:");
+        int ans = scanner.nextInt();
+       if (project.getProjectLeader()==null) {
+        if (ans==0) {
+            mainMenu();
+        }else if(ans==1){
+            editProject(project);
+        }else if(ans==2){
+            setProjectLeaderToProject(project);
+        }else if(ans==3){
+            seeActiveActivities(project);
+        }else if(ans==4){
+            seeFinishedActivities(project);
+        }else if(ans==5){
+            //workers assigned to project
+        }
+       }else if(project.getProjectLeader()!=null){
+        if (ans==0) {
+            mainMenu();
+        }else if(ans==1){
+            editProject(project);
+        }else if(ans==2){
+            seeActiveActivities(project);
+        }else if(ans==3){
+            seeFinishedActivities(project);
+        }else if(ans==4){
+            //workers assigned to project
+        }
+
+       }
+            
+        
+    }
+    public static void seeActiveActivities(Project project) throws OperationNotAllowedException{
+        newPage();
+        
+        System.out.println("Active activities on: "+project.getName());
+        
+        
+        List<Activity> activities = project.getActivities();
+        if (activities.size()==0) {
+            System.out.println("no active activites");
+            System.out.println("0. Back to project Details");
+            System.out.println("Type number:");
+            int ans= scanner.nextInt();
+        if(ans==0){
+             viewProject(project);
+         }
+        }else{
+            System.out.println("0. Back to project Details");
+            System.out.println("1. create new activity");
+            for (int i = 0; i < activities.size(); i++) {
+                System.out.println(i+2+". "+activities.get(i).getName());
+            }
+        
+            System.out.println("Type number to view activity:");
+            int ans = scanner.nextInt();
+            if (ans==0) {
+                viewProject(project);
+            }else if(ans==1){
+                createActivity(project);
+            }else{
+                Activity activity = activities.get(ans-2);
+                viewActivity(activity);
+            }
+    }
+    }
+
+    public static void seeFinishedActivities(Project project) throws OperationNotAllowedException{
+        newPage();
+        System.out.println("Finished activities on: "+project.getName());
+        
+        
+        List<Activity> activities = project.getFinishedActivities();
+        if (activities.size()==0) {
+            System.out.println("no Finished activites");
+            System.out.println("0. Back to project Details");
+            System.out.println("Type number:");
+            int ans= scanner.nextInt();
+        if(ans==0){
+             viewProject(project);
+         }
+        }else{
+            System.out.println("0. Back to project Details");
+        for (int i = 0; i < activities.size(); i++) {
+            System.out.println(i+1+". "+activities.get(i).getName());
+        }
+        
+        System.out.println("");
+        System.out.println("Type number to view activity:");
+        int ans = scanner.nextInt();
+        if (ans==0) {
+            viewProject(project);
+        }else{
+            Activity activity = activities.get(ans-1);
+            viewActivity(activity);
+        }
+    }
+    }
+
+    public static void setProjectLeaderToProject(Project project) throws OperationNotAllowedException{
+        newPage();
+        System.out.println("Assign ProjectLeader to: "+project.getName());
+        List<User> users = projectManagerApp.getUsers();
+        System.out.println("0. Back to Project details");
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println(i+1+". "+users.get(i).getUserName());
+        }
+        System.out.println("Type Number:");
+        int ans = scanner.nextInt();
+
+        if (ans==0) {
+            viewProject(project);
+        }else{
+            User user = users.get(ans-1);
+            project.setProjectLeader(user);
+            System.out.println("Project Leader is now set to "+user.getUserName());
+            viewProject(project);
+        }
+    }
+
+
+    public static void projectDetails(Project project){
+        System.out.println("Project details on "+project.getName());
+        System.out.println("Name: "+project.getName());
+        if (project.getProjectLeader()==null) {
+            System.out.println("Project Leader: "+project.getProjectLeader());    
+        }else{
+            System.out.println("Project Leader: "+project.getProjectLeader().getUserName());
+        }
+        
+        
+        System.out.println("ID: "+project.getId());
+        System.out.println("Description: "+project.getDescription());
+        boolean active = project.isFinished();
+        if (active) {
+            System.out.println("Project finished: yes");
+        }else{
+            System.out.println("Project finished: No");
+        }
+        Calendar calen = project.getStartTime();
+        Calendar calen2 = project.getEndTime();
+        if(!(calen==null)){
+            System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
+            }else{
+                System.out.println("Start date: unknown");
+            }
+            if(!(calen2==null)){
+            System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
+            }else{
+                System.out.println("end date: unknown");
+            }
+
+
+    }
     public static boolean yesno(String String){
         System.out.println(String+ " (y/n)");
         char ans =scanner.next().charAt(0);
@@ -256,7 +476,7 @@ public class Runner {
         }
     }
     
-    public static void editProject(Project project) {
+    public static void editProject(Project project) throws OperationNotAllowedException {
         //Name of project
         if(yesno("Set name of project?")){
             System.out.println("Name of project:");
@@ -277,5 +497,6 @@ public class Runner {
             int[] dato = calenderInputCheck();
             project.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
         }
+        viewProject(project);
     }
 }

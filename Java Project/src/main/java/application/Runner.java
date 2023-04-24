@@ -10,11 +10,11 @@ public class Runner {
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
     static Scanner scanner;
     static User user;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws OperationNotAllowedException {
         scanner = new Scanner(System.in);
         logIn();
     }
-    public static void logIn(){
+    public static void logIn() throws OperationNotAllowedException{
         newPage();
 
         System.out.println("System log in");
@@ -39,7 +39,7 @@ public class Runner {
             mainMenu();
         }
     }
-    public static void mainMenu(){
+    public static void mainMenu() throws OperationNotAllowedException{
         newPage();
         System.out.println("1. see your activities");
         System.out.println("2. See your projects");
@@ -48,11 +48,8 @@ public class Runner {
         System.out.println("5. log out");
         System.out.println("6. close app");
         System.out.println("Type number");
-        Activity ag = new Activity("jesper er sej");
-        ag.setActiveUser(user);
-        ag.setDescription("sex");
-        ag.setExpectedDuration(19);
-        user.joinActivity(ag);
+        
+
         int ans = scanner.nextInt();
         scanner.nextLine();
         if(ans==1){
@@ -62,7 +59,7 @@ public class Runner {
         }else if(ans==3){
 
         }else if(ans==4){
-
+            createProject();
         }
         else if(ans==5){
             System.out.println("Sytem logged out");
@@ -74,7 +71,7 @@ public class Runner {
         }
     }
 
-    public static void seeYourActivities(User user){
+    public static void seeYourActivities(User user) throws OperationNotAllowedException{
         newPage();
        List<Activity> activities = user.getActivities();
        if(activities.size()==0){
@@ -102,22 +99,9 @@ public class Runner {
        }
     }
 
-    public static void viewActivity(Activity activity){
+    public static void viewActivity(Activity activity) throws OperationNotAllowedException{
         newPage();
-        System.out.println("Activity details on "+activity.getName()+":");
-        System.out.println("Name: "+activity.getName());
-        System.out.println("Belongs to project: "+activity.getProject());
-        System.out.println("Description: "+activity.getDescription());
-        System.out.println("number of workers on activity: "+activity.getUsersOnActivity().size());
-        System.out.println("Expected Work time: "+activity.getExpectedDuration());
-        GregorianCalendar calen = activity.getStartTime();
-        GregorianCalendar calen2 = activity.getEndTime();
-        if(!(calen==null)){
-        System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
-        }
-        if(!(calen2==null)){
-        System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
-        }
+        activityDetails(activity);
         System.out.println("");
         System.out.println("");
         System.out.println("0. main menu");
@@ -134,9 +118,70 @@ public class Runner {
         }
         viewActivity(activity);
     }
+    public static void activityDetails(Activity activity){
+        System.out.println("Activity details on "+activity.getName()+":");
+        System.out.println("Name: "+activity.getName());
+        System.out.println("Belongs to project: "+activity.getProject().getName());
+        System.out.println("Description: "+activity.getDescription());
+        System.out.println("number of workers on activity: "+activity.getUsersOnActivity().size());
+        System.out.println("Expected Work time: "+activity.getExpectedDuration());
+        GregorianCalendar calen = activity.getStartTime();
+        GregorianCalendar calen2 = activity.getEndTime();
+        if(!(calen==null)){
+        System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
+        }else{
+            System.out.println("Start date: unknown");
+        }
+        if(!(calen2==null)){
+        System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
+        }else{
+            System.out.println("end date: unknown");
+        }
+    }
+
+
+
+    public static void createProject() throws OperationNotAllowedException{
+        newPage();
+        System.out.println("Creating project");
+        System.out.println("Type in project name:");
+        String name = scanner.nextLine();
+        Project project = new Project(name);
+        projectManagerApp.createProject(project);
+        
+        newPage();
+        System.out.println("project succesfully created");
+        if(yesno("Create activity under project?")){
+            createActivity(project);
+        }else{
+            System.out.println("returning to main menu");
+            mainMenu();
+        }
+        
+    }
+
+    public static void createActivity(Project project) throws OperationNotAllowedException{
+        newPage();
+        System.out.println("Type in Activity name:");
+        String name = scanner.nextLine();
+        Activity activity = new Activity(name);
+        
+        projectManagerApp.createActivity(project, activity);
+        newPage();
+        System.out.println("Activity succesfulle created");
+        
+        if(yesno("assign "+user.getUserName()+" to activity?")){
+            projectManagerApp.assignActivityToUser(user, activity);
+            System.out.println("User assigned to activity");
+            mainMenu();
+        }else{
+            System.out.println("User not assigned");
+            mainMenu();
+        }
+    }
 
     public static boolean yesno(String String){
-        System.out.println(String);
+        System.out.println(String+ " (y/n)");
         char ans =scanner.next().charAt(0);
         scanner.nextLine();
         if(ans=='y'){
@@ -146,14 +191,45 @@ public class Runner {
             return false;
         }
     }
+
     public static void newPage(){
         System.out.println("");
         System.out.println("");
         System.out.println("----------------------------------------------------------------");
     }
     
+    //takes input and checks if it is in valid format for date
+    public static int[] calenderInputCheck(){
+        int[] dato = new int[3];
+        while(true){
+            System.out.println("DD-MM-YYYY");
+            String time = scanner.nextLine();
+            String date[] = time.split("-");
+            try {
+                dato[0] = Integer.parseInt(date[0]);
+                dato[1] = Integer.parseInt(date[1]);
+                dato[2] = Integer.parseInt(date[2]); 
+            } catch (Exception e) {
+                continue;
+            }
+            break;
+        }
+        return dato;
+    }
+
     public static void editActivity(Activity activity){
-        if(yesno("Set expected duration? (y/n)")){
+        //change name
+        if(yesno("Set name?")){
+            System.out.println("Name:");
+            activity.setName(scanner.nextLine());
+        }
+        //Description
+        if(yesno("Set description?")){
+            System.out.println("Description:");
+            activity.setDescription(scanner.nextLine());
+        }
+        //exp dur
+        if(yesno("Set expected duration?")){
             String weekString;
             int weekInt;
             while(true){
@@ -168,26 +244,38 @@ public class Runner {
             }
             activity.setExpectedDuration(weekInt);
         }
-        if(yesno("Set start time? (y/n)")){
-            int day;
-            int month;
-            int year;
-            while(true){
-                System.out.println("DD-MM-YYYY");
-                String time = scanner.nextLine();
-                String date[] = time.split("-");
-                try {
-                    day = Integer.parseInt(date[0]);
-                    month = Integer.parseInt(date[1]);
-                    year = Integer.parseInt(date[2]); 
-                    activity.setStartTime(new GregorianCalendar(year, month, day));           
-                } catch (Exception e) {
-                    continue;
-                }
-                break;
-            }
-            
+        // start time
+        if(yesno("Set start time?")){
+            int[] dato = calenderInputCheck();
+            activity.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
         }
-        
+        //end time
+        if(yesno("Set end time?")){
+            int[] dato = calenderInputCheck();
+            activity.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+        }
+    }
+    
+    public static void editProject(Project project) {
+        //Name of project
+        if(yesno("Set name of project?")){
+            System.out.println("Name of project:");
+            project.setName(scanner.nextLine());
+        }
+        //discription of project
+        if(yesno("Set project description")){
+            System.out.println("Description:");
+            project.setDescription(scanner.nextLine());
+        }
+        // start time
+        if(yesno("Set start time?")){
+            int[] dato = calenderInputCheck();
+            project.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
+        }
+        //end time
+        if(yesno("Set end time?")){
+            int[] dato = calenderInputCheck();
+            project.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+        }
     }
 }

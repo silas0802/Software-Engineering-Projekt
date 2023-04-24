@@ -75,6 +75,4 @@ public class UserSteps {
         projectManagerApp.login(VariablesHolder.user);
     }
 
-   
-
 }

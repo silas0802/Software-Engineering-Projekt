@@ -12,6 +12,7 @@ public class Activity {
     String name;
     String description; 
     int expectedDuration;
+    WorkerTimeList timeWorkedList;
     List<User> activeUsers = new ArrayList<>();
     
     public GregorianCalendar getStartTime() {

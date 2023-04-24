@@ -10,7 +10,6 @@ public class Project {
     private Calendar startTime;
     private Calendar endTime;
     private int expTime;
-    private Double timeWorked;
     private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();
@@ -65,7 +64,11 @@ public class Project {
     }
 
     public double getTimeWorked() {
-        return this.timeWorked;
+        int sum = 0;
+        for (Activity activity : activities) {
+            sum += activity.timeWorkedList.totalTimeWorked();
+        }
+        return sum;
     }
     public boolean isFinished() {
         return isFinished;
@@ -128,9 +131,7 @@ public class Project {
         this.projectLeader = projectLeader;
     }
 
-    public void registerTimeWorked(Double timeWorked){
-        this.timeWorked += timeWorked;
-    }
+    
     
 
 }

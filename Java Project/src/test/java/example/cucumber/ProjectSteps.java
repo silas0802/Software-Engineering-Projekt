@@ -158,4 +158,22 @@ public class ProjectSteps {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
+
+    @Given("projectIDCounter is {int}")
+    public void projectIDCounterIs(Integer int1) {
+        // Write code here that turns the phrase above into concrete actions
+        Project.setIdCounter(int1);
+    }
+    
+    @Then("the project id is {int}")
+    public void theProjectIdIs(Integer int1) {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(VariablesHolder.project.getId(),int1);
+    }
+
+    @Given("projectYearID is {int}")
+    public void projectYearIDIs(Integer int1) {
+        // Write code here that turns the phrase above into concrete actions
+        Project.setIdYearCounter(int1);
+    }
 }

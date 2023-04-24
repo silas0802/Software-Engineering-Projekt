@@ -28,6 +28,7 @@ public class Project {
             idCounter=1;
         }
         this.id = (Year.now().getValue() % 100)*1000+idCounter;
+        idCounter++;
     }
     //get and set for all varribles
     public String getName() {
@@ -69,7 +70,9 @@ public class Project {
         }
         return sum;
     }
-
+    public int getId() {
+        return id;
+    }
     public double getTimeWorked() {
         int sum = 0;
         for (Activity activity : activities) {
@@ -139,6 +142,11 @@ public class Project {
     }
 
     
-    
+    public static void setIdCounter(int nb){
+        idCounter = nb;
+    }
+    public static void setIdYearCounter(int nb){
+        idYear = nb;
+    }
 
 }

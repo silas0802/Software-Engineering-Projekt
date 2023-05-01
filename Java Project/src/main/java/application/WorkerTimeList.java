@@ -42,7 +42,7 @@ public class WorkerTimeList {
         for (int i = 0; i < workertimes.length; i++) {
             User user = workertimes[i].user;
             double time = workertimes[i].time;
-            str.append(i+". "+user.getUserName()+": "+time+"\n");
+            str.append(i+1+". "+user.getUserName()+": "+time+"\n");
         }
 
 

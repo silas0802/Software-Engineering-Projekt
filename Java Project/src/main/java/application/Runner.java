@@ -119,22 +119,36 @@ public class Runner {
         System.out.println("");
         System.out.println("0. main menu");
         System.out.println("1. Edit activity");
-        System.out.println("2. Back");
+        System.out.println("2. Register time worked");
+        System.out.println("3. Back");
+        
         if (activity.getProject().getProjectLeader()==user&&activity.isActivityfinished()==false) {
-            System.out.println("3. Finish project");
+            System.out.println("4. See total time worked");
+            System.out.println("5. Finish project");
         }
         System.out.println("Type number:");
         int ans = scanner.nextInt();
+        scanner.nextLine();
+        
         if(ans==0){
             mainMenu();
         }else if(ans==1){
             editActivity(activity);
         }else if(ans==2){
+            System.out.println("Register time: ex 7.0");
+            String time1 =scanner.nextLine();
+            double time = Double.parseDouble(time1);
+            projectManagerApp.RegisterHours(activity, time);
+            System.out.println("Time is Registered");
+            viewActivity(activity);
+        
+        }else if(ans==3){
             seeYourActivities(user);
+
         }else if(activity.getProject().getProjectLeader()==user&&activity.activityFinished==false){
-            if(ans==3){
-                
-                
+            if(ans==4){
+                seeTimeWorked(activity);
+            }else if(ans==5){
                 if(yesno("Would you like to finish the activity?")){
                     System.out.println("Activity is now finished");
                     projectManagerApp.finishActivity(activity.getProject(), activity);
@@ -145,6 +159,24 @@ public class Runner {
         }
         viewActivity(activity);
     }
+
+    public static void seeTimeWorked(Activity activity) throws OperationNotAllowedException{
+        newPage();
+        System.out.println("Time worked per User");
+        System.out.println(activity.timeWorkedList.toString());
+
+        System.out.println("Expected time: "+activity.getExpectedDuration());
+        System.out.println("Total time Used: "+activity.timeWorkedList.totalTimeWorked());
+        System.out.println("1. Back to activity");
+        int ans = scanner.nextInt();
+        if (ans==1) {
+            viewActivity(activity);
+        }
+        
+
+    }
+
+    
     public static void activityDetails(Activity activity){
         System.out.println("Activity details on "+activity.getName()+":");
         if(activity.isActivityfinished()){

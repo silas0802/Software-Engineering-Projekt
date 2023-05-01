@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+import javafx.print.PrintColor;
+
 public class Runner {
 
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
@@ -114,6 +116,7 @@ public class Runner {
         }
         System.out.println("type number:");
         int ans = scanner.nextInt();
+        scanner.nextLine();
         if(ans==0){
             mainMenu();
         }else if(ans==1){
@@ -370,7 +373,7 @@ public class Runner {
 
 
     public static void projectDetails(Project project){
-        System.out.println("Project details on "+project.getName());
+        System.out.println("Project details on: "+project.getName());
         System.out.println("Name: "+project.getName());
         if (project.getProjectLeader()==null) {
             System.out.println("Project Leader: "+project.getProjectLeader());    
@@ -439,66 +442,118 @@ public class Runner {
         return dato;
     }
 
-    public static void editActivity(Activity activity){
-        //change name
-        if(yesno("Set name?")){
-            System.out.println("Name:");
-            activity.setName(scanner.nextLine());
-        }
-        //Description
-        if(yesno("Set description?")){
-            System.out.println("Description:");
-            activity.setDescription(scanner.nextLine());
-        }
-        //exp dur
-        if(yesno("Set expected duration?")){
-            String weekString;
-            int weekInt;
-            while(true){
-                System.out.println("What is the expected number of weeks? (int)");
-                try {
-                weekString = scanner.nextLine();
-                weekInt = Integer.parseInt(weekString);
-                } catch (Exception e) {
-                    continue;
-                }
-                break;
+    public static void editActivity(Activity activity) throws OperationNotAllowedException{
+        newPage();
+        System.out.println("0. Back to activity details");
+        System.out.println("1. Edit name");
+        System.out.println("2. Edit description");
+        System.out.println("3. Edit duration");
+        System.out.println("4. Edit start time");
+        System.out.println("5. Edit end time");
+        int ans;
+        while(true){
+            System.out.println("Type number:");  
+            String ans1 = scanner.nextLine();
+            try {
+                ans = Integer.parseInt(ans1);
+            } catch (Exception e) {
+                continue;
             }
-            activity.setExpectedDuration(weekInt);
-        }
-        // start time
-        if(yesno("Set start time?")){
-            int[] dato = calenderInputCheck();
-            activity.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
-        }
-        //end time
-        if(yesno("Set end time?")){
-            int[] dato = calenderInputCheck();
-            activity.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+            if(ans == 0){
+                viewActivity(activity);
+            }
+            //change name
+            else if(ans == 1){
+                System.out.println("Name:");
+                activity.setName(scanner.nextLine());
+                System.out.println("Name updated");
+                editActivity(activity);
+            }
+            //Description
+            else if(ans == 2){
+                System.out.println("Description:");
+                activity.setDescription(scanner.nextLine());
+                System.out.println("Description updated");
+                editActivity(activity);
+            }
+            //exp dur
+            else if(ans == 3){
+                String weekString;
+                int weekInt;
+                while(true){
+                    System.out.println("What is the expected number of hours? (int)");
+                    try {
+                    weekString = scanner.nextLine();
+                    weekInt = Integer.parseInt(weekString);
+                    } catch (Exception e) {
+                        continue;
+                    }
+                    break;
+                }
+                activity.setExpectedDuration(weekInt);
+                System.out.println("Duration updated");
+                editActivity(activity);
+            }
+            // start time
+            else if(ans == 4){
+                int[] dato = calenderInputCheck();
+                activity.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
+                editActivity(activity);
+                System.out.println("Start time updated");
+            }
+            //end time
+            else if(ans == 5){
+                int[] dato = calenderInputCheck();
+                activity.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+                System.out.println("End time updated");
+                editActivity(activity);
+            }   
         }
     }
     
     public static void editProject(Project project) throws OperationNotAllowedException {
-        //Name of project
-        if(yesno("Set name of project?")){
-            System.out.println("Name of project:");
-            project.setName(scanner.nextLine());
+        newPage();
+        System.out.println("0. Back to project details");
+        System.out.println("1. Edit name");
+        System.out.println("2. Edit description");
+        System.out.println("3. Edit start time");
+        System.out.println("4. Edit end time");
+        int ans;
+        while(true){
+            System.out.println("Type number:");
+            String ans1 = scanner.nextLine();
+            try {
+                ans = Integer.parseInt(ans1);
+            } catch (Exception e) {
+                continue;
+            }
+            if(ans == 0){
+                viewProject(project);
+            }
+            //Name of project
+            else if(ans == 1){
+                System.out.println("Name of project:");
+                project.setName(scanner.nextLine());
+                System.out.println("Name updated");
+            }
+            //discription of project
+            else if(ans == 2){
+                System.out.println("Description:");
+                project.setDescription(scanner.nextLine());
+                System.out.println("Discription updated");
+            }
+            // start time
+            else if(ans == 3){
+                int[] dato = calenderInputCheck();
+                project.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
+                System.out.println("Start time updated");
+            }
+            //end time
+            else if(ans == 4){
+                int[] dato = calenderInputCheck();
+                project.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+                System.out.println("End time updated");
+            }
         }
-        //discription of project
-        if(yesno("Set project description")){
-            System.out.println("Description:");
-            project.setDescription(scanner.nextLine());
-        }
-        // start time
-        if(yesno("Set start time?")){
-            int[] dato = calenderInputCheck();
-            project.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
-        }
-        //end time
-        if(yesno("Set end time?")){
-            int[] dato = calenderInputCheck();
-            project.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
-        }
-        viewProject(project);
     }
 }

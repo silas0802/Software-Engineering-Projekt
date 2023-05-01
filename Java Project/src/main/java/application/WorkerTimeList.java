@@ -9,7 +9,7 @@ public class WorkerTimeList {
     public WorkerTimeList(){
         list = new ArrayList<>();
     }
-    public void registerTime(User user, int time){
+    public void registerTime(User user, double time){
         for (WorkerTime workerTime : list) {
             if (workerTime.user.equals(user)) {
                 workerTime.time += time;
@@ -21,7 +21,7 @@ public class WorkerTimeList {
     public WorkerTime[] getWorkedTimeList(){
         return list.toArray(new WorkerTime [0]);
     }
-    public int getTimeWorked(User user){
+    public double getTimeWorked(User user){
         for (WorkerTime workerTime : list) {
             if (workerTime.user.equals(user)) {
                 return workerTime.time;
@@ -29,11 +29,23 @@ public class WorkerTimeList {
         }
         throw new NullPointerException("User doesn't exist");
     }
-    public int totalTimeWorked(){
-        int sum = 0;
+    public double totalTimeWorked(){
+        double sum = 0;
         for (WorkerTime workerTime : list) {
             sum += workerTime.time;
         }
         return sum;
+    }
+    public String toString(){
+        WorkerTime[] workertimes = getWorkedTimeList();
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < workertimes.length; i++) {
+            User user = workertimes[i].user;
+            double time = workertimes[i].time;
+            str.append(i+1+". "+user.getUserName()+": "+time+"\n");
+        }
+
+
+        return str.toString();
     }
 }

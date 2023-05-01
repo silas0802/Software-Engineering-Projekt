@@ -1,30 +1,34 @@
 package example.cucumber;
 
+import static org.junit.Assert.assertTrue;
+
+import application.OperationNotAllowedException;
+import application.ProjectManagerApp;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class Hourssteps {
 
+    ProjectManagerApp projectManagerApp;
+    public Hourssteps(ProjectManagerApp projectManagerApp){
+        this.projectManagerApp = projectManagerApp;
+    }
 
-
-    @Given("entered work {double} hours")
-    public void enteredWorkHours(Double double1) {
+    @When("the user registers {double} hours of work")
+    public void theUserRegistersHoursOfWork(Double double1) throws OperationNotAllowedException{
+        // Write code here that turns the phrase above into concrete actions
         VariablesHolder.workHours = double1;
+        try{
+            projectManagerApp.RegisterHours(VariablesHolder.activity,double1);
+            } catch(OperationNotAllowedException e){
+                VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+            }
     }
-
-    @Then("round the work time to the closest {int} min.")
-    public void roundTheWorkTimeToTheClosestMin(Integer i) {
-        VariablesHolder.workHours = roundTo(VariablesHolder.workHours,i/60);
+    @Then("time has been registered for the activity and user")
+    public void timeHasBeenRegisteredForTheActivityAndUser() {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(VariablesHolder.user.getTimeWorked()==VariablesHolder.workHours);
+        assertTrue(VariablesHolder.activity.getWorkedTime()==VariablesHolder.workHours);
     }
-
-
-    @Then("register the timeworked in user")
-    public void registerTheTimeworkedInUser() {
-        VariablesHolder.user.registerTimeWorked(VariablesHolder.workHours);
-       
-    }
-
-    private static double roundTo(double v, double r) {
-        return Math.round(v / r) * r;
-      }
 }

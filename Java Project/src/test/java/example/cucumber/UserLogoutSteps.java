@@ -3,6 +3,7 @@ package example.cucumber;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import application.OperationNotAllowedException;
 import application.ProjectManagerApp;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -34,8 +35,12 @@ public class UserLogoutSteps {
     }
 
     @Given("Have registered hours")
-    public void haveRegisteredHours() {
-        projectManagerApp.RegisterHours(true);
+    public void haveRegisteredHours() throws OperationNotAllowedException{
+        try{
+            projectManagerApp.RegisterHours(VariablesHolder.activity,1);
+            } catch(OperationNotAllowedException e){
+                VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+            }
         assertTrue(projectManagerApp.hasRegisteredHours());
     }
 

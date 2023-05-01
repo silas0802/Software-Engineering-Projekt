@@ -53,8 +53,15 @@ public class ProjectManagerApp {
         return registeredHours;
     }
 
-    public void RegisterHours(Boolean registeredHours) {
-        this.registeredHours = registeredHours;
+    public void RegisterHours(Activity activity, double time) throws OperationNotAllowedException {
+        if (time % 0.5 == 0) {
+            activity.timeWorkedList.registerTime(loggedUser, time);
+            loggedUser.registerTimeWorked(time);
+            registeredHours=true;
+        }
+        else{
+            throw new OperationNotAllowedException("Time not rounded to nearst half hour");
+        }
     }
 
     public void setProjectName(Project project, String name)throws OperationNotAllowedException{

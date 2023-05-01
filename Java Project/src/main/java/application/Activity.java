@@ -12,10 +12,18 @@ public class Activity {
     String name;
     String description; 
     int expectedDuration;
-    WorkerTimeList timeWorkedList;
+    WorkerTimeList timeWorkedList = new WorkerTimeList();
     List<User> activeUsers = new ArrayList<>();
     boolean activityFinished=false;
     
+    public double getWorkedTime(){
+        return timeWorkedList.totalTimeWorked();
+    }
+    public GregorianCalendar getStartTime() {
+        Calendar.getInstance();
+        return startTime;
+    }
+
     public int getStartTimeWeek() {
         return startTimeWeek;
     }

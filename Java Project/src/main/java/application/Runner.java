@@ -44,6 +44,9 @@ public class Runner {
         }
     }
     public static void mainMenu() throws OperationNotAllowedException{
+        
+            
+        
         newPage();
         System.out.println("1. see your activities");
         System.out.println("2. See your projects");
@@ -51,11 +54,18 @@ public class Runner {
         System.out.println("4. Create new project");
         System.out.println("5. log out");
         System.out.println("6. close app");
+        while (true) {
         System.out.println("Type number");
         
 
-        int ans = scanner.nextInt();
-        scanner.nextLine();
+        String ans1 = scanner.nextLine();
+        int ans;
+        try {
+            ans=Integer.parseInt(ans1);
+        } catch (Exception e) {
+            continue;
+        }
+        //scanner.nextLine();
         if(ans==1){
             seeYourActivities(user);
         }else if(ans==2){
@@ -66,13 +76,14 @@ public class Runner {
             createProject();
         }
         else if(ans==5){
-            System.out.println("Sytem logged out");
+            System.out.println("System logged out");
             logIn();
             
         }else if(ans==6){
             System.out.println("System shutting down");
             System.exit(0);
         }
+    }
     }
 
     public static void seeYourActivities(User user) throws OperationNotAllowedException{
@@ -110,11 +121,11 @@ public class Runner {
         System.out.println("");
         System.out.println("0. main menu");
         System.out.println("1. Edit activity");
-        System.out.println("2. back");
+        System.out.println("2. Back");
         if (activity.getProject().getProjectLeader()==user&&activity.isActivityfinished()==false) {
             System.out.println("3. Finish project");
         }
-        System.out.println("type number:");
+        System.out.println("Type number:");
         int ans = scanner.nextInt();
         scanner.nextLine();
         if(ans==0){

@@ -36,4 +36,16 @@ public class WorkerTimeList {
         }
         return sum;
     }
+    public String toString(){
+        WorkerTime[] workertimes = getWorkedTimeList();
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < workertimes.length; i++) {
+            User user = workertimes[i].user;
+            double time = workertimes[i].time;
+            str.append(i+". "+user.getUserName()+": "+time+"\n");
+        }
+
+
+        return str.toString();
+    }
 }

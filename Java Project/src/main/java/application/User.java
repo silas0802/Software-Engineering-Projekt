@@ -37,7 +37,6 @@ public class User {
 
     public void registerTimeWorked(Double workingHours){
         timeWorked += workingHours;
-        project.RegisterHours(true);
     }
 
     public Project getAssignedProject() {

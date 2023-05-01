@@ -2,7 +2,6 @@ package application;
 
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Project {
     //Class specific varribles
@@ -11,10 +10,10 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private int startTimeWeek;
-    private int startTimeYear;
-    private int endTimeWeek;
-    private int endTimeYear;
+    private int startTimeWeek = 0;
+    private int startTimeYear = 0;
+    private int endTimeWeek = 0;
+    private int endTimeYear = 0;
     private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();

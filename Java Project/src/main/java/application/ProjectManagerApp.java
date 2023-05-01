@@ -264,7 +264,7 @@ public class ProjectManagerApp {
         int week = Integer.parseInt(weekYearStrings[0]);
         int year = Integer.parseInt(weekYearStrings[1]);
         LocalDate firstDay = LocalDate.of(year, 1, 1);
-        
+
         if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
             if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
                 throw new OperationNotAllowedException("Please enter a week between 1 and 52");

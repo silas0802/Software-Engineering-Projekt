@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Activity {
     Project project;
-    int startTimeWeek;
-    int startTimeYear;
-    int endTimeWeek;
-    int endTimeYear;
+    int startTimeWeek = 0;
+    int startTimeYear = 0;
+    int endTimeWeek = 0;
+    int endTimeYear = 0;
     String name;
-    String description; 
+    String description;
     int expectedDuration;
     WorkerTimeList timeWorkedList = new WorkerTimeList();
     List<User> activeUsers = new ArrayList<>();

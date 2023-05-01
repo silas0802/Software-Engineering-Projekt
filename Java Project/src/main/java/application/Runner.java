@@ -190,19 +190,21 @@ public class Runner {
         System.out.println("Description: "+activity.getDescription());
         System.out.println("number of workers on activity: "+activity.getUsersOnActivity().size());
         System.out.println("Expected Work time: "+activity.getExpectedDuration());
-        GregorianCalendar calen = activity.getStartTime();
-        GregorianCalendar calen2 = activity.getEndTime();
-        if(!(calen==null)){
-            System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
-        }
-        else{
+        int startWeek = activity.getStartTimeWeek();
+        int startYear = activity.getStartTimeYear();
+        int endWeek = activity.getEndTimeWeek();
+        int endYear = activity.getEndTimeYear();
+        
+        if(!(startWeek == 0 || startYear == 0)){
+            System.out.println("Start date: W" + startWeek + "-" + startYear);
+        } else{
             System.out.println("Start date: unknown");
         }
-        if(!(calen2==null)){
-            System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
-        }
-        else{
-            System.out.println("end date: unknown");
+
+        if(!(endWeek == 0 || endYear == 0)){
+            System.out.println("End date: W" + endWeek + "-" + endYear);
+        } else{
+            System.out.println("End date: unknown");
         }
     }
 
@@ -218,8 +220,7 @@ public class Runner {
         System.out.println("project succesfully created");
         if(yesno("Create activity under project?")){
             createActivity(project);
-        }
-        else{
+        } else{
             System.out.println("returning to main menu");
             mainMenu();
         }
@@ -239,8 +240,7 @@ public class Runner {
             projectManagerApp.assignActivityToUser(user, activity);
             System.out.println("User assigned to activity");
             mainMenu();
-        }
-        else{
+        } else{
             System.out.println("User not assigned");
             mainMenu();
         }
@@ -257,8 +257,7 @@ public class Runner {
             if(ans==0){
                 mainMenu();
             }
-        }
-        else{
+        } else{
             System.out.println("0. Main menu");
             for (int i = 0; i < projects.size(); i++) {
                 System.out.println((i+1)+". "+projects.get(i).getName());
@@ -288,8 +287,7 @@ public class Runner {
             System.out.println("3. See active activities");
             System.out.println("4. See finished activities");
             System.out.println("5. Workers assigned to project");
-        }
-        else{
+        } else{
             System.out.println("1. Edit project");
             System.out.println("2. See active activities");
             System.out.println("3. See finished activities");
@@ -446,19 +444,21 @@ public class Runner {
         else{
             System.out.println("Project finished: No");
         }
-        Calendar calen = project.getStartTime();
-        Calendar calen2 = project.getEndTime();
-        if(!(calen==null)){
-            System.out.println("Start date: "+calen.get(Calendar.DATE)+"-"+calen.get(Calendar.MONTH)+"-"+calen.get(Calendar.YEAR));
-        }
-        else{
+        int startWeek = project.getStartTimeWeek();
+        int startYear = project.getStartTimeYear();
+        int endWeek = project.getEndTimeWeek();
+        int endYear = project.getEndTimeYear();
+
+        if(!(startWeek == 0 || startYear == 0)){
+            System.out.println("Start date: W" + startWeek + "-" + startYear);
+        } else{
             System.out.println("Start date: unknown");
         }
-        if(!(calen2==null)){
-            System.out.println("Set end date: "+calen2.get(Calendar.DATE)+"-"+calen2.get(Calendar.MONTH)+"-"+calen2.get(Calendar.YEAR));
-        }
-        else{
-            System.out.println("end date: unknown");
+
+        if(!(endWeek == 0 || endYear == 0)){
+            System.out.println("End date: W" + endWeek + "-" + endYear);
+        } else{
+            System.out.println("End date: unknown");
         }
     }
     
@@ -468,8 +468,7 @@ public class Runner {
         scanner.nextLine();
         if(ans=='y'){
             return true;
-        }
-        else{
+        } else{
             return false;
         }
     }

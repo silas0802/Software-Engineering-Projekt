@@ -19,11 +19,7 @@ public class Activity {
     public double getWorkedTime(){
         return timeWorkedList.totalTimeWorked();
     }
-    public GregorianCalendar getStartTime() {
-        Calendar.getInstance();
-        return startTime;
-    }
-
+    
     public int getStartTimeWeek() {
         return startTimeWeek;
     }

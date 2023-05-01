@@ -146,9 +146,9 @@ public class ActivitySteps {
         List<User> users = projectManagerApp.getUsers();
         List<User> temp = new ArrayList<>();
         List<User> unactveUsers =users.stream().filter(user -> user.getActivities().equals(temp)).collect(Collectors.toList());
-    for (int i = 0; i < unactveUsers.size(); i++) {
-        projectManagerApp.assignActivityToUser(unactveUsers.get(i),VariablesHolder.activity);
-    }
+        for (int i = 0; i < unactveUsers.size(); i++) {
+            projectManagerApp.assignActivityToUser(unactveUsers.get(i),VariablesHolder.activity);
+        }
 
     }
 
@@ -161,13 +161,13 @@ public class ActivitySteps {
 
     @When("a Description with name {string} is added")
     public void aDescriptionWithNameIsAdded(String description) {
-        VariablesHolder.desciption=description;
+        VariablesHolder.description=description;
     projectManagerApp.setActiveDescription(VariablesHolder.activity, description);
     }
 
     @Then("the Description is added to the activity")
     public void theDescriptionIsAddedToTheActivity() {
-        assertEquals(VariablesHolder.desciption, VariablesHolder.activity.getDescription());
+        assertEquals(VariablesHolder.description, VariablesHolder.activity.getDescription());
         
     }
 
@@ -237,6 +237,42 @@ public class ActivitySteps {
         assertTrue(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
     }
 
+    @Then("the user has been assigned to the activity")
+    public void theUserHasBeenAssignedToTheActivity() {
+        assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
+    }
+    
+    @When("the activity start time {string} is set")
+        public void theStartTimeIsSet(String startTime) {
+            try {
+                projectManagerApp.setActivityStartTime(VariablesHolder.activity, startTime);
+            } catch (OperationNotAllowedException e) {
+                VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+            }
+        }
+
+    @Then("the activity start time becomes {string}")
+        public void theStartTimeBecomes(String startTime) {
+            assertEquals(VariablesHolder.activity.getStartTimeWeek(), Integer.parseInt(startTime.split("-")[0]));
+            assertEquals(VariablesHolder.activity.getStartTimeYear(), Integer.parseInt(startTime.split("-")[1]));
+        }
+
+    @When("the activity end time {string} is set")
+        public void theEndTimeIsSet(String endTime) {
+            try {
+                projectManagerApp.setActivityEndTime(VariablesHolder.activity, endTime);
+            } catch (OperationNotAllowedException e) {
+                VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+            }
+        }
+    
+    @Then("the activity end time becomes {string}")
+        public void theEndTimeBecomes(String endTime) {
+            assertEquals(VariablesHolder.activity.getEndTimeWeek(), Integer.parseInt(endTime.split("-")[0]));
+            assertEquals(VariablesHolder.activity.getEndTimeYear(), Integer.parseInt(endTime.split("-")[1]));
+        }
+
 }
+
 
 

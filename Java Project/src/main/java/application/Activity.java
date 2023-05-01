@@ -1,14 +1,14 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Activity {
     Project project;
-    GregorianCalendar startTime;
-    GregorianCalendar endTime;
+    int startTimeWeek;
+    int startTimeYear;
+    int endTimeWeek;
+    int endTimeYear;
     String name;
     String description; 
     int expectedDuration;
@@ -16,21 +16,36 @@ public class Activity {
     List<User> activeUsers = new ArrayList<>();
     boolean activityFinished=false;
     
-    public GregorianCalendar getStartTime() {
-        Calendar.getInstance();
-        return startTime;
+    public int getStartTimeWeek() {
+        return startTimeWeek;
     }
 
-    public void setStartTime(GregorianCalendar startTime) {
-        this.startTime = startTime;
+    public void setStartTimeWeek(int startTimeWeek) {
+        this.startTimeWeek = startTimeWeek;
     }
 
-    public GregorianCalendar getEndTime() {
-        return endTime;
+    public int getStartTimeYear() {
+        return startTimeYear;
     }
 
-    public void setEndTime(GregorianCalendar endTime) {
-        this.endTime = endTime;
+    public void setStartTimeYear(int startTimeYear) {
+        this.startTimeYear = startTimeYear;
+    }
+
+    public int getEndTimeWeek() {
+        return endTimeWeek;
+    }
+
+    public void setEndTimeWeek(int endTimeWeek) {
+        this.endTimeWeek = endTimeWeek;
+    }
+
+    public int getEndTimeYear() {
+        return endTimeYear;
+    }
+
+    public void setEndTimeYear(int endTimeYear) {
+        this.endTimeYear = endTimeYear;
     }
 
     public int getExpectedDuration() {

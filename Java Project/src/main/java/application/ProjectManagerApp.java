@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
 
 
 public class ProjectManagerApp {
@@ -137,6 +138,7 @@ public class ProjectManagerApp {
 
     project.setProjectLeader(user);
     }
+    
     public void assignActivityToUser(User user, Activity activity) throws OperationNotAllowedException{
         if(user.getActivities().size()>=20){
             throw new OperationNotAllowedException("Maximum of 20 activities are already assigned to user this week");
@@ -147,6 +149,7 @@ public class ProjectManagerApp {
         user.joinActivity(activity);
         activity.setActiveUser(user);
     }
+
     public List<Activity> getUserActivities(User user){
         return user.getActivities();
     }
@@ -191,5 +194,84 @@ public class ProjectManagerApp {
         }
     }
 
-    
+    public void setActivityStartTime (Activity activity, String startTime) throws OperationNotAllowedException {
+        String[] weekYearStrings = startTime.split("-");
+        int week = Integer.parseInt(weekYearStrings[0]);
+        int year = Integer.parseInt(weekYearStrings[1]);
+        LocalDate firstDay = LocalDate.of(year, 1, 1);        
+        
+
+        if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 52");
+        } else if (week > 53 || week < 1){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 53");
+        } else {
+            activity.setStartTimeWeek(week);
+            activity.setStartTimeYear(year);
+        }
+    }
+
+    public void setActivityEndTime (Activity activity, String endTime) throws OperationNotAllowedException {
+        String[] weekYearStrings = endTime.split("-");
+        int week = Integer.parseInt(weekYearStrings[0]);
+        int year = Integer.parseInt(weekYearStrings[1]);
+        LocalDate firstDay = LocalDate.of(year, 1, 1);
+        
+
+        if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 52");
+        } else if (week > 53 || week < 1){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 53");
+        } else if (activity.getStartTimeYear() >= year || (activity.getStartTimeWeek() >= week && activity.getStartTimeYear() == year)) {
+            throw new OperationNotAllowedException("End time comes before Start time");
+        } else {
+            activity.setEndTimeWeek(week);
+            activity.setEndTimeYear(year);
+        }
+    }
+
+    public void setProjectStartTime (Project project, String startTime) throws OperationNotAllowedException {
+        String[] weekYearStrings = startTime.split("-");
+        int week = Integer.parseInt(weekYearStrings[0]);
+        int year = Integer.parseInt(weekYearStrings[1]);
+        LocalDate firstDay = LocalDate.of(year, 1, 1);
+
+        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
+            if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
+                throw new OperationNotAllowedException("Please enter a week between 1 and 52");
+            } else if (week > 53 || week < 1){
+                throw new OperationNotAllowedException("Please enter a week between 1 and 53");
+            } else {
+                project.setStartTimeWeek(week);
+                project.setStartTimeYear(year);
+            }
+        } else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+
+        
+    }
+
+    public void setProjectEndTime (Project project, String endTime) throws OperationNotAllowedException {
+        String[] weekYearStrings = endTime.split("-");
+        int week = Integer.parseInt(weekYearStrings[0]);
+        int year = Integer.parseInt(weekYearStrings[1]);
+        LocalDate firstDay = LocalDate.of(year, 1, 1);
+        
+        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
+            if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
+                throw new OperationNotAllowedException("Please enter a week between 1 and 52");
+            } else if (week > 53 || week < 1){
+                throw new OperationNotAllowedException("Please enter a week between 1 and 53");
+            } else if (project.getStartTimeYear() >= year || (project.getStartTimeWeek() >= week && project.getStartTimeYear() == year)) {
+                throw new OperationNotAllowedException("End time comes before Start time");
+            } else {
+                project.setEndTimeWeek(week);
+                project.setEndTimeYear(year);
+            }
+        } else{
+            throw new OperationNotAllowedException("User doesn't have permission");
+        }
+    }
+
 }

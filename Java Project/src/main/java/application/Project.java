@@ -11,8 +11,10 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private Calendar startTime;
-    private Calendar endTime;
+    private int startTimeWeek;
+    private int startTimeYear;
+    private int endTimeWeek;
+    private int endTimeYear;
     private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();
@@ -47,20 +49,36 @@ public class Project {
         this.description = description;
     }
 
-    public Calendar getStartTime() {
-        return this.startTime;
+    public int getStartTimeWeek() {
+        return startTimeWeek;
     }
 
-    public void setStartTime(Calendar startTime) {
-        this.startTime = startTime;
+    public void setStartTimeWeek(int startTimeWeek) {
+        this.startTimeWeek = startTimeWeek;
     }
 
-    public Calendar getEndTime() {
-        return this.endTime;
+    public int getStartTimeYear() {
+        return startTimeYear;
     }
 
-    public void setEndTime(Calendar endTime) {
-        this.endTime = endTime;
+    public void setStartTimeYear(int startTimeYear) {
+        this.startTimeYear = startTimeYear;
+    }
+
+    public int getEndTimeWeek() {
+        return endTimeWeek;
+    }
+
+    public void setEndTimeWeek(int endTimeWeek) {
+        this.endTimeWeek = endTimeWeek;
+    }
+
+    public int getEndTimeYear() {
+        return endTimeYear;
+    }
+
+    public void setEndTimeYear(int endTimeYear) {
+        this.endTimeYear = endTimeYear;
     }
 
     public int getExpTime() {

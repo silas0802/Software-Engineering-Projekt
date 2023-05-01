@@ -22,7 +22,7 @@ public class ProjectSteps {
         
     }
 
-    @Given("user with username {string} logs in")
+    @Given("a user with username {string} logs in")
     public void userWithUsernameLogsIn(String initials) {
         // Write code here that turns the phrase above into concrete actions
         VariablesHolder.user = new User(initials);
@@ -176,4 +176,34 @@ public class ProjectSteps {
         // Write code here that turns the phrase above into concrete actions
         Project.setIdYearCounter(int1);
     }
+
+    @When("the project start time {string} is set")
+        public void theProjectStartTimeIsSet(String startTime) {
+            try {
+                projectManagerApp.setProjectStartTime(VariablesHolder.project, startTime);
+            } catch (OperationNotAllowedException e) {
+                VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+            }
+        }
+    
+    @Then("the project start time becomes {string}")
+        public void theProjectStartTimeBecomes(String startTime) {
+            assertEquals(VariablesHolder.project.getStartTimeWeek(), Integer.parseInt(startTime.split("-")[0]));
+            assertEquals(VariablesHolder.project.getStartTimeYear(), Integer.parseInt(startTime.split("-")[1]));
+        }
+
+    @When("the project end time {string} is set")
+        public void theProjectEndTimeIsSet(String endTime) {
+            try {
+                projectManagerApp.setProjectEndTime(VariablesHolder.project, endTime);
+            } catch (OperationNotAllowedException e) {
+                VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+            }
+        }
+
+    @Then("the project end time becomes {string}")
+        public void theProjectEndTimeBecomes(String endTime) {
+            assertEquals(VariablesHolder.project.getEndTimeWeek(), Integer.parseInt(endTime.split("-")[0]));
+            assertEquals(VariablesHolder.project.getEndTimeYear(), Integer.parseInt(endTime.split("-")[1]));
+        }
 }

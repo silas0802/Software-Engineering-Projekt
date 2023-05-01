@@ -10,7 +10,7 @@ public class VariablesHolder {
    public static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
    public static User[] users;
    public static double workHours;
-   public static String desciption;
+   public static String description;
    public static ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
     

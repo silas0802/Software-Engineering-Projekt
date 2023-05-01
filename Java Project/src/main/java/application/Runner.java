@@ -22,16 +22,18 @@ public class Runner {
         
         String ini = scanner.nextLine();
         
-        user = new User(ini);
+        
         if(ini.length()==0){
             System.out.println("Please type in initials");
             logIn();
         }
-        else if(projectManagerApp.hasUser(user)){
+        else if(projectManagerApp.haserUserByName(ini)){
             System.out.println("User wih initials "+ini+" logged ind");
-            projectManagerApp.login(user);
+            
+            projectManagerApp.login(projectManagerApp.getUserByName(ini));
             mainMenu();
-        }else if(!(projectManagerApp.hasUser(user))){
+        }else{
+            user = new User(ini);
             System.out.println("new User registered");
             System.out.println("User wih initials "+ini+" logged ind");
             projectManagerApp.createUser(user);

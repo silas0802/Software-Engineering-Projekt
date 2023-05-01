@@ -93,6 +93,23 @@ public class ProjectManagerApp {
     public boolean hasUser(User user){
         return users.contains(user);
     }
+    public boolean haserUserByName(String name){
+        for(User person: users){
+            if (person.getUserName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public User getUserByName(String name){
+        for(User person: users){
+            if (person.getUserName().equals(name)) {
+                return person;
+            }
+        }
+        return null;
+
+    }
     public boolean projectHasUsers(Project project, User[] users){
         for (User user : project.getWorkers()) {
             if (!hasUser(user)) {

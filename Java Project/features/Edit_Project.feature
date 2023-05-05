@@ -70,6 +70,7 @@ And a project with name "Fun graphical UI" is created
 When the user edits the project description to "ABC"
 Then the project description is changed to "ABC"
 
+#Silas Thule
 Scenario: Finish Project
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
@@ -77,6 +78,7 @@ And the user is assigned to the project as leader
 When the user finishes the project
 Then the project is moved to finished projects
 
+#Silas Thule
 Scenario: Finish Project with unfinished activities
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created

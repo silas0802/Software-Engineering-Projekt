@@ -2,7 +2,9 @@ package application;
 
 import java.time.Year;
 import java.util.ArrayList;
-
+/**
+ * @author Silas Thule
+ */
 public class Project {
     //Class specific varribles
     private static int idCounter =1;
@@ -23,6 +25,7 @@ public class Project {
     public ArrayList<User> getWorkers() {
         return workers;
     }
+    //Silas Thule
     public Project(String name){
         this.name = name;
         if (idYear != Year.now().getValue()) {
@@ -108,6 +111,7 @@ public class Project {
     public void giveRapport(){
         //tbd
     }
+    //Silas Thule
     public void assignWorker(User user) throws OperationNotAllowedException{
         if (user.getAssignedProject()!=null) {
             workers.add(user);
@@ -116,6 +120,7 @@ public class Project {
         }
         
     }
+    //Silas Thule
     public void assignWorkers(User[] users) throws OperationNotAllowedException{
         for (int i = 0; i < users.length; i++) {
             if (users[i].getAssignedProject()!=null) {

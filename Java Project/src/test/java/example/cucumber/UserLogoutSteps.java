@@ -34,6 +34,7 @@ public class UserLogoutSteps {
         System.out.println("Remember to register hours before logging out of the user.");
     }
 
+    //Silas Thule
     @Given("Have registered hours")
     public void haveRegisteredHours() throws OperationNotAllowedException{
         try{

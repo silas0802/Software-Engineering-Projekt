@@ -16,6 +16,7 @@ public class Activity {
     List<User> activeUsers = new ArrayList<>();
     boolean activityFinished=false;
     
+    //Silas Thule
     public double getWorkedTime(){
         return timeWorkedList.totalTimeWorked();
     }

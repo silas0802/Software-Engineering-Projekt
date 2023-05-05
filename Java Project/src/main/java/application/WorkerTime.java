@@ -1,5 +1,8 @@
 package application;
 
+/**
+ * @author Silas Thule
+ */
 public class WorkerTime {
     public User user;
     public double time;

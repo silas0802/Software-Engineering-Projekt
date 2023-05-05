@@ -2,6 +2,9 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * @author Silas Thule
+ */
 public class WorkerTimeList {
     
     ArrayList<WorkerTime> list;

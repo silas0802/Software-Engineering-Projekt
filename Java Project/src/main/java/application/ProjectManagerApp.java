@@ -52,7 +52,12 @@ public class ProjectManagerApp {
     public Boolean hasRegisteredHours() {
         return registeredHours;
     }
-
+    /**
+     * @author Silas Thule
+     * @param activity
+     * @param time
+     * @throws OperationNotAllowedException
+     */
     public void RegisterHours(Activity activity, double time) throws OperationNotAllowedException {
         if (time % 0.5 == 0) {
             activity.timeWorkedList.registerTime(loggedUser, time);
@@ -63,7 +68,12 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("Time not rounded to nearst half hour");
         }
     }
-
+    /**
+     * @author Silas Thule
+     * @param project
+     * @param name
+     * @throws OperationNotAllowedException
+     */
     public void setProjectName(Project project, String name)throws OperationNotAllowedException{
         if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
             project.setName(name);
@@ -89,6 +99,11 @@ public class ProjectManagerApp {
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
     }
+    /**
+     * @author Silas Thule
+     * @param project
+     * @return
+     */
     public boolean projectIsFinished(Project project){
         for (Project project2 : finishedProjects) {
             if (project.equals(project2)&&project.isFinished()) {
@@ -118,6 +133,12 @@ public class ProjectManagerApp {
         return null;
 
     }
+    /**
+     * @author Silas Thule
+     * @param project
+     * @param users
+     * @return
+     */
     public boolean projectHasUsers(Project project, User[] users){
         for (User user : project.getWorkers()) {
             if (!hasUser(user)) {
@@ -184,6 +205,11 @@ public class ProjectManagerApp {
         activity.finishActivity();
         
     }
+    /**
+     * @author Silas Thule
+     * @param project
+     * @throws OperationNotAllowedException
+     */
     public void finishProject(Project project)throws OperationNotAllowedException{
         if (loggedUser == project.getProjectLeader()) {
             if (project.getActivities().isEmpty()) {

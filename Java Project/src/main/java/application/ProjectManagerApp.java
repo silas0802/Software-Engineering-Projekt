@@ -201,84 +201,88 @@ public class ProjectManagerApp {
         }
     }
 
-    public void setActivityStartTime (Activity activity, String startTime) throws OperationNotAllowedException {
-        String[] weekYearStrings = startTime.split("-");
-        int week = Integer.parseInt(weekYearStrings[0]);
-        int year = Integer.parseInt(weekYearStrings[1]);
-        LocalDate firstDay = LocalDate.of(year, 1, 1);        
+    public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {
+        LocalDate firstDay = LocalDate.of(startTime.getYear(), 1, 1);        
         
-
-        if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
+        if(!(Year.of(startTime.getYear()).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (startTime.getWeek() > 52 || startTime.getWeek() < 1)){
             throw new OperationNotAllowedException("Please enter a week between 1 and 52");
-        } else if (week > 53 || week < 1){
+        } else if (startTime.getWeek() > 53 || startTime.getWeek() < 1){
             throw new OperationNotAllowedException("Please enter a week between 1 and 53");
         } else {
-            activity.setStartTimeWeek(week);
-            activity.setStartTimeYear(year);
+            activity.setStartTime(startTime);;
         }
     }
 
-    public void setActivityEndTime (Activity activity, String endTime) throws OperationNotAllowedException {
-        String[] weekYearStrings = endTime.split("-");
-        int week = Integer.parseInt(weekYearStrings[0]);
-        int year = Integer.parseInt(weekYearStrings[1]);
-        LocalDate firstDay = LocalDate.of(year, 1, 1);
+    public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
+        LocalDate firstDay = LocalDate.of(endTime.getYear(), 1, 1);
         
-
-        if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
+        if(!(Year.of(endTime.getYear()).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (endTime.getWeek() > 52 || endTime.getWeek() < 1)){
             throw new OperationNotAllowedException("Please enter a week between 1 and 52");
-        } else if (week > 53 || week < 1){
+        } else if (endTime.getWeek() > 53 || endTime.getWeek() < 1){
             throw new OperationNotAllowedException("Please enter a week between 1 and 53");
-        } else if (activity.getStartTimeYear() >= year || (activity.getStartTimeWeek() >= week && activity.getStartTimeYear() == year)) {
+        } else if (activity.getStartTime().getYear() >= endTime.getYear() || (activity.getStartTime().getWeek() >= endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         } else {
-            activity.setEndTimeWeek(week);
-            activity.setEndTimeYear(year);
+            activity.setEndTime(endTime);
         }
     }
 
-    public void setProjectStartTime (Project project, String startTime) throws OperationNotAllowedException {
-        String[] weekYearStrings = startTime.split("-");
-        int week = Integer.parseInt(weekYearStrings[0]);
-        int year = Integer.parseInt(weekYearStrings[1]);
-        LocalDate firstDay = LocalDate.of(year, 1, 1);
+    public void setProjectStartTime (Project project, StartEndTime startTime) throws OperationNotAllowedException {
+        LocalDate firstDay = LocalDate.of(startTime.getYear(), 1, 1);
 
-        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
-            if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
-                throw new OperationNotAllowedException("Please enter a week between 1 and 52");
-            } else if (week > 53 || week < 1){
-                throw new OperationNotAllowedException("Please enter a week between 1 and 53");
-            } else {
-                project.setStartTimeWeek(week);
-                project.setStartTimeYear(year);
-            }
-        } else{
+        if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
+        }
+
+        if(!(Year.of(startTime.getYear()).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (startTime.getWeek() > 52 || startTime.getWeek() < 1)){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 52");
+        } else if (startTime.getWeek() > 53 || startTime.getWeek() < 1){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 53");
+        } else {
+            project.setStartTime(startTime);;
         }
 
         
     }
 
-    public void setProjectEndTime (Project project, String endTime) throws OperationNotAllowedException {
-        String[] weekYearStrings = endTime.split("-");
-        int week = Integer.parseInt(weekYearStrings[0]);
-        int year = Integer.parseInt(weekYearStrings[1]);
-        LocalDate firstDay = LocalDate.of(year, 1, 1);
+    public void setProjectEndTime (Project project, StartEndTime endTime) throws OperationNotAllowedException {
+        LocalDate firstDay = LocalDate.of(endTime.getYear(), 1, 1);
 
-        if (loggedUser == project.getProjectLeader() || project.getProjectLeader() == null) {
-            if(!(Year.of(year).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (week > 52 || week < 1)){
-                throw new OperationNotAllowedException("Please enter a week between 1 and 52");
-            } else if (week > 53 || week < 1){
-                throw new OperationNotAllowedException("Please enter a week between 1 and 53");
-            } else if (project.getStartTimeYear() >= year || (project.getStartTimeWeek() >= week && project.getStartTimeYear() == year)) {
-                throw new OperationNotAllowedException("End time comes before Start time");
-            } else {
-                project.setEndTimeWeek(week);
-                project.setEndTimeYear(year);
-            }
-        } else{
+        if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
+
+        if(!(Year.of(endTime.getYear()).isLeap() && firstDay.getDayOfWeek().equals(DayOfWeek.WEDNESDAY) || firstDay.getDayOfWeek().equals(DayOfWeek.THURSDAY)) && (endTime.getWeek() > 52 || endTime.getWeek() < 1)){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 52");
+        } else if (endTime.getWeek() > 53 || endTime.getWeek() < 1){
+            throw new OperationNotAllowedException("Please enter a week between 1 and 53");
+        } else if (project.getStartTime().getYear() >= endTime.getYear() || (project.getStartTime().getWeek() >= endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
+            throw new OperationNotAllowedException("End time comes before Start time");
+        } else {
+            project.setEndTime(endTime);
+        }
+        
+            
+        
+    }
+
+    public StartEndTime timeInputChecker(String timeInput) throws OperationNotAllowedException{
+        StartEndTime time = null;
+        if(!timeInput.contains("-")){
+            throw new OperationNotAllowedException("The week and year has to be seperated by \"-\"");
+        }
+        String weekYear[] = timeInput.split("-");
+
+        if(!(weekYear[1].length() == 4 && (weekYear[0].length() == 1 || weekYear[0].length() == 2))){
+            throw new OperationNotAllowedException("The week has to contain 2 digits and the year has to contain 4");                  
+        }
+
+        try {
+            time = new StartEndTime(Integer.parseInt(weekYear[0]), Integer.parseInt(weekYear[1]));
+        } catch (Exception e) {
+            throw new OperationNotAllowedException("The input has to be two numbers seperated by \"-\"");
+        }  
+        return time;
     }
 
 }

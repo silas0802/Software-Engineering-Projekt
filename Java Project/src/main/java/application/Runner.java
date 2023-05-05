@@ -1,11 +1,8 @@
 package application;
 
 import java.util.List;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import javafx.print.PrintColor;
 
 public class Runner {
 
@@ -190,19 +187,17 @@ public class Runner {
         System.out.println("Description: "+activity.getDescription());
         System.out.println("number of workers on activity: "+activity.getUsersOnActivity().size());
         System.out.println("Expected Work time: "+activity.getExpectedDuration());
-        int startWeek = activity.getStartTimeWeek();
-        int startYear = activity.getStartTimeYear();
-        int endWeek = activity.getEndTimeWeek();
-        int endYear = activity.getEndTimeYear();
+        StartEndTime startTime = activity.getStartTime();
+        StartEndTime endTime = activity.getEndTime();
         
-        if(!(startWeek == 0 || startYear == 0)){
-            System.out.println("Start date: W" + startWeek + "-" + startYear);
+        if(!(startTime == null)){
+            System.out.println("Start date: W" + startTime.getWeek() + "-" + startTime.getYear());
         } else{
             System.out.println("Start date: unknown");
         }
 
-        if(!(endWeek == 0 || endYear == 0)){
-            System.out.println("End date: W" + endWeek + "-" + endYear);
+        if(!(endTime == null)){
+            System.out.println("End date: W" + endTime.getWeek() + "-" + endTime.getYear());
         } else{
             System.out.println("End date: unknown");
         }
@@ -444,19 +439,17 @@ public class Runner {
         else{
             System.out.println("Project finished: No");
         }
-        int startWeek = project.getStartTimeWeek();
-        int startYear = project.getStartTimeYear();
-        int endWeek = project.getEndTimeWeek();
-        int endYear = project.getEndTimeYear();
+        StartEndTime startTime = project.getStartTime();
+        StartEndTime endTime = project.getEndTime();
 
-        if(!(startWeek == 0 || startYear == 0)){
-            System.out.println("Start date: W" + startWeek + "-" + startYear);
+        if(!(startTime == null)){
+            System.out.println("Start date: W" + startTime.getWeek() + "-" + startTime.getYear());
         } else{
             System.out.println("Start date: unknown");
         }
 
-        if(!(endWeek == 0 || endYear == 0)){
-            System.out.println("End date: W" + endWeek + "-" + endYear);
+        if(!(endTime == null)){
+            System.out.println("End date: W" + endTime.getWeek() + "-" + endTime.getYear());
         } else{
             System.out.println("End date: unknown");
         }
@@ -480,23 +473,23 @@ public class Runner {
     }
     
     //takes input and checks if it is in valid format for date
-    public static int[] calenderInputCheck(){
-        int[] dato = new int[3];
-        while(true){
-            System.out.println("DD-MM-YYYY");
-            String time = scanner.nextLine();
-            String date[] = time.split("-");
-            try {
-                dato[0] = Integer.parseInt(date[0]);
-                dato[1] = Integer.parseInt(date[1]);
-                dato[2] = Integer.parseInt(date[2]); 
-            } catch (Exception e) {
-                continue;
-            }
-            break;
-        }
-        return dato;
-    }
+    // public static int[] calenderInputCheck(){
+    //     int[] dato = new int[3];
+    //     while(true){
+    //         System.out.println("DD-MM-YYYY");
+    //         String time = scanner.nextLine();
+    //         String date[] = time.split("-");
+    //         try {
+    //             dato[0] = Integer.parseInt(date[0]);
+    //             dato[1] = Integer.parseInt(date[1]);
+    //             dato[2] = Integer.parseInt(date[2]); 
+    //         } catch (Exception e) {
+    //             continue;
+    //         }
+    //         break;
+    //     }
+    //     return dato;
+    // }
 
     public static void editActivity(Activity activity) throws OperationNotAllowedException{
         newPage();
@@ -552,15 +545,31 @@ public class Runner {
             }
             // start time
             else if(ans == 4){
-                int[] dato = calenderInputCheck();
-                activity.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
-                editActivity(activity);
+                while(true){
+                    System.out.println("Please enter time on form: WW-YYYY");
+                    try {
+                        projectManagerApp.setActivityStartTime(activity, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                    } catch (OperationNotAllowedException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    break;
+                }
                 System.out.println("Start time updated");
+                editActivity(activity);
             }
             //end time
             else if(ans == 5){
-                int[] dato = calenderInputCheck();
-                activity.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+                while(true){
+                    System.out.println("Please enter time on form: WW-YYYY");
+                    try {
+                        projectManagerApp.setActivityEndTime(activity, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                    } catch (OperationNotAllowedException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    break;
+                }
                 System.out.println("End time updated");
                 editActivity(activity);
             }   
@@ -591,24 +600,44 @@ public class Runner {
                 System.out.println("Name of project:");
                 project.setName(scanner.nextLine());
                 System.out.println("Name updated");
+                editProject(project);
             }
             //discription of project
             else if(ans == 2){
                 System.out.println("Description:");
                 project.setDescription(scanner.nextLine());
                 System.out.println("Discription updated");
+                editProject(project);
             }
             // start time
             else if(ans == 3){
-                int[] dato = calenderInputCheck();
-                project.setStartTime(new GregorianCalendar(dato[2],dato[1], dato[0]));
+                while(true){
+                    System.out.println("Please enter time on form: WW-YYYY");
+                    try {
+                        projectManagerApp.setProjectStartTime(project, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                    } catch (OperationNotAllowedException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    break;
+                }
                 System.out.println("Start time updated");
+                editProject(project);
             }
             //end time
             else if(ans == 4){
-                int[] dato = calenderInputCheck();
-                project.setEndTime(new GregorianCalendar(dato[2], dato[1], dato[0]));
+                while(true){
+                    System.out.println("Please enter time on form: WW-YYYY");
+                    try {
+                        projectManagerApp.setProjectEndTime(project, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                    } catch (OperationNotAllowedException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    break;
+                }
                 System.out.println("End time updated");
+                editProject(project);
             }
         }
     }

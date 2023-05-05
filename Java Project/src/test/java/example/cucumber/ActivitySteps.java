@@ -245,7 +245,7 @@ public class ActivitySteps {
     @When("the activity start time {string} is set")
         public void theStartTimeIsSet(String startTime) {
             try {
-                projectManagerApp.setActivityStartTime(VariablesHolder.activity, startTime);
+                projectManagerApp.setActivityStartTime(VariablesHolder.activity, projectManagerApp.timeInputChecker(startTime));
             } catch (OperationNotAllowedException e) {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
@@ -253,14 +253,14 @@ public class ActivitySteps {
 
     @Then("the activity start time becomes {string}")
         public void theStartTimeBecomes(String startTime) {
-            assertEquals(VariablesHolder.activity.getStartTimeWeek(), Integer.parseInt(startTime.split("-")[0]));
-            assertEquals(VariablesHolder.activity.getStartTimeYear(), Integer.parseInt(startTime.split("-")[1]));
+            assertEquals(VariablesHolder.activity.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
+            assertEquals(VariablesHolder.activity.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
 
     @When("the activity end time {string} is set")
         public void theEndTimeIsSet(String endTime) {
             try {
-                projectManagerApp.setActivityEndTime(VariablesHolder.activity, endTime);
+                projectManagerApp.setActivityEndTime(VariablesHolder.activity, projectManagerApp.timeInputChecker(endTime));
             } catch (OperationNotAllowedException e) {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
@@ -268,8 +268,8 @@ public class ActivitySteps {
     
     @Then("the activity end time becomes {string}")
         public void theEndTimeBecomes(String endTime) {
-            assertEquals(VariablesHolder.activity.getEndTimeWeek(), Integer.parseInt(endTime.split("-")[0]));
-            assertEquals(VariablesHolder.activity.getEndTimeYear(), Integer.parseInt(endTime.split("-")[1]));
+            assertEquals(VariablesHolder.activity.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));
+            assertEquals(VariablesHolder.activity.getEndTime().getYear(), Integer.parseInt(endTime.split("-")[1]));
         }
 
 }

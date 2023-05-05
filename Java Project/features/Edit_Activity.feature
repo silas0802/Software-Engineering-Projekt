@@ -60,6 +60,7 @@ Scenario: edit activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
+And the activity start time "16-2020" is set
 And the activity end time "16-2026" is set
 When the activity end time "15-2023" is set
 Then the activity end time becomes "15-2023"
@@ -68,6 +69,7 @@ Scenario: edit activity end time to a non-exitent end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
+And the activity start time "16-2020" is set
 And the activity end time "16-2026" is set
 When the activity end time "56-2023" is set
 Then the error message "Please enter a week between 1 and 52" is given
@@ -76,6 +78,7 @@ Scenario: edit activity end time to a non-exitent end time when the year has 53 
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
+And the activity start time "16-2020" is set
 And the activity end time "16-2026" is set
 When the activity end time "56-2026" is set
 Then the error message "Please enter a week between 1 and 53" is given

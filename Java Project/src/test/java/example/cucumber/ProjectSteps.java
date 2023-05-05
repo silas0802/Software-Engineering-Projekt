@@ -180,7 +180,7 @@ public class ProjectSteps {
     @When("the project start time {string} is set")
         public void theProjectStartTimeIsSet(String startTime) {
             try {
-                projectManagerApp.setProjectStartTime(VariablesHolder.project, startTime);
+                projectManagerApp.setProjectStartTime(VariablesHolder.project, projectManagerApp.timeInputChecker(startTime));
             } catch (OperationNotAllowedException e) {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
@@ -188,14 +188,14 @@ public class ProjectSteps {
     
     @Then("the project start time becomes {string}")
         public void theProjectStartTimeBecomes(String startTime) {
-            assertEquals(VariablesHolder.project.getStartTimeWeek(), Integer.parseInt(startTime.split("-")[0]));
-            assertEquals(VariablesHolder.project.getStartTimeYear(), Integer.parseInt(startTime.split("-")[1]));
+            assertEquals(VariablesHolder.project.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
+            assertEquals(VariablesHolder.project.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
 
     @When("the project end time {string} is set")
         public void theProjectEndTimeIsSet(String endTime) {
             try {
-                projectManagerApp.setProjectEndTime(VariablesHolder.project, endTime);
+                projectManagerApp.setProjectEndTime(VariablesHolder.project, projectManagerApp.timeInputChecker(endTime));
             } catch (OperationNotAllowedException e) {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
@@ -203,7 +203,7 @@ public class ProjectSteps {
 
     @Then("the project end time becomes {string}")
         public void theProjectEndTimeBecomes(String endTime) {
-            assertEquals(VariablesHolder.project.getEndTimeWeek(), Integer.parseInt(endTime.split("-")[0]));
-            assertEquals(VariablesHolder.project.getEndTimeYear(), Integer.parseInt(endTime.split("-")[1]));
+            assertEquals(VariablesHolder.project.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));
+            assertEquals(VariablesHolder.project.getEndTime().getYear(), Integer.parseInt(endTime.split("-")[1]));
         }
 }

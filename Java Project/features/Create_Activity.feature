@@ -77,6 +77,7 @@ Scenario: set activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
+And the activity start time "15-2020" is set
 When the activity end time "15-2023" is set
 Then the activity end time becomes "15-2023"
 

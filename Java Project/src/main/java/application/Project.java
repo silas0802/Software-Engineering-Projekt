@@ -10,10 +10,8 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private int startTimeWeek = 0;
-    private int startTimeYear = 0;
-    private int endTimeWeek = 0;
-    private int endTimeYear = 0;
+    private StartEndTime startTime;
+    private StartEndTime endTime;
     private boolean isFinished;
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Activity> finishedActivities = new ArrayList<>();
@@ -48,36 +46,20 @@ public class Project {
         this.description = description;
     }
 
-    public int getStartTimeWeek() {
-        return startTimeWeek;
+    public StartEndTime getStartTime() {
+        return startTime;
     }
 
-    public void setStartTimeWeek(int startTimeWeek) {
-        this.startTimeWeek = startTimeWeek;
+    public void setStartTime(StartEndTime startTime) {
+        this.startTime = startTime;
     }
 
-    public int getStartTimeYear() {
-        return startTimeYear;
+    public StartEndTime getEndTime() {
+        return endTime;
     }
 
-    public void setStartTimeYear(int startTimeYear) {
-        this.startTimeYear = startTimeYear;
-    }
-
-    public int getEndTimeWeek() {
-        return endTimeWeek;
-    }
-
-    public void setEndTimeWeek(int endTimeWeek) {
-        this.endTimeWeek = endTimeWeek;
-    }
-
-    public int getEndTimeYear() {
-        return endTimeYear;
-    }
-
-    public void setEndTimeYear(int endTimeYear) {
-        this.endTimeYear = endTimeYear;
+    public void setEndTime(StartEndTime endTime) {
+        this.endTime = endTime;
     }
 
     public int getExpTime() {
@@ -108,6 +90,7 @@ public class Project {
     public void giveRapport(){
         //tbd
     }
+    
     public void assignWorker(User user) throws OperationNotAllowedException{
         if (user.getAssignedProject()!=null) {
             workers.add(user);

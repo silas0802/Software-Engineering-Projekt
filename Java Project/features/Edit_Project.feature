@@ -122,12 +122,14 @@ Scenario: PM edits project end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And the user is assigned to the project as leader
+And the project start time "16-2020" is set
 When the project end time "19-2023" is set
 Then the project end time becomes "19-2023"
 
 Scenario: user edits project end time with no PM assigned
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "16-2020" is set
 When the project end time "20-2023" is set
 Then the project end time becomes "20-2023"
 

@@ -5,10 +5,8 @@ import java.util.List;
 
 public class Activity {
     Project project;
-    int startTimeWeek = 0;
-    int startTimeYear = 0;
-    int endTimeWeek = 0;
-    int endTimeYear = 0;
+    StartEndTime startTime;
+    StartEndTime endTime;
     String name;
     String description;
     int expectedDuration;
@@ -20,36 +18,20 @@ public class Activity {
         return timeWorkedList.totalTimeWorked();
     }
     
-    public int getStartTimeWeek() {
-        return startTimeWeek;
+    public StartEndTime getStartTime() {
+        return startTime;
     }
 
-    public void setStartTimeWeek(int startTimeWeek) {
-        this.startTimeWeek = startTimeWeek;
+    public void setStartTime(StartEndTime startTime) {
+        this.startTime = startTime;
     }
 
-    public int getStartTimeYear() {
-        return startTimeYear;
+    public StartEndTime getEndTime() {
+        return endTime;
     }
 
-    public void setStartTimeYear(int startTimeYear) {
-        this.startTimeYear = startTimeYear;
-    }
-
-    public int getEndTimeWeek() {
-        return endTimeWeek;
-    }
-
-    public void setEndTimeWeek(int endTimeWeek) {
-        this.endTimeWeek = endTimeWeek;
-    }
-
-    public int getEndTimeYear() {
-        return endTimeYear;
-    }
-
-    public void setEndTimeYear(int endTimeYear) {
-        this.endTimeYear = endTimeYear;
+    public void setEndTime(StartEndTime endTime) {
+        this.endTime = endTime;
     }
 
     public int getExpectedDuration() {

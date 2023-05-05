@@ -1,12 +1,12 @@
 Feature: User Login
-
+#Niclas
 Scenario: Existing user logging in
 Given that the user is not logged in
 And the user "ABC" is in the system.
 Then the user login succeeds
 And the user is logged in
 
-
+#Niclas
 Scenario: New user logging in
 Given That the User is not logged in
 And "DEF" does not exist

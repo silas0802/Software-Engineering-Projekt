@@ -11,6 +11,7 @@ public class Runner {
     static User user;
     public static void main(String[] args){
         scanner = new Scanner(System.in);
+        dummies(5, 5, 5);
         logIn();
         
     }

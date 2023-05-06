@@ -2,7 +2,11 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
-
+    /**
+     * @author Niclas
+     * @param User
+     * @return
+     */
 public class User {
     String userName;
     double timeWorked;
@@ -12,7 +16,7 @@ public class User {
     ProjectManagerApp project = new ProjectManagerApp();
 
 
-
+    
     public User(String userName){
 
         this.userName = userName;

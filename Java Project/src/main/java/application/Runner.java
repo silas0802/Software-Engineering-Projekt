@@ -180,8 +180,8 @@ public class Runner {
         System.out.println("3. Register time worked");
         if (activity.getProject().getProjectLeader() == user && activity.isActivityfinished() == false) {
             System.out.println("4. Users assigned to activity");   
-            System.out.println("4. See total time worked");
-            System.out.println("5. Finish activity");
+            System.out.println("5. See total time worked");
+            System.out.println("6. Finish activity");
         }
 
         while(true){
@@ -257,7 +257,7 @@ public class Runner {
         if(activity.getUsersOnActivity().size()>0){
             System.out.println("Number of people assigned to activity: "+activity.getUsersOnActivity().size());
             for (int i = 0; i < activity.getUsersOnActivity().size(); i++) {
-                System.out.println(activity.getUsersOnActivity().get(i).getUserName());
+                System.out.println("*  "+activity.getUsersOnActivity().get(i).getUserName());
             }
         }
         while (true) {
@@ -309,7 +309,8 @@ public class Runner {
         }
         else{
             try {
-                projectManagerApp.assignActivityToUser(project.getWorkers().get(ans+1), activity);
+                
+                projectManagerApp.assignActivityToUser(project.getWorkers().get(ans-1), activity);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -581,7 +582,7 @@ public class Runner {
             System.out.println("No workers assigned to project");
         }else{
             for (int i = 0; i < project.getWorkers().size(); i++) {
-                System.out.println(project.getWorkers().get(i).getUserName());
+                System.out.println("*  "+project.getWorkers().get(i).getUserName());
             }
         }
 
@@ -620,13 +621,13 @@ public class Runner {
             System.out.println("0. back");
             for (int i = 0; i < projectManagerApp.getUsers().size(); i++) {
                 
-                if(projectManagerApp.userHasProject(user, project)){
+                if(projectManagerApp.userHasProject(projectManagerApp.getUsers().get(i), project)||project.getProjectLeader()==projectManagerApp.getUsers().get(i)){
                     continue;
                 }
                 System.out.println(i+1+". "+projectManagerApp.getUsers().get(i).getUserName());            
             }
         }
-
+        User user;
         while (true) {
             
             System.out.println("Type number to assign User:");
@@ -637,13 +638,15 @@ public class Runner {
                 continue;
             }
         
-        
+            
         if(ans==0){
             workersAssignedToProject(project);
         }
         else{
+            user=projectManagerApp.users.get(ans-1);
             try {
-                project.assignWorker(projectManagerApp.users.get(ans+1));
+                user.setAssignedProject(project);
+                project.assignWorker(user);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

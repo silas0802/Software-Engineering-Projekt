@@ -18,30 +18,26 @@ public class Runner {
         
     }
 
-    
     public static void dummies(int workers, int projects, int activities){
         for (int i = 1; i <= workers; i++) {
             
-            projectManagerApp.createUser(new User("Worker "+i));
+            projectManagerApp.createUser(new User("User " + i));
         }
         for (int i = 1; i <= projects; i++) {
-            projectManagerApp.createProject(new Project("Project "+i));
+            projectManagerApp.createProject(new Project("Project " + i));
         }
         List<Project> proj = projectManagerApp.getProjects();
         
-            for(Project p: proj){
-                for (int i = 1; i <= activities; i++) {
-                    try {
-                        projectManagerApp.createActivity(p,new Activity("Activity "+p.getName()+" "+i));
-                    } catch (OperationNotAllowedException e) {
-                        System.out.println(e.getMessage());
-                       
-                    }
-                        
-                }
-                
-            }
-        
+        for(Project p : proj){
+            for (int i = 1; i <= activities; i++) {
+                try {
+                    projectManagerApp.createActivity(p, new Activity("Activity " + p.getName() + " " + i));
+                } catch (OperationNotAllowedException e) {
+                    System.out.println(e.getMessage());
+                    
+                }       
+            }   
+        }
     }
 
     public static void logIn(){
@@ -81,7 +77,6 @@ public class Runner {
 
     public static void mainMenu(){
         newPage("MAIN MENU");
-        // System.out.println("MAIN MENU");
         System.out.println("1. See your activities");
         System.out.println("2. See all projects");
         System.out.println("3. Create new project");
@@ -126,7 +121,6 @@ public class Runner {
         setBackTrackActivity();
 
         newPage("MY ACTIVITIES");
-        // System.out.println("MY ACTIVITIES");
         if(activities.size()==0){
             System.out.println("No assigned activites");
             System.out.println("0. Main menu");
@@ -231,8 +225,7 @@ public class Runner {
             } else if(activity.getProject().getProjectLeader() == user && activity.activityFinished == false){
                 if(ans==4){
                     usersAssignedToActivity(activity, activity.getProject());
-                }
-                if(ans==5){
+                }else if(ans==5){
                     seeTimeWorked(activity);
                 }else if(ans==6){
                     if(yesno("Would you like to finish the activity?")){
@@ -250,19 +243,20 @@ public class Runner {
     public static void usersAssignedToActivity(Activity activity,Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Users assigned to activity "+activity.getName());
+        newPage("USERS ASSIGNED TO ACTIVITY");
+        System.out.println("ACTIVITY: " + activity.getName());
 
         if(activity.getUsersOnActivity().size()==0){
             System.out.println("***No users assigned to activity***");
         }
-        System.out.println("0. back");
-        System.out.println("1. assign Users to activity");
+        System.out.println("0. Main menu");
+        System.out.println("1. Back");
+        System.out.println("2. Assign users to the activity");
 
         if(activity.getUsersOnActivity().size()>0){
-            System.out.println("Number of people assigned to activity: "+activity.getUsersOnActivity().size());
+            System.out.println("Number of users assigned to the activity: " + activity.getUsersOnActivity().size());
             for (int i = 0; i < activity.getUsersOnActivity().size(); i++) {
-                System.out.println("*  "+activity.getUsersOnActivity().get(i).getUserName());
+                System.out.println("* "+activity.getUsersOnActivity().get(i).getUserName());
             }
         }
         while (true) {
@@ -273,12 +267,11 @@ public class Runner {
             } catch (Exception e) {
                 continue;
             }    
-        
-        
-            if(ans==0){
+            if(ans == 0){
+                mainMenu();
+            } else if(ans == 1){
                 viewActivity(activity);
-            }
-            else if(ans==1){
+            } else if(ans == 2){
                 assignUserToActivity(activity,activity.getProject());
             }
         }
@@ -287,20 +280,20 @@ public class Runner {
     public static void assignUserToActivity(Activity activity,Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Assign Users to activity: "+activity.getName());
-        System.out.println("0. back");
+        newPage("ASSIGN USERS TO ACTIVITY");
+        System.out.println("ACTIVITY: "+activity.getName());
+        System.out.println("0. Main menu");
+        System.out.println("1. Back");
         for (int i = 0; i < project.getWorkers().size(); i++) {
             if(projectManagerApp.userHasActivity(activity, project.getWorkers().get(i))){
                 continue;
             }
-            System.out.println(i+1+". "+project.getWorkers().get(i).getUserName());            
+            System.out.println(i+2+". " + project.getWorkers().get(i).getUserName());            
         }
 
 
         while (true) {
-            
-            System.out.println("Type number to assign User:");
+            System.out.println("Enter a number to assign user:");
             ansString = scanner.nextLine();
             try {
                 ans=Integer.parseInt(ansString);
@@ -309,21 +302,22 @@ public class Runner {
             }
         
         
-        if(ans==0){
-            usersAssignedToActivity(activity, activity.getProject());
-        }
-        else{
-            try {
+            if(ans==0){
+                mainMenu();
+            } else if(ans == 1){
+                usersAssignedToActivity(activity, activity.getProject());
+            } else{
+                try {
+                    projectManagerApp.assignActivityToUser(project.getWorkers().get(ans-2), activity);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 
-                projectManagerApp.assignActivityToUser(project.getWorkers().get(ans-1), activity);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println();
+                System.out.println("User assigned to the activity");
+                assignUserToActivity(activity, activity.getProject());
             }
-            
-            System.out.println("***User assigned to Activity***");
-            assignUserToActivity(activity,activity.getProject());
         }
-    }
     }
 
     public static void seeTimeWorked(Activity activity){
@@ -396,7 +390,6 @@ public class Runner {
         if(yesno("Create activity in project?")){
             createActivity(project);
         } else{
-            System.out.println("Returning to main menu");
             mainMenu();
         }
     }
@@ -586,20 +579,21 @@ public class Runner {
     public static void workersAssignedToProject(Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Workers assigned to project "+project.getName());
+        newPage("USERS ASSIGNED TO PROJECT");
+        System.out.println("PROJECT: "+project.getName());
         if (project.getWorkers().size()==0) {
-            System.out.println("No workers assigned to project");
+            System.out.println("***No users assigned to project***");
         }else{
             for (int i = 0; i < project.getWorkers().size(); i++) {
-                System.out.println("*  "+project.getWorkers().get(i).getUserName());
+                System.out.println("* " + project.getWorkers().get(i).getUserName());
             }
         }
 
-        System.out.println("0. back to project");
-        System.out.println("1. assign workers to project");
+        System.out.println("0. Main menu");
+        System.out.println("1. Back");
+        System.out.println("2. assign users to project");
         while (true) {
-            System.out.println("Type number:");
+            System.out.println("Enter a number:");
             
             ansString=scanner.nextLine();
             try {
@@ -609,9 +603,10 @@ public class Runner {
             }
 
             if (ans==0) {
+                mainMenu();
+            } else if(ans == 1){
                 viewProject(project);
-            }
-            else if(ans==1){
+            } else if(ans==2){
                 assignUserToProject(project);
             }
         }
@@ -620,15 +615,17 @@ public class Runner {
     public static void assignUserToProject(Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Assign Users to activity: "+project.getName());
+        newPage("ASSIGN USERS TO PROJECT");
+        System.out.println("PROJECT: " + project.getName());
         
         if(projectManagerApp.users.size()==0){
-            System.out.println("no workers registered");
-            System.out.println("0. back");
+            System.out.println("No users registered");
+            System.out.println("0. Main menu");
+            System.out.println("1. Back");
         }
         else{
-            System.out.println("0. back");
+            System.out.println("0. Main menu");
+            System.out.println("1. Back");
             for (int i = 0; i < projectManagerApp.getUsers().size(); i++) {
                 
                 if(projectManagerApp.userHasProject(projectManagerApp.getUsers().get(i), project)||project.getProjectLeader()==projectManagerApp.getUsers().get(i)){
@@ -640,7 +637,7 @@ public class Runner {
         User user;
         while (true) {
             
-            System.out.println("Type number to assign User:");
+            System.out.println("Enter a number to assign user:");
             ansString = scanner.nextLine();
             try {
                 ans=Integer.parseInt(ansString);
@@ -648,25 +645,25 @@ public class Runner {
                 continue;
             }
         
-            
-        if(ans==0){
-            workersAssignedToProject(project);
-        }
-        else{
-            user=projectManagerApp.users.get(ans-1);
-            try {
-                user.setAssignedProject(project);
-                project.assignWorker(user);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            if(ans == 0){
+                mainMenu();
+            } else if(ans==1){
+                workersAssignedToProject(project);
+            } else{
+                user=projectManagerApp.users.get(ans-2);
+                try {
+                    user.setAssignedProject(project);
+                    project.assignWorker(user);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+                assignUserToProject(project);
+                System.out.println("User assigned to project");
             }
-            
-            
-            System.out.println("***User assigned to Project***");
-            assignUserToProject(project);
         }
     }
-    }
+    
     public static void seeActiveActivities(Project project){
         String ansString;
         int ans;

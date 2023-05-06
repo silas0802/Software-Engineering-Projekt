@@ -55,6 +55,8 @@ public class ProjectManagerApp {
         return registeredHours;
     }
 
+
+
     /**
      * @author Silas Thule
      * @param activity
@@ -93,6 +95,9 @@ public class ProjectManagerApp {
         else{
             throw new OperationNotAllowedException("User doesn't have permission");
         }
+    }
+    public boolean userHasProject(User user, Project project){
+        return project.getWorkers().contains(user);
     }
 
     public boolean hasProject(Project project){

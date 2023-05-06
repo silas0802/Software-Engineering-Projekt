@@ -1,5 +1,6 @@
 package application;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,36 +10,37 @@ public class Runner {
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
     static Scanner scanner;
     static User user;
+    static String backTrack;
     public static void main(String[] args){
         scanner = new Scanner(System.in);
         logIn();
     }
 
     public static void logIn(){
-        newPage();
+        newPage("SYSTEM LOGIN");
 
-        System.out.println("SYSTEM LOGIN");
+        // System.out.println("SYSTEM LOGIN");
         System.out.println("Please enter your initials:");
         
-        String ini;
+        String initials;
         
         while(true){
-            ini = scanner.nextLine();
+            initials = scanner.nextLine();
 
-            if(ini.length() < 1 || ini.length() > 4){
+            if(initials.length() < 1 || initials.length() > 4){
                 System.out.println("Please enter up to 4 initials:");
                 continue;
             }
-            else if(projectManagerApp.hasUserByName(ini)){
-                System.out.println("User with initials "+ini+" logged ind");
+            else if(projectManagerApp.hasUserByName(initials)){
+                System.out.println("User with initials "+initials+" logged ind");
                 
-                projectManagerApp.login(projectManagerApp.getUserByName(ini));
+                projectManagerApp.login(projectManagerApp.getUserByName(initials));
                 mainMenu();
             }
-            else if(yesno("Do you wanna create a new user with initials " + ini + "?")){
-                user = new User(ini);
+            else if(yesno("Do you wanna create a new user with initials " + initials + "?")){
+                user = new User(initials);
                 System.out.println("New User registered");
-                System.out.println("User with initials "+ini+" logged ind");
+                System.out.println("User with initials "+initials+" logged ind");
                 projectManagerApp.createUser(user);
                 projectManagerApp.login(user);
                 mainMenu();
@@ -50,8 +52,8 @@ public class Runner {
     }
 
     public static void mainMenu(){
-        newPage();
-        System.out.println("MAIN MENU");
+        newPage("MAIN MENU");
+        // System.out.println("MAIN MENU");
         System.out.println("1. See your activities");
         System.out.println("2. See your projects");
         System.out.println("3. See all projects");
@@ -97,9 +99,10 @@ public class Runner {
         int ans;
         Activity activity;
         List<Activity> activities = user.getActivities();
+        setBackTrackActivity();
 
-        newPage();
-        System.out.println("MY ACTIVITIES");
+        newPage("MY ACTIVITIES");
+        // System.out.println("MY ACTIVITIES");
         if(activities.size()==0){
             System.out.println("No assigned activites");
             System.out.println("0. Main menu");
@@ -147,7 +150,7 @@ public class Runner {
         String ansString;
         int ans;
 
-        newPage();
+        newPage("ACTIVITY DETAILS");
         activityDetails(activity);
         System.out.println();
         System.out.println();
@@ -172,7 +175,7 @@ public class Runner {
             if(ans==0){
                 mainMenu();
             } else if(ans==1){
-                seeYourActivities(user);
+                backTrackActivity(activity);
             } else if(ans==2){
                 editActivity(activity);
             } else if(ans==3){
@@ -182,6 +185,7 @@ public class Runner {
     
                 while(true){
                     timeString = scanner.nextLine();
+                    back(timeString, activity, 1);
                     try {
                         time = Double.parseDouble(timeString);
                     } catch (Exception e) {
@@ -219,7 +223,7 @@ public class Runner {
         String ansString;
         int ans;
 
-        newPage();
+        newPage("TIME WORKED");
         System.out.println("Time worked per User");
         System.out.println(activity.timeWorkedList.toString());
 
@@ -271,15 +275,17 @@ public class Runner {
     }
 
     public static void createProject(){
-        newPage();
-        System.out.println("Creating project");
+        newPage("CREATE PROJECT");
+        // System.out.println("Creating project");
         System.out.println("Enter project name:");
         String name = scanner.nextLine();
+        back(name, null, 2);
         Project project = new Project(name);
         projectManagerApp.createProject(project);
         
-        newPage();
+        System.out.println();
         System.out.println("Project succesfully created");
+        System.err.println();
         if(yesno("Create activity in project?")){
             createActivity(project);
         } else{
@@ -289,9 +295,10 @@ public class Runner {
     }
 
     public static void createActivity(Project project){
-        newPage();
+        newPage("CREATE ACTIVITY");
         System.out.println("Enter activity name:");
         String name = scanner.nextLine();
+        back(name, project, 2);
         Activity activity = new Activity(name);
         
         try {
@@ -301,9 +308,9 @@ public class Runner {
             seeActiveActivities(project);
         }
         
-        newPage();
-        System.out.println("Activity created succesfully");
-        
+        System.out.println();
+        System.out.println("Activity succesfully created");
+        System.err.println();
         if(yesno("Assign "+user.getUserName()+" to activity?")){
             try {
                 projectManagerApp.assignActivityToUser(user, activity);
@@ -311,9 +318,11 @@ public class Runner {
                 System.out.println(e.getMessage());
                 seeActiveActivities(project);
             }
+            System.out.println();
             System.out.println("User assigned to the activity");
             seeActiveActivities(project);
         } else{
+            System.out.println();
             System.out.println("User not assigned");
             seeActiveActivities(project);
         }
@@ -325,8 +334,8 @@ public class Runner {
         int ans;
         Project project;
 
-        newPage();
-        System.out.println("ALL PROJECTS");
+        newPage("ALL PROJECTS");
+        // System.out.println("ALL PROJECTS");
         if(projects.size()==0){
             System.out.println("No active projects");
             System.out.println("0. Main menu");
@@ -378,7 +387,7 @@ public class Runner {
         String ansString;
         int ans;
 
-        newPage();
+        newPage("PROJECT DETAILS");
         projectDetails(project);
         System.out.println();
         System.out.println();
@@ -471,9 +480,10 @@ public class Runner {
         int ans;
         Activity activity;
         List<Activity> activities = project.getActivities();
+        setBackTrackActivity();
 
-        newPage();
-        System.out.println("ACTIVE ACTIVITIES - " + project.getName());
+        newPage("ACTIVE ACTIVITIES");
+        System.out.println("PROJECT: " + project.getName());
         if (activities.size()==0) {
             System.out.println("No active activites");
             System.out.println("0. Main menu");
@@ -537,9 +547,10 @@ public class Runner {
         int ans;
         Activity activity;
         List<Activity> activities = project.getFinishedActivities();
+        setBackTrackActivity();
 
-        newPage();
-        System.out.println("FINISHED ACTIVITIES - " + project.getName());
+        newPage("FINISHED ACTIVITIES");
+        System.out.println("PROJECT: " + project.getName());
         if (activities.size()==0) {
             System.out.println("No Finished activites");
             System.out.println("0. Main menu");
@@ -592,8 +603,8 @@ public class Runner {
         List<User> users = projectManagerApp.getUsers();
         User user;
 
-        newPage();
-        System.out.println("ASSIGN PROJECT MANAGER - " + project.getName());
+        newPage("ASSIGN PROJECT MANAGER");
+        System.out.println("PROJECT: " + project.getName());
         System.out.println("0. Main menu");
         System.out.println("1. Back to Project details");
         System.out.println();
@@ -657,22 +668,41 @@ public class Runner {
     public static boolean yesno(String String){
         System.out.println(String+ " (y/n)");
         char ans = scanner.nextLine().charAt(0);
-        if(ans=='y'){
+        if(ans == 'y' || ans == 'Y'){
             return true;
         } else{
             return false;
         }
     }
 
-    public static void newPage(){
+ 
+    public static void newPage(String string){
         System.out.println("");
         System.out.println("");
-        System.out.println("----------------------------------------------------------------");
+        
+        for(int i = 0; i < 60; i++){
+            System.out.print("-");
+        }
+        System.out.println();
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < (60 - string.length())/2; j++){
+                System.out.print(" ");
+            }
+            if(i == 1){
+                System.out.println();
+                break;
+            }
+            System.out.print(string);
+        }
+        for(int i = 0; i < 60; i++){
+            System.out.print("-");
+        }
+        System.out.println();
     }
 
     public static void editActivity(Activity activity){
-        newPage();
-        System.out.println("EDIT ACTIVITY");
+        newPage("EDIT ACTIVITY");
+        // System.out.println("EDIT ACTIVITY");
         System.out.println("0. Main menu");
         System.out.println("1. Back to activity details");
         System.out.println("2. Edit name");
@@ -699,14 +729,18 @@ public class Runner {
             //change name
             else if(ans == 2){
                 System.out.println("Name:");
-                activity.setName(scanner.nextLine());
+                String temp = scanner.nextLine();
+                back(temp, activity, 1);
+                activity.setName(temp);
                 System.out.println("Name updated");
                 editActivity(activity);
             }
             //Description
             else if(ans == 3){
                 System.out.println("Description:");
-                activity.setDescription(scanner.nextLine());
+                String temp = scanner.nextLine();
+                back(temp, activity, 1);
+                activity.setDescription(temp);
                 System.out.println("Description updated");
                 editActivity(activity);
             }
@@ -717,6 +751,7 @@ public class Runner {
                 System.out.println("Enter expected number of hours? ex 2");
                 while(true){
                     weekString = scanner.nextLine();
+                    back(weekString, activity, 1);
                     try {
                         weekInt = Integer.parseInt(weekString);
                     } catch (Exception e) {
@@ -734,8 +769,10 @@ public class Runner {
                 System.out.println("Please enter time on the form:");
                 while(true){
                     System.out.println("WW-YYYY");
+                    String temp = scanner.nextLine();
+                    back(temp, activity, 1);
                     try {
-                        projectManagerApp.setActivityStartTime(activity, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                        projectManagerApp.setActivityStartTime(activity, projectManagerApp.timeInputChecker(temp));
                     } catch (OperationNotAllowedException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
@@ -751,8 +788,10 @@ public class Runner {
                 System.out.println("Please enter time on the form:");
                 while(true){
                     System.out.println("WW-YYYY");
+                    String temp = scanner.nextLine();
+                    back(temp, activity, 1);
                     try {
-                        projectManagerApp.setActivityEndTime(activity, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                        projectManagerApp.setActivityEndTime(activity, projectManagerApp.timeInputChecker(temp));
                     } catch (OperationNotAllowedException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
@@ -767,8 +806,8 @@ public class Runner {
     }
     
     public static void editProject(Project project){
-        newPage();
-        System.out.println("EDIT PROJECT");
+        newPage("EDIT PROJECT");
+        // System.out.println("EDIT PROJECT");
         System.out.println("0. Main menu");
         System.out.println("1. Back to project details");
         System.out.println("2. Edit name");
@@ -793,8 +832,10 @@ public class Runner {
             //Name of project
             else if(ans == 2){
                 System.out.println("Name of project:");
+                String temp = scanner.nextLine();
+                back(temp, project, 1);
                 try {
-                    projectManagerApp.setProjectName(project, scanner.nextLine());
+                    projectManagerApp.setProjectName(project, temp);
                 } catch (OperationNotAllowedException e) {
                     System.out.println(e.getMessage());
                     editProject(project);
@@ -805,8 +846,10 @@ public class Runner {
             //discription of project
             else if(ans == 3){
                 System.out.println("Description:");
+                String temp = scanner.nextLine();
+                back(temp, project, 1);
                 try {
-                    projectManagerApp.setProjectDescription(project, scanner.nextLine());
+                    projectManagerApp.setProjectDescription(project, temp);
                 } catch (OperationNotAllowedException e) {
                     System.out.println(e.getMessage());
                     editProject(project);
@@ -819,8 +862,10 @@ public class Runner {
                 System.out.println("Please enter time on the form:");
                 while(true){
                     System.out.println("WW-YYYY");
+                    String temp = scanner.nextLine();
+                    back(temp, project, 1);
                     try {
-                        projectManagerApp.setProjectStartTime(project, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                        projectManagerApp.setProjectStartTime(project, projectManagerApp.timeInputChecker(temp));
                     } catch (OperationNotAllowedException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
@@ -836,8 +881,10 @@ public class Runner {
                 System.out.println("Please enter time on the form:");
                 while(true){
                     System.out.println("WW-YYYY");
+                    String temp = scanner.nextLine();
+                    back(temp, project, 1);
                     try {
-                        projectManagerApp.setProjectEndTime(project, projectManagerApp.timeInputChecker(scanner.nextLine()));
+                        projectManagerApp.setProjectEndTime(project, projectManagerApp.timeInputChecker(temp));
                     } catch (OperationNotAllowedException e) {
                         System.out.println();
                         System.out.println(e.getMessage());
@@ -849,5 +896,85 @@ public class Runner {
                 editProject(project);
             }
         }
+    }
+
+    // Daniel Henriksen
+    public static void back(String string, Object object, int stepsBack){
+        if(string.equals("back") || string.equals("BACK") || string.equals("Back")){
+
+            String methodName = StackWalker.getInstance().walk(stream -> stream.skip(stepsBack).findFirst().get()).getMethodName();
+
+            for (Method method : Runner.class.getDeclaredMethods()){
+                String name = method.getName();
+                if(!name.equals(methodName)){
+                    continue;
+                }
+                if(method.getParameterCount() == 0){
+                    try {
+                        method.invoke(null);
+                    } catch (Exception e) {
+                        System.out.println("Sorry, the back-command seems to have malfuntioned");
+                        System.out.println("Please enter a valid value in the field or try again.");
+                    }
+                } else if(method.getParameterTypes()[0].equals(Project.class)){
+                    Project project = (Project) object;
+                    try {
+                        method.invoke(null, project);
+                    } catch (Exception e) {
+                        System.out.println("Sorry, the back-command seems to have malfuntioned");
+                        System.out.println("Please enter a valid value in the field or try again.");
+                    }
+                } else if(method.getParameterTypes()[0].equals(Activity.class)){
+                    Activity activity = (Activity) object;
+                    try {
+                        method.invoke(null, activity);
+                    } catch (Exception e) {
+                        System.out.println("Sorry, the back-command seems to have malfuntioned");
+                        System.out.println("Please enter a valid value in the field or try again.");
+                    }
+                } else if(method.getParameterTypes()[0].equals(User.class)){
+                    try {
+                        method.invoke(null, user);
+                    } catch (Exception e) {
+                        System.out.println("Sorry, the back-command seems to have malfuntioned");
+                        System.out.println("Please enter a valid value in the field or try again.");
+                    }
+                }
+            }
+        }
+    }
+
+    // Daniel Henriksen
+    public static void setBackTrackActivity() {
+        backTrack = StackWalker.getInstance().walk(stream -> stream.skip(1).findFirst().get()).getMethodName();
+    }
+        
+    // Daniel Henriksen
+    public static void backTrackActivity(Activity activity){
+        for (Method method : Runner.class.getDeclaredMethods()){
+            String name = method.getName();
+            if(!name.equals(backTrack)){
+                continue;
+            }
+            if(method.getParameterCount() == 0){
+                try {
+                    method.invoke(null);
+                } catch (Exception e) {
+                    System.out.println("Please return to the Main menu instead, or try again");
+                }
+            } else if(method.getParameterTypes()[0].equals(Project.class)){
+                try {
+                    method.invoke(null, activity.getProject());
+                } catch (Exception e) {
+                    System.out.println("Please return to the Main menu instead, or try again");
+                }
+            } else if(method.getParameterTypes()[0].equals(User.class)){
+                try {
+                    method.invoke(null, user);
+                } catch (Exception e) {
+                    System.out.println("Please return to the Main menu instead, or try again");
+                }
+            }
+        }        
     }
 }

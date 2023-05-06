@@ -26,7 +26,7 @@ And the user is assigned to the project as leader
 When user adds a list of users to the project
 Then the users are assigned to the project
 
-# Auth - Daniel
+# Daniel Henriksen
 Scenario: Edit project name
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
@@ -34,6 +34,7 @@ And the user is assigned to the project as leader
 When the user edits the project name to "Boring graphical UI"
 Then the project name is changed to "Boring graphical UI"
 
+# Daniel Henriksen
 Scenario: a worker tries to edit project name with PM
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
@@ -42,13 +43,14 @@ And a user with username "AS" logs in
 When the user edits the project name to "Boring graphical UI"
 Then the error message "User doesn't have permission" is given
 
+# Daniel Henriksen
 Scenario: a worker tries to edit project name without PM
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
 When the user edits the project name to "Boring graphical UI"
 Then the project name is changed to "Boring graphical UI"
 
-# Auth - Daniel
+# Daniel Henriksen
 Scenario: Edit project description
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
@@ -56,6 +58,7 @@ And the user is assigned to the project as leader
 When the user edits the project description to "boring, not fun"
 Then the project description is changed to "boring, not fun"
 
+# Daniel Henriksen
 Scenario: a worker tries to edit project description with PM
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
@@ -64,6 +67,7 @@ And a user with username "AS" logs in
 When the user edits the project description to "ABC"
 Then the error message "User doesn't have permission" is given
 
+# Daniel
 Scenario: a worker tries to edit project description without PM
 Given a user with username "SM" logs in
 And a project with name "Fun graphical UI" is created
@@ -87,6 +91,7 @@ And an activity with name "starting with the basics" under the project is create
 When the user finishes the project
 Then the error message "Project contains unfinished activities" is given
 
+# Daniel
 Scenario: PM edits project start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -94,12 +99,14 @@ And the user is assigned to the project as leader
 When the project start time "16-2023" is set
 Then the project start time becomes "16-2023"
 
+# Daniel
 Scenario: user edits project start time with no PM assigned
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 When the project start time "17-2023" is set
 Then the project start time becomes "17-2023"
 
+# Daniel
 Scenario: user edits project start time with PM assigned
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -108,18 +115,21 @@ And a user with username "AB" logs in
 When the project start time "18-2023" is set
 Then the error message "User doesn't have permission" is given
 
+# Daniel
 Scenario: edit project start time to a non-exitent start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 When the project start time "56-2023" is set
-Then the error message "Please enter a week between 1 and 52" is given
+Then the error message "Please enter a week number between 1 and 52" is given
 
+# Daniel
 Scenario: edit project start time to a non-exitent start time when the year has 53 weeks
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 When the project start time "56-2026" is set
-Then the error message "Please enter a week between 1 and 53" is given
+Then the error message "Please enter a week number between 1 and 53" is given
 
+# Daniel
 Scenario: PM edits project end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -128,6 +138,7 @@ And the project start time "16-2020" is set
 When the project end time "19-2023" is set
 Then the project end time becomes "19-2023"
 
+# Daniel
 Scenario: user edits project end time with no PM assigned
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -135,6 +146,7 @@ And the project start time "16-2020" is set
 When the project end time "20-2023" is set
 Then the project end time becomes "20-2023"
 
+# Daniel
 Scenario: user edits project end time with PM assigned
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -143,18 +155,21 @@ And a user with username "AB" logs in
 When the project end time "21-2023" is set
 Then the error message "User doesn't have permission" is given
 
+# Daniel
 Scenario: edit project end time to a non-exitent end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 When the project end time "56-2023" is set
-Then the error message "Please enter a week between 1 and 52" is given
+Then the error message "Please enter a week number between 1 and 52" is given
 
+# Daniel
 Scenario: edit project end time to a non-exitent end time when the year has 53 weeks
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 When the project end time "56-2026" is set
-Then the error message "Please enter a week between 1 and 53" is given
+Then the error message "Please enter a week number between 1 and 53" is given
 
+# Daniel
 Scenario: edit project end time to a time before start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created

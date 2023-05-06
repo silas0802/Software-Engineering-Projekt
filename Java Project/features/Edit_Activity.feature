@@ -15,7 +15,7 @@ And an activity with name "Username interface" under the project is created
 And a project with name "minSunhed" is created
 And the user is assigned to the activity
 When the user is assigned to the actitivy
-Then the error message "Worker is already assigned to a project" is given
+Then the error message "User is already assigned to the activity" is given
 
 Scenario: edit activity name
 Given a user with username "JG" logs in
@@ -46,7 +46,7 @@ And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 When the activity start time "56-2023" is set
-Then the error message "Please enter a week between 1 and 52" is given
+Then the error message "Please enter a week number between 1 and 52" is given
 
 Scenario: edit activity start time to a non-exitent start time when the year has 53 weeks
 Given a user with username "TH" logs in
@@ -54,7 +54,7 @@ And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 When the activity start time "56-2026" is set
-Then the error message "Please enter a week between 1 and 53" is given
+Then the error message "Please enter a week number between 1 and 53" is given
 
 Scenario: edit activity end time
 Given a user with username "TH" logs in
@@ -72,7 +72,7 @@ And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2020" is set
 And the activity end time "16-2026" is set
 When the activity end time "56-2023" is set
-Then the error message "Please enter a week between 1 and 52" is given
+Then the error message "Please enter a week number between 1 and 52" is given
 
 Scenario: edit activity end time to a non-exitent end time when the year has 53 weeks
 Given a user with username "TH" logs in
@@ -81,7 +81,7 @@ And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2020" is set
 And the activity end time "16-2026" is set
 When the activity end time "56-2026" is set
-Then the error message "Please enter a week between 1 and 53" is given
+Then the error message "Please enter a week number between 1 and 53" is given
 
 Scenario: edit activity end time to a time before start time
 Given a user with username "TH" logs in

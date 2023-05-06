@@ -52,6 +52,7 @@ And an activity with name "purchasing meat" under the project is created
 When a Description with name "we need this done asap" is added
 Then the Description is added to the activity
 
+# Daniel Henriksen
 Scenario: set activity start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -59,20 +60,23 @@ And an activity with name "Exit everything" under the project is created
 When the activity start time "15-2023" is set
 Then the activity start time becomes "15-2023"
 
+# Daniel Henriksen
 Scenario: set a non-exitent activity start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 When the activity start time "56-2023" is set
-Then the error message "Please enter a week between 1 and 52" is given
+Then the error message "Please enter a week number between 1 and 52" is given
 
+# Daniel Henriksen
 Scenario: set a non-exitent activity start time when the year has 53 weeks
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 When the activity start time "56-2026" is set
-Then the error message "Please enter a week between 1 and 53" is given
+Then the error message "Please enter a week number between 1 and 53" is given
 
+# Daniel Henriksen
 Scenario: set activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -81,20 +85,23 @@ And the activity start time "15-2020" is set
 When the activity end time "15-2023" is set
 Then the activity end time becomes "15-2023"
 
+# Daniel Henriksen
 Scenario: set a non-exitent activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 When the activity end time "56-2023" is set
-Then the error message "Please enter a week between 1 and 52" is given
+Then the error message "Please enter a week number between 1 and 52" is given
 
+# Daniel Henriksen
 Scenario: set a non-exitent activity end time when the year has 53 weeks
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 When the activity end time "56-2026" is set
-Then the error message "Please enter a week between 1 and 53" is given
+Then the error message "Please enter a week number between 1 and 53" is given
 
+# Daniel Henriksen
 Scenario: activity end time is set before start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -102,6 +109,7 @@ And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 When the activity end time "15-2026" is set
 Then the error message "End time comes before Start time" is given
+
 
 Scenario: Set expected work time on activity
 Given a user with username "JD" logs in

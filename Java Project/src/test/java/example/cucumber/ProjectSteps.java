@@ -178,6 +178,7 @@ public class ProjectSteps {
         // Write code here that turns the phrase above into concrete actions
         Project.setIdYearCounter(int1);
     }
+    
     //Daniel Henriksen
     @When("the project start time {string} is set")
         public void theProjectStartTimeIsSet(String startTime) {
@@ -187,12 +188,14 @@ public class ProjectSteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
         }
+
     //Daniel Henriksen
     @Then("the project start time becomes {string}")
         public void theProjectStartTimeBecomes(String startTime) {
             assertEquals(VariablesHolder.project.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
             assertEquals(VariablesHolder.project.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
+    
     //Daniel Henriksen
     @When("the project end time {string} is set")
         public void theProjectEndTimeIsSet(String endTime) {
@@ -202,7 +205,8 @@ public class ProjectSteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
         }
-        //Daniel Henriksen
+    
+    //Daniel Henriksen
     @Then("the project end time becomes {string}")
         public void theProjectEndTimeBecomes(String endTime) {
             assertEquals(VariablesHolder.project.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));

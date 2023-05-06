@@ -162,7 +162,7 @@ public class ActivitySteps {
     @When("a Description with name {string} is added")
     public void aDescriptionWithNameIsAdded(String description) {
         VariablesHolder.description=description;
-    projectManagerApp.setActiveDescription(VariablesHolder.activity, description);
+    projectManagerApp.setActivityDescription(VariablesHolder.activity, description);
     }
 
     @Then("the Description is added to the activity")
@@ -242,6 +242,7 @@ public class ActivitySteps {
         assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
     }
     
+    // Daniel
     @When("the activity start time {string} is set")
         public void theStartTimeIsSet(String startTime) {
             try {
@@ -250,13 +251,15 @@ public class ActivitySteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
         }
-
+    
+    // Daniel
     @Then("the activity start time becomes {string}")
         public void theStartTimeBecomes(String startTime) {
             assertEquals(VariablesHolder.activity.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
             assertEquals(VariablesHolder.activity.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
 
+    // Daniel
     @When("the activity end time {string} is set")
         public void theEndTimeIsSet(String endTime) {
             try {
@@ -265,7 +268,8 @@ public class ActivitySteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
         }
-    
+   
+    // Daniel
     @Then("the activity end time becomes {string}")
         public void theEndTimeBecomes(String endTime) {
             assertEquals(VariablesHolder.activity.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));

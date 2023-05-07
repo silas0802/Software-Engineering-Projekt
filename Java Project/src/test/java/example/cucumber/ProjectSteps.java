@@ -3,6 +3,9 @@ package example.cucumber;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
+import application.Activity;
 import application.OperationNotAllowedException;
 import application.Project;
 import application.ProjectManagerApp;
@@ -211,5 +214,46 @@ public class ProjectSteps {
         public void theProjectEndTimeBecomes(String endTime) {
             assertEquals(VariablesHolder.project.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));
             assertEquals(VariablesHolder.project.getEndTime().getYear(), Integer.parseInt(endTime.split("-")[1]));
+        }
+
+
+        //Jesper pedersen
+    @Given("activity with name {string} is finished")
+        public void activityWithNameIsFinished(String actiname) {
+        List<Activity> projectActivities =VariablesHolder.project.getActivities();
+        
+        for(Activity a: projectActivities){
+            if (a.getName().equals(actiname)) {
+                VariablesHolder.activity=a;
+            }
+        }
+        projectManagerApp.finishActivity(VariablesHolder.project, VariablesHolder.activity);
+        }
+
+        //Jesper pedersen
+    @When("the projectLeader finishes project")
+        public void theProjectLeaderFinishesProject() throws OperationNotAllowedException {
+            try{
+                projectManagerApp.finishProject(VariablesHolder.project);
+                } catch(OperationNotAllowedException e){
+                    VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+                }
+        }
+
+        //Jesper pedersen
+    @When("the user finishes project")
+        public void theUserFinishesProject() {
+            try{
+                projectManagerApp.finishProject(VariablesHolder.project);
+                } catch(OperationNotAllowedException e){
+                    VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+                }
+        }
+
+
+        //Jesper pedersen
+    @Then("the project is finished")
+        public void theProjectIsFinished() {
+            assertTrue(VariablesHolder.project.isFinished());
         }
 }

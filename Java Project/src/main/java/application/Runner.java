@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Runner {
 
     static ProjectManagerApp projectManagerApp = new ProjectManagerApp();
@@ -22,7 +21,7 @@ public class Runner {
     public static void dummies(int workers, int projects, int activities){
         for (int i = 1; i <= workers; i++) {
             
-            projectManagerApp.createUser(new User("User " + i));
+            projectManagerApp.createUser(new User("Use" + i));
         }
         for (int i = 1; i <= projects; i++) {
             projectManagerApp.createProject(new Project("Project " + i));
@@ -32,7 +31,7 @@ public class Runner {
         for(Project p : proj){
             for (int i = 1; i <= activities; i++) {
                 try {
-                    projectManagerApp.createActivity(p, new Activity("Activity " + p.getName() + " " + i));
+                    projectManagerApp.createActivity(p, new Activity("Activity " + i));
                 } catch (OperationNotAllowedException e) {
                     System.out.println(e.getMessage());
                     
@@ -45,7 +44,6 @@ public class Runner {
     public static void logIn(){
         newPage("SYSTEM LOGIN");
 
-        // System.out.println("SYSTEM LOGIN");
         System.out.println("Please enter your initials:");
         
         String initials;
@@ -57,13 +55,17 @@ public class Runner {
                 System.out.println("Please enter up to 4 initials:");
                 continue;
             }
+            else if(initials.contains(" ")){
+                System.out.println("Your input cannot contain spaces");
+                continue;
+            }
             else if(projectManagerApp.hasUserByName(initials)){
                 System.out.println("User with initials "+initials+" logged ind");
                 
                 projectManagerApp.login(projectManagerApp.getUserByName(initials));
                 mainMenu();
             }
-            else if(yesno("Do you wanna create a new user with initials " + initials + "?")){
+            else if(yesNo("Do you wanna create a new user with initials " + initials + "?")){
                 user = new User(initials);
                 System.out.println("New User registered");
                 System.out.println("User with initials "+initials+" logged ind");
@@ -234,7 +236,7 @@ public class Runner {
                 }else if(ans==5){
                     seeTimeWorked(activity);
                 }else if(ans==6){
-                    if(yesno("Would you like to finish the activity?")){
+                    if(yesNo("Would you like to finish the activity?")){
                         System.out.println("Activity is now finished");
                         projectManagerApp.finishActivity(activity.getProject(), activity);
                         viewActivity(activity);
@@ -401,7 +403,7 @@ public class Runner {
         System.out.println();
         System.out.println("Project succesfully created");
         System.err.println();
-        if(yesno("Create activity in project?")){
+        if(yesNo("Create activity in project?")){
             createActivity(project);
         } else{
             mainMenu();
@@ -427,7 +429,7 @@ public class Runner {
         System.out.println();
         System.out.println("Activity succesfully created");
         System.err.println();
-        if(yesno("Assign "+user.getUserName()+" to activity?")){
+        if(yesNo("Assign "+user.getUserName()+" to activity?")){
             try {
                 projectManagerApp.assignActivityToUser(user, activity);
             } catch (OperationNotAllowedException e) {
@@ -577,7 +579,7 @@ public class Runner {
                     workersAssignedToProject(project);
                 }
                 else if (ans==6 && project.isFinished()==false){
-                    if(yesno("Do you wanne mark the project as finished?")){
+                    if(yesNo("Do you wanne mark the project as finished?")){
                         try {
                             projectManagerApp.finishProject(project);
                             viewProject(project);
@@ -842,7 +844,7 @@ public class Runner {
                 viewProject(project);
             }
             user = users.get(ans-2);
-            if(yesno("Do you want to assign " + user.getUserName() + " as the project manager for " + project.getName() +"?")){
+            if(yesNo("Do you want to assign " + user.getUserName() + " as the project manager for " + project.getName() +"?")){
                 projectManagerApp.assignLeader(project, user);
                 System.out.println(user.getUserName() + " is now the project manager");
                 viewProject(project);
@@ -885,13 +887,22 @@ public class Runner {
     
 
     
-    public static boolean yesno(String String){
-        System.out.println(String+ " (y/n)");
-        char ans = scanner.nextLine().charAt(0);
-        if(ans == 'y' || ans == 'Y'){
-            return true;
-        } else{
-            return false;
+    public static boolean yesNo(String String){
+        while(true){
+            System.out.println(String+ " (y/n)");
+            char ans;
+            try {
+                ans = scanner.nextLine().charAt(0);
+            } catch (Exception e) {
+                continue;
+            }
+            if(ans == 'y' || ans == 'Y'){
+                return true;
+            } else if (ans == 'n' || ans == 'N'){
+                return false;
+            } else {
+                continue;
+            }
         }
     }
 
@@ -987,8 +998,8 @@ public class Runner {
             // start time
             else if(ans == 5){
                 System.out.println("Please enter time on the form:");
+                System.out.println("WW-YYYY");
                 while(true){
-                    System.out.println("WW-YYYY");
                     String temp = scanner.nextLine();
                     back(temp, activity, 1);
                     try {
@@ -1006,8 +1017,8 @@ public class Runner {
             //end time
             else if(ans == 6){
                 System.out.println("Please enter time on the form:");
+                System.out.println("WW-YYYY");
                 while(true){
-                    System.out.println("WW-YYYY");
                     String temp = scanner.nextLine();
                     back(temp, activity, 1);
                     try {
@@ -1082,8 +1093,8 @@ public class Runner {
             // start time
             else if(ans == 4){
                 System.out.println("Please enter time on the form:");
+                System.out.println("WW-YYYY");
                 while(true){
-                    System.out.println("WW-YYYY");
                     String temp = scanner.nextLine();
                     back(temp, project, 1);
                     try {
@@ -1101,8 +1112,8 @@ public class Runner {
             //end time
             else if(ans == 5){
                 System.out.println("Please enter time on the form:");
+                System.out.println("WW-YYYY");
                 while(true){
-                    System.out.println("WW-YYYY");
                     String temp = scanner.nextLine();
                     back(temp, project, 1);
                     try {

@@ -246,12 +246,12 @@ public class ProjectManagerApp {
         }
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {
         activity.setStartTime(startTime);
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
         if (activity.getStartTime().getYear() >= endTime.getYear() || (activity.getStartTime().getWeek() >= endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
@@ -260,7 +260,7 @@ public class ProjectManagerApp {
         }
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setProjectStartTime (Project project, StartEndTime startTime) throws OperationNotAllowedException {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
@@ -268,7 +268,7 @@ public class ProjectManagerApp {
         project.setStartTime(startTime);  
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setProjectEndTime (Project project, StartEndTime endTime) throws OperationNotAllowedException {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
@@ -281,23 +281,23 @@ public class ProjectManagerApp {
         }
     }
 
-    // Daniel
+    // Daniel Henriksen
     public StartEndTime timeInputChecker(String timeInput) throws OperationNotAllowedException{
         StartEndTime time = null;
         if(timeInput.length() > 7 || !timeInput.contains("-")){
-            throw new OperationNotAllowedException("The input has to be on the form:");
+            throw new OperationNotAllowedException("The input has to contain a \"-\" and be on the form: WW-YYYY");
         }
 
         String weekYear[] = timeInput.split("-");
 
-        if(!(weekYear[0].length() == 2) && weekYear[1].length() == 4){
-            throw new OperationNotAllowedException("The input has to be on the form:");                  
+        if(!(weekYear[0].length() == 2 && weekYear[1].length() == 4)){
+            throw new OperationNotAllowedException("The input has to be on the form: WW-YYYY");
         }
 
         try {
             time = new StartEndTime(Integer.parseInt(weekYear[0]), Integer.parseInt(weekYear[1]));
         } catch (Exception e) {
-            throw new OperationNotAllowedException("The input has to be two numbers on the form:");
+            throw new OperationNotAllowedException("The input has to be two numbers on the form: WW-YYYY");
         }
 
         LocalDate firstDayOfTheYear = LocalDate.of(time.getYear(), 1, 1);

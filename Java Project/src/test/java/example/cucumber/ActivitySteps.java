@@ -258,7 +258,7 @@ public class ActivitySteps {
         assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
     }
     
-    // Daniel
+    // Daniel Henriksen
     @When("the activity start time {string} is set")
         public void theStartTimeIsSet(String startTime) {
             try {
@@ -268,14 +268,14 @@ public class ActivitySteps {
             }
         }
     
-    // Daniel
+    // Daniel Henriksen
     @Then("the activity start time becomes {string}")
         public void theStartTimeBecomes(String startTime) {
             assertEquals(VariablesHolder.activity.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
             assertEquals(VariablesHolder.activity.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
 
-    // Daniel
+    // Daniel Henriksen
     @When("the activity end time {string} is set")
         public void theEndTimeIsSet(String endTime) {
             try {
@@ -285,7 +285,7 @@ public class ActivitySteps {
             }
         }
    
-    // Daniel
+    // Daniel Henriksen
     @Then("the activity end time becomes {string}")
         public void theEndTimeBecomes(String endTime) {
             assertEquals(VariablesHolder.activity.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));

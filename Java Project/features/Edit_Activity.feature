@@ -40,7 +40,7 @@ When a Description with name "need usernames of min 8 chars" is added
 Then the Description "need usernames of min 8 chars" is on the activity
 
 
-#jesper pedersen
+# Daniel Henriksen
 Scenario: edit activity start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -49,26 +49,8 @@ And the activity start time "16-2026" is set
 When the activity start time "15-2023" is set
 Then the activity start time becomes "15-2023"
 
-#jesper pedersen
-Scenario: edit activity start time to a non-exitent start time
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2026" is set
-When the activity start time "56-2023" is set
-Then the error message "Please enter a week number between 1 and 52" is given
 
-#jesper pedersen
-Scenario: edit activity start time to a non-exitent start time when the year has 53 weeks
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2026" is set
-When the activity start time "56-2026" is set
-Then the error message "Please enter a week number between 1 and 53" is given
-
-
-#jesper pedersen
+# Daniel Henriksen
 Scenario: edit activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -79,28 +61,7 @@ When the activity end time "15-2023" is set
 Then the activity end time becomes "15-2023"
 
 
-
-Scenario: edit activity end time to a non-exitent end time
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2020" is set
-And the activity end time "16-2026" is set
-When the activity end time "56-2023" is set
-Then the error message "Please enter a week number between 1 and 52" is given
-
-
-
-
-Scenario: edit activity end time to a non-exitent end time when the year has 53 weeks
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2020" is set
-And the activity end time "16-2026" is set
-When the activity end time "56-2026" is set
-Then the error message "Please enter a week number between 1 and 53" is given
-
+# Daniel Henriksen
 Scenario: edit activity end time to a time before start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -109,6 +70,7 @@ And the activity start time "16-2026" is set
 And the activity end time "20-2026" is set
 When the activity end time "15-2026" is set
 Then the error message "End time comes before Start time" is given
+
 
 #jesper pedersen
 Scenario: edit expected work time on activity

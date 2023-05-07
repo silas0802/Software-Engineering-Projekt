@@ -250,8 +250,7 @@ public class Runner {
     public static void usersAssignedToActivity(Activity activity,Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Users assigned to activity "+activity.getName());
+        newPage("Users assigned to activity "+activity.getName());
 
         if(activity.getUsersOnActivity().size()==0){
             System.out.println("***No users assigned to activity***");
@@ -287,8 +286,8 @@ public class Runner {
     public static void assignUserToActivity(Activity activity,Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Assign Users to activity: "+activity.getName());
+        newPage("Assign Users to activity: "+activity.getName());
+
         System.out.println("0. back");
         for (int i = 0; i < project.getWorkers().size(); i++) {
             if(projectManagerApp.userHasActivity(activity, project.getWorkers().get(i))){
@@ -586,8 +585,8 @@ public class Runner {
     public static void workersAssignedToProject(Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Workers assigned to project "+project.getName());
+        newPage("Workers assigned to project "+project.getName());
+        
         if (project.getWorkers().size()==0) {
             System.out.println("No workers assigned to project");
         }else{
@@ -620,8 +619,7 @@ public class Runner {
     public static void assignUserToProject(Project project){
         String ansString;
         int ans;
-        newPage();
-        System.out.println("Assign Users to activity: "+project.getName());
+        newPage("Assign Users to activity: "+project.getName());
         
         if(projectManagerApp.users.size()==0){
             System.out.println("no workers registered");
@@ -891,7 +889,7 @@ public class Runner {
         }
         System.out.println();
     }
-
+    //Anton Ekman
     public static void editActivity(Activity activity){
         newPage("EDIT ACTIVITY");
         // System.out.println("EDIT ACTIVITY");
@@ -996,7 +994,7 @@ public class Runner {
             }   
         }
     }
-    
+    //Anton Ekman
     public static void editProject(Project project){
         newPage("EDIT PROJECT");
         // System.out.println("EDIT PROJECT");
@@ -1009,9 +1007,9 @@ public class Runner {
         int ans;
         while(true){
             System.out.println("Enter a number:");
-            String ans1 = scanner.nextLine();
+            String ansString = scanner.nextLine();
             try {
-                ans = Integer.parseInt(ans1);
+                ans = Integer.parseInt(ansString);
             } catch (Exception e) {
                 continue;
             }

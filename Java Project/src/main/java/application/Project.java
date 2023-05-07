@@ -32,35 +32,36 @@ public class Project {
         this.id = (Year.now().getValue() % 100)*1000+idCounter;
         idCounter++;
     }
-    //get and set for all varribles
+    //get and set for all varribles 
+    //Anton Ekman
     public String getName() {
         return this.name;
     }
-
+    //Anton Ekman
     public void setName(String name) {
         this.name = name;
     }
-
+    //Anton Ekman
     public String getDescription() {
         return this.description;
     }
-
+    //Anton Ekman
     public void setDescription(String description) {
         this.description = description;
     }
-
+    //Anton Ekman
     public StartEndTime getStartTime() {
         return startTime;
     }
-
+    //Anton Ekman
     public void setStartTime(StartEndTime startTime) {
         this.startTime = startTime;
     }
-
+    //Anton Ekman
     public StartEndTime getEndTime() {
         return endTime;
     }
-
+    //Anton Ekman
     public void setEndTime(StartEndTime endTime) {
         this.endTime = endTime;
     }
@@ -89,10 +90,6 @@ public class Project {
     public void finishProject(){
         isFinished = true;
     }
-
-    public void giveRapport(){
-        //tbd
-    }
     
     //Silas Thule
     public void assignWorker(User user) throws OperationNotAllowedException{
@@ -113,11 +110,11 @@ public class Project {
             }
         }
     }
-
+    //Anton Ekman
     public void setActivity(Activity activity){
         activities.add(activity);
     }
-
+    //Anton Ekman
     public ArrayList<Activity> getActivities(){
         return activities;
     }

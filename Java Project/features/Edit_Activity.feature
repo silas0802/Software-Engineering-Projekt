@@ -1,13 +1,15 @@
 Feature: Edit Activity Feature
 
+#Anton Ekman
 Scenario: user is assigned to an activity
 Given a user with username "TY" logs in
-And a project with name "IM GOING INSANE" is created
+And a project with name "Website development" is created
 And an activity with name "Username interface" under the project is created 
 And a user with username "KY" is added to the system
 When the user is assigned to the activity
 Then the user has been assigned to the activity
 
+#Anton Ekman
 Scenario: user is already assigned to the activity
 Given a user with username "JP" logs in
 And a user with username "JY" is added to the system

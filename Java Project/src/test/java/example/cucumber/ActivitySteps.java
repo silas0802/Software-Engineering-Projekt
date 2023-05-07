@@ -84,7 +84,7 @@ public class ActivitySteps {
     }
 
 
-
+    //Anton Ekman
     @Given("{int} activities are assigned to user")
     public void activitiesAreAssignedToUser(Integer numofActivities) {
         for (int i = 0; i < numofActivities; i++) {
@@ -96,17 +96,17 @@ public class ActivitySteps {
         }
         }
     }
-
+    //Anton Ekman
     @When("an activity with name {string} is assigned to user")
     public void anActivityWithNameIsAssignedToUser(String activityName) {
     VariablesHolder.activity=new Activity(activityName);
-    try{
-        projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
-    }catch(OperationNotAllowedException e){
-        VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        try{
+            projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
+        }catch(OperationNotAllowedException e){
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
-    }
-
+    //Anton Ekman
     @Then("the error message {string}")
     public void theErrorMessage(String errorMessage1) {
         assertEquals(errorMessage1, VariablesHolder.errorMessageHolder.getErrorMessage());
@@ -125,10 +125,10 @@ public class ActivitySteps {
 
     @Given("{int} users are logged in")
     public void usersAreLoggedIn(Integer operations) {
-    for (int i = 0; i < operations; i++) {
-        User user = new User("Bot");
-        projectManagerApp.createUser(user);
-    }
+        for (int i = 0; i < operations; i++) {
+            User user = new User("Bot");
+            projectManagerApp.createUser(user);
+        }
     }
 
     @Given("{int} users has active activities")
@@ -171,12 +171,12 @@ public class ActivitySteps {
         
     }
 
-
+    
     @Given("the user is assigned to the activity")
     public void theUserIsAssignedToTheActivity() throws OperationNotAllowedException {
         projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
     }
-
+    //Anton Ekman
     @When("the user is assigned to the actitivy")
     public void theUserIsAssignedToTheActitivy() throws OperationNotAllowedException {
         try {

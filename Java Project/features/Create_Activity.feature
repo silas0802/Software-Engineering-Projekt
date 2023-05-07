@@ -2,12 +2,15 @@ Feature: create activity
 Description: Creating activities
 Actors: User
 
+#jesper pedersen
 Scenario: create activity
 Given a user with username "GB" logs in
 And a project with name "Destroy C language" is created
 When an activity with name "starting with the basics" under the project is created
 Then the project contains the activity
 
+
+#jesper pedersen
 Scenario: too many activities on a project
 Given a user with username "HB" logs in
 And a project with name "build a Holograaphic city" is created
@@ -15,6 +18,9 @@ And the project has 100 active activities
 When an activity with name "build a well" under the project is created
 Then the error message "Too many activities" is given
 
+
+
+#jesper pedersen
 Scenario: looking at a workers activities
 Given a user with username "JP" logs in
 And a project with name "lunch system" is created
@@ -24,6 +30,9 @@ And an activity with name "buying salad" under the project is created
 And user is assigned the activities
 Then user has the assigned activities
 
+
+
+#jesper pedersen
 Scenario: too many activities for user
 Given a user with username "JP" logs in
 And a project with name "Bully JP" is created
@@ -31,12 +40,16 @@ And 20 activities are assigned to user
 When an activity with name "end JP" is assigned to user
 Then the error message "Maximum of 20 activities are already assigned to user this week"
 
+#jesper pedersen
 Scenario: the activity belongs to a project
 Given a user with username "GB" logs in
 And a project with name "kill everyone" is created
 And an activity with name "start with oxygen supply" under the project is created
 Then the project which the activity belongs to is shown
 
+
+
+#jesper pedersen
 Scenario: add multiple users to activity
 Given 20 users are logged in 
 And 10 users has active activities
@@ -45,6 +58,7 @@ And an activity with name "small stuff" under the project is created
 When searching for users without activities
 Then all users without activities are assigned to the activity
 
+#jesper pedersen
 Scenario: set activity Description
 Given a user with username "EH" logs in
 And a project with name "Buy groceris" is created
@@ -111,6 +125,7 @@ When the activity end time "15-2026" is set
 Then the error message "End time comes before Start time" is given
 
 
+#jesper pedersen
 Scenario: Set expected work time on activity
 Given a user with username "JD" logs in
 And a project with name "SU-kontoret" is created

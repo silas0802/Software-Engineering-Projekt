@@ -83,10 +83,11 @@ public class Project {
         }
         return sum;
     }
+    //jesper pedersen
     public boolean isFinished() {
         return isFinished;
     }
-    
+    //jesper pedersen
     public void finishProject(){
         isFinished = true;
     }
@@ -128,17 +129,20 @@ public class Project {
         }
         return null;
     }
-
+    //jesper pedersen
     public void setFinishedActivity(Activity activity){
         finishedActivities.add(activity);
         activities.remove(activity);
     }
+    //jesper pedersen
     public ArrayList<Activity> getFinishedActivities(){
         return finishedActivities;
     }
+    //jesper pedersen
     public User getProjectLeader() {
         return projectLeader;
     }
+    //jesper pedersen
     public void setProjectLeader(User projectLeader) {
         this.projectLeader = projectLeader;
     }

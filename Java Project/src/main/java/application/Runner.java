@@ -18,6 +18,7 @@ public class Runner {
         
     }
 
+    //jesper pedersen
     public static void dummies(int workers, int projects, int activities){
         for (int i = 1; i <= workers; i++) {
             
@@ -40,6 +41,7 @@ public class Runner {
         }
     }
 
+    //jesper pedersen
     public static void logIn(){
         newPage("SYSTEM LOGIN");
 
@@ -75,6 +77,7 @@ public class Runner {
         }
     }
 
+    //jesper pedersen
     public static void mainMenu(){
         newPage("MAIN MENU");
         System.out.println("1. See your activities");
@@ -113,6 +116,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void seeYourActivities(User user){
         String ansString;
         int ans;
@@ -164,6 +169,7 @@ public class Runner {
         }
     }
 
+    //jesper pedersen
     public static void viewActivity(Activity activity){
         String ansString;
         int ans;
@@ -240,6 +246,7 @@ public class Runner {
         } 
     }
 
+    //jesper pedersen
     public static void usersAssignedToActivity(Activity activity,Project project){
         String ansString;
         int ans;
@@ -277,6 +284,7 @@ public class Runner {
         }
     }
 
+    //jesper pedersen
     public static void assignUserToActivity(Activity activity,Project project){
         String ansString;
         int ans;
@@ -320,6 +328,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void seeTimeWorked(Activity activity){
         String ansString;
         int ans;
@@ -350,6 +360,8 @@ public class Runner {
     }
 
     
+
+    //jesper pedersen
     public static void activityDetails(Activity activity){
         if(activity.isActivityfinished()){
             System.out.println("***FINISHED***");
@@ -375,6 +387,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void createProject(){
         newPage("CREATE PROJECT");
         // System.out.println("Creating project");
@@ -394,6 +408,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void createActivity(Project project){
         newPage("CREATE ACTIVITY");
         System.out.println("Enter activity name:");
@@ -428,6 +444,7 @@ public class Runner {
         }
     }
 
+    //jesper pedersen
     public static void seeAllProjects(){
         List<Project> projects = projectManagerApp.getProjects();
         String ansString;
@@ -483,6 +500,8 @@ public class Runner {
         
     }
 
+
+    //jesper pedersen
     public static void viewProject(Project project){
         String ansString;
         int ans;
@@ -575,7 +594,7 @@ public class Runner {
         }
     }
 
-
+    //jesper pedersen
     public static void workersAssignedToProject(Project project){
         String ansString;
         int ans;
@@ -612,6 +631,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void assignUserToProject(Project project){
         String ansString;
         int ans;
@@ -664,6 +685,8 @@ public class Runner {
         }
     }
     
+
+    //jesper pedersen
     public static void seeActiveActivities(Project project){
         String ansString;
         int ans;
@@ -731,6 +754,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void seeFinishedActivities(Project project){
         String ansString;
         int ans;
@@ -786,6 +811,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void setProjectLeaderToProject(Project project){
         String ansString;
         int ans;
@@ -824,6 +851,8 @@ public class Runner {
         }
     }
 
+
+    //jesper pedersen
     public static void projectDetails(Project project){
         if(project.isFinished()){
             System.out.println("***FINISHED***");
@@ -853,6 +882,8 @@ public class Runner {
             System.out.println("End date: unknown");
         }
     }
+    
+
     
     public static boolean yesno(String String){
         System.out.println(String+ " (y/n)");
@@ -993,6 +1024,8 @@ public class Runner {
             }   
         }
     }
+
+
     //Anton Ekman
     public static void editProject(Project project){
         newPage("EDIT PROJECT");

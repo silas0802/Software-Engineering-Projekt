@@ -33,7 +33,7 @@ public class User {
     public double getTimeWorked() {
         return timeWorked;
     }
-
+    
     public void joinActivity(Activity activity){
         activities.add(activity);
     }

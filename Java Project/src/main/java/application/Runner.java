@@ -1040,7 +1040,6 @@ public class Runner {
     //Anton Ekman
     public static void editProject(Project project){
         newPage("EDIT PROJECT");
-        // System.out.println("EDIT PROJECT");
         System.out.println("0. Main menu");
         System.out.println("1. Back to project details");
         System.out.println("2. Edit name");

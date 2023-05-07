@@ -253,7 +253,7 @@ public class ProjectManagerApp {
 
     // Daniel Henriksen
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
-        if (activity.getStartTime().getYear() >= endTime.getYear() || (activity.getStartTime().getWeek() >= endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
+        if (activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() >= endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         } else {
             activity.setEndTime(endTime);
@@ -274,7 +274,7 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
 
-        if (project.getStartTime().getYear() >= endTime.getYear() || (project.getStartTime().getWeek() >= endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
+        if (project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() >= endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         } else {
             project.setEndTime(endTime);

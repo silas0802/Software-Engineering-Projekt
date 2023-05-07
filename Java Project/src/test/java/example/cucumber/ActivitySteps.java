@@ -27,7 +27,7 @@ public class ActivitySteps {
         
     }
 
-
+    //jesper pedersen
     @When("an activity with name {string} under the project is created")
     public void anActivityWithNameUnderTheProjectIsCreated(String activityName) throws OperationNotAllowedException {
         
@@ -40,6 +40,7 @@ public class ActivitySteps {
         
     }
     
+    //jesper pedersen
     @Then("the project contains the activity")
     public void theProjectContainsTheActivity() {
         assertTrue(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
@@ -48,7 +49,7 @@ public class ActivitySteps {
     }
 
 
-
+    //jesper pedersen
     @Given("the project has {int} active activities")
     public void theProjectHasActiveActivities(Integer numofActivities) throws OperationNotAllowedException {
         for (int i = 0; i < numofActivities; i++) {
@@ -56,7 +57,7 @@ public class ActivitySteps {
             projectManagerApp.createActivity(VariablesHolder.project, activity);
         }
     }
-
+    //jesper pedersen
     @Then("the error message {string} is given")
     public void theErrorMessageIsGiven(String errorMessage) {
 
@@ -65,7 +66,7 @@ public class ActivitySteps {
     }
         
 
-
+    //jesper pedersen
     @When("user is assigned the activities")
     public void userIsAssignedTheActivities() {
         try{
@@ -77,6 +78,7 @@ public class ActivitySteps {
 
     }
 
+    //jesper pedersen
     @Then("user has the assigned activities")
     public void userHasTheAssignedActivities() {
         assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
@@ -114,7 +116,7 @@ public class ActivitySteps {
     }
 
 
-
+    //jesper pedersen
     @Then("the project which the activity belongs to is shown")
     public void theProjectWhichTheActivityBelongsToIsShown() {
         
@@ -122,7 +124,7 @@ public class ActivitySteps {
     }
 
 
-
+    //jesper pedersen
     @Given("{int} users are logged in")
     public void usersAreLoggedIn(Integer operations) {
         for (int i = 0; i < operations; i++) {
@@ -131,6 +133,8 @@ public class ActivitySteps {
         }
     }
 
+
+    //jesper pedersen
     @Given("{int} users has active activities")
     public void usersHasActiveActivities(Integer operations) throws OperationNotAllowedException {
         List<User> users =projectManagerApp.getUsers();
@@ -141,6 +145,7 @@ public class ActivitySteps {
         }
     }
 
+    //jesper pedersen    
     @When("searching for users without activities")
     public void searchingForUsersWithoutActivities() throws OperationNotAllowedException {
         List<User> users = projectManagerApp.getUsers();
@@ -152,26 +157,28 @@ public class ActivitySteps {
 
     }
 
+    //jesper pedersen
     @Then("all users without activities are assigned to the activity")
     public void allUsersWithoutActivitieAreAssignedToTheActivity() {
         
         assertEquals(10,VariablesHolder.activity.getUsersOnActivity().size() );
     }
 
-
+    //jesper pedersen
     @When("a Description with name {string} is added")
     public void aDescriptionWithNameIsAdded(String description) {
         VariablesHolder.description=description;
     projectManagerApp.setActivityDescription(VariablesHolder.activity, description);
     }
 
+    //jesper pedersen
     @Then("the Description is added to the activity")
     public void theDescriptionIsAddedToTheActivity() {
         assertEquals(VariablesHolder.description, VariablesHolder.activity.getDescription());
         
     }
 
-    
+    //jesper pedersen
     @Given("the user is assigned to the activity")
     public void theUserIsAssignedToTheActivity() throws OperationNotAllowedException {
         projectManagerApp.assignActivityToUser(VariablesHolder.user, VariablesHolder.activity);
@@ -187,42 +194,49 @@ public class ActivitySteps {
         }
     }
 
+    //jesper pedersen
     @Then("the Description {string} is on the activity")
     public void theDescriptionIsOnTheActivity(String descrip) {
         assertEquals(VariablesHolder.activity.getDescription(), descrip);
     }
 
+    //jesper pedersen
     @When("the activities name is edited to {string}")
     public void theActivitiesNameIsEditedTo(String actiname) {
         VariablesHolder.activity.setName(actiname);
     }
 
+    //jesper pedersen
     @Then("the name of the activity is {string}")
     public void theNameOfTheActivityIs(String activiname) {
         assertEquals(VariablesHolder.activity.getName(), activiname);
     }
 
+    //jesper pedersen
     @When("the user sets the expected work time of the activity to {int}")
     public void theUserSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
         VariablesHolder.activity.setExpectedDuration(exptime);
     }
 
+    //jesper pedersen
     @Then("the expected work time of the activity is {int}")
     public void theExpectedWorkTimeOfTheActivityIs(Integer exptime) {
         assertEquals(VariablesHolder.activity.getExpectedDuration(), exptime);
     }
 
+    //jesper pedersen
     @Given("user sets the expected work time of the activity to {int}")
     public void userSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
     VariablesHolder.activity.setExpectedDuration(exptime);
     }
 
-
+    //jesper pedersen
     @When("the user finishes the activity")
     public void theUserFinishesTheActivity() {
         projectManagerApp.finishActivity(VariablesHolder.project, VariablesHolder.activity);
     }
 
+    //jesper pedersen
     @Then("the activity is moved to finished activities under the project")
     public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
         assertFalse(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
@@ -230,6 +244,7 @@ public class ActivitySteps {
 
     }
 
+    //jesper pedersen
     @Then("the project has {int} activities")
     public void theProjectHasActivities(Integer numOfActivities) {
         assertEquals(VariablesHolder.project.getActivities().size(), numOfActivities);
@@ -237,12 +252,13 @@ public class ActivitySteps {
         assertTrue(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
     }
 
+    //jesper pedersen
     @Then("the user has been assigned to the activity")
     public void theUserHasBeenAssignedToTheActivity() {
         assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
     }
     
-    // Daniel
+    // Daniel Henriksen
     @When("the activity start time {string} is set")
         public void theStartTimeIsSet(String startTime) {
             try {
@@ -252,14 +268,14 @@ public class ActivitySteps {
             }
         }
     
-    // Daniel
+    // Daniel Henriksen
     @Then("the activity start time becomes {string}")
         public void theStartTimeBecomes(String startTime) {
             assertEquals(VariablesHolder.activity.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
             assertEquals(VariablesHolder.activity.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
 
-    // Daniel
+    // Daniel Henriksen
     @When("the activity end time {string} is set")
         public void theEndTimeIsSet(String endTime) {
             try {
@@ -269,7 +285,7 @@ public class ActivitySteps {
             }
         }
    
-    // Daniel
+    // Daniel Henriksen
     @Then("the activity end time becomes {string}")
         public void theEndTimeBecomes(String endTime) {
             assertEquals(VariablesHolder.activity.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));

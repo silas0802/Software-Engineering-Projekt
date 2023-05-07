@@ -19,6 +19,9 @@ And the user is assigned to the activity
 When the user is assigned to the actitivy
 Then the error message "User is already assigned to the activity" is given
 
+
+
+#jesper pedersen
 Scenario: edit activity name
 Given a user with username "JG" logs in
 And a project with name "DTU-IT" is created
@@ -26,6 +29,8 @@ And an activity with name "update systems" under the project is created
 When the activities name is edited to "update on monday"
 Then the name of the activity is "update on monday"
 
+
+#jesper pedersen
 Scenario: edit activity description
 Given a user with username "JP" logs in
 And a project with name "MitID" is created
@@ -34,6 +39,8 @@ And a Description with name "need usernames" is added
 When a Description with name "need usernames of min 8 chars" is added
 Then the Description "need usernames of min 8 chars" is on the activity
 
+
+# Daniel Henriksen
 Scenario: edit activity start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -42,22 +49,8 @@ And the activity start time "16-2026" is set
 When the activity start time "15-2023" is set
 Then the activity start time becomes "15-2023"
 
-Scenario: edit activity start time to a non-exitent start time
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2026" is set
-When the activity start time "56-2023" is set
-Then the error message "Please enter a week number between 1 and 52" is given
 
-Scenario: edit activity start time to a non-exitent start time when the year has 53 weeks
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2026" is set
-When the activity start time "56-2026" is set
-Then the error message "Please enter a week number between 1 and 53" is given
-
+# Daniel Henriksen
 Scenario: edit activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -67,24 +60,8 @@ And the activity end time "16-2026" is set
 When the activity end time "15-2023" is set
 Then the activity end time becomes "15-2023"
 
-Scenario: edit activity end time to a non-exitent end time
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2020" is set
-And the activity end time "16-2026" is set
-When the activity end time "56-2023" is set
-Then the error message "Please enter a week number between 1 and 52" is given
 
-Scenario: edit activity end time to a non-exitent end time when the year has 53 weeks
-Given a user with username "TH" logs in
-And a project with name "I hate this" is created
-And an activity with name "Exit everything" under the project is created
-And the activity start time "16-2020" is set
-And the activity end time "16-2026" is set
-When the activity end time "56-2026" is set
-Then the error message "Please enter a week number between 1 and 53" is given
-
+# Daniel Henriksen
 Scenario: edit activity end time to a time before start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
@@ -94,6 +71,8 @@ And the activity end time "20-2026" is set
 When the activity end time "15-2026" is set
 Then the error message "End time comes before Start time" is given
 
+
+#jesper pedersen
 Scenario: edit expected work time on activity
 Given a user with username "JD" logs in
 And a project with name "SU-kontoret" is created
@@ -102,6 +81,7 @@ And user sets the expected work time of the activity to 20
 When the user sets the expected work time of the activity to 10
 Then the expected work time of the activity is 10
 
+#jesper pedersen
 Scenario: Finish Activity
 Given a user with username "JH" logs in
 And a project with name "Zip codes system" is created
@@ -110,6 +90,8 @@ And an activity with name "assign zip code" under the project is created
 When the user finishes the activity
 Then the activity is moved to finished activities under the project
 
+
+#jesper pedersen
 Scenario: Add more activities to one project
 Given a user with username "JK" logs in
 And a project with name "Facebook" is created

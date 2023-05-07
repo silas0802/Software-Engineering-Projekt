@@ -42,7 +42,7 @@ public class ProjectManagerApp {
     public List<Project> getProjects(){
         return projects;
     }
-
+    //jesper pedersen
     public void createActivity(Project project, Activity activity) throws OperationNotAllowedException{
         if(project.getActivities().size()>=100){
             throw new OperationNotAllowedException("Too many activities");
@@ -96,6 +96,8 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
     }
+
+
     public boolean userHasProject(User user, Project project){
         return project.getWorkers().contains(user);
     }
@@ -104,6 +106,8 @@ public class ProjectManagerApp {
         return projects.contains(project);
     }
 
+
+    //jesper pedersen
     public boolean hasActivity(Project project,Activity activity){
         ArrayList<Activity> a = project.getActivities();
         return a.contains(activity);
@@ -122,10 +126,13 @@ public class ProjectManagerApp {
         return false;
     }
 
+    //jesper pedersen
     public boolean hasUser(User user){
         return users.contains(user);
     }
 
+
+    //jesper pedersen
     public boolean hasUserByName(String name){
         for(User person: users){
             if (person.getUserName().equals(name)) {
@@ -134,7 +141,7 @@ public class ProjectManagerApp {
         }
         return false;
     }
-
+    //jesper pedersen
     public User getUserByName(String name){
         for(User person: users){
             if (person.getUserName().equals(name)) {
@@ -169,15 +176,17 @@ public class ProjectManagerApp {
         }
         return null;
     }
-
+    //jesper pedersen
     public  List<User> getUsers(){
         return users;
     }
 
+    //jesper pedersen
     public void assignLeader(Project project, User user){
         project.setProjectLeader(user);
     }
     
+    //jesper pedersen
     public void assignActivityToUser(User user, Activity activity) throws OperationNotAllowedException{
         if(user.getActivities().size()>=20){
             throw new OperationNotAllowedException("Maximum of 20 activities are already assigned to user this week");
@@ -188,29 +197,29 @@ public class ProjectManagerApp {
         user.joinActivity(activity);
         activity.setActiveUser(user);
     }
-
+    //jesper pedersen
     public List<Activity> getUserActivities(User user){
         return user.getActivities();
     }
-
+    //jesper pedersen
     public boolean userHasActivity(Activity activity,User user){
 
         List<Activity> userActivities = getUserActivities(user);
         return userActivities.contains(activity);
 
-    }
-
+    }   
+    //jesper pedersen
     public List<User> getUsersWithoutActivities(){
         return null;
         
     }
-
+    //jesper pedersen
     public void setActivityDescription(Activity activity, String desciption){
 
         activity.setDescription(desciption);
         
     }
-
+    //jesper pedersen
     public void finishActivity(Project project,Activity activity){
         project.setFinishedActivity(activity);
         activity.finishActivity();
@@ -237,12 +246,12 @@ public class ProjectManagerApp {
         }
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {
         activity.setStartTime(startTime);
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
         if (activity.getStartTime().getYear() >= endTime.getYear() || (activity.getStartTime().getWeek() >= endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
@@ -251,7 +260,7 @@ public class ProjectManagerApp {
         }
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setProjectStartTime (Project project, StartEndTime startTime) throws OperationNotAllowedException {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
@@ -259,7 +268,7 @@ public class ProjectManagerApp {
         project.setStartTime(startTime);  
     }
 
-    // Daniel
+    // Daniel Henriksen
     public void setProjectEndTime (Project project, StartEndTime endTime) throws OperationNotAllowedException {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
@@ -272,23 +281,23 @@ public class ProjectManagerApp {
         }
     }
 
-    // Daniel
+    // Daniel Henriksen
     public StartEndTime timeInputChecker(String timeInput) throws OperationNotAllowedException{
         StartEndTime time = null;
         if(timeInput.length() > 7 || !timeInput.contains("-")){
-            throw new OperationNotAllowedException("The input has to be on the form:");
+            throw new OperationNotAllowedException("The input has to contain a \"-\" and be on the form: WW-YYYY");
         }
 
         String weekYear[] = timeInput.split("-");
 
-        if(!(weekYear[0].length() == 2) && weekYear[1].length() == 4){
-            throw new OperationNotAllowedException("The input has to be on the form:");                  
+        if(!(weekYear[0].length() == 2 && weekYear[1].length() == 4)){
+            throw new OperationNotAllowedException("The input has to be on the form: WW-YYYY");
         }
 
         try {
             time = new StartEndTime(Integer.parseInt(weekYear[0]), Integer.parseInt(weekYear[1]));
         } catch (Exception e) {
-            throw new OperationNotAllowedException("The input has to be two numbers on the form:");
+            throw new OperationNotAllowedException("The input has to be two numbers on the form: WW-YYYY");
         }
 
         LocalDate firstDayOfTheYear = LocalDate.of(time.getYear(), 1, 1);

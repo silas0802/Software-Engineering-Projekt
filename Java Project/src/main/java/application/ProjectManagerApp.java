@@ -236,20 +236,23 @@ public class ProjectManagerApp {
      */
     public void finishProject(Project project)throws OperationNotAllowedException{
         
-        if (loggedUser == project.getProjectLeader()) {
-            if (project.getActivities().isEmpty()) {
-                project.finishProject();
-                projects.remove(project);
-                finishedProjects.add(project);
-            }
-            else{
-                throw new OperationNotAllowedException("Project contains unfinished activities");
-            }
-        }
-        else{
+        if (loggedUser != project.getProjectLeader()) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
+        if (!project.getActivities().isEmpty()) {
+            throw new OperationNotAllowedException("Project contains unfinished activities");
+        }
+        assert(loggedUser!=null && project.getProjectLeader()!=null && project!=null && project.getActivities()!=null&&project.getFinishedActivities()!=null);
+        assert(loggedUser==project.getProjectLeader()&&project.getActivities().size()==0);
+        project.finishProject();
+        projects.remove(project);
+        finishedProjects.add(project);
+        assert(project.isFinished()==true&&finishedProjects.contains(project)==true&&projects.contains(project)==false);
     }
+            
+        
+        
+    
 
     // Daniel Henriksen
     public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {

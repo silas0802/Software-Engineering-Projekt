@@ -20,7 +20,6 @@ public class Hourssteps {
     public Hourssteps(ProjectManagerApp projectManagerApp){
         this.projectManagerApp = projectManagerApp;
     }
-// Niclas
     @When("the user registers {double} hours of work")
     public void theUserRegistersHoursOfWork(Double double1) throws OperationNotAllowedException{
         // Write code here that turns the phrase above into concrete actions
@@ -31,7 +30,6 @@ public class Hourssteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
     }
-    // Niclas
     @Then("time has been registered for the activity and user")
     public void timeHasBeenRegisteredForTheActivityAndUser() {
         // Write code here that turns the phrase above into concrete actions

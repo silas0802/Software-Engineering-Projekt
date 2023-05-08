@@ -156,3 +156,15 @@ And a project with name "I hate this" is created
 And the project start time "16-2026" is set
 When the project end time "20-2025" is set
 Then the error message "End time comes before Start time" is given
+
+# Daniel Henriksen
+Scenario: create or edit project to name "" no PM
+Given a user with username "SM" logs in
+When a project with name "" is created
+Then the error message "Name can't be empty" is given
+
+# Daniel Henriksen
+Scenario: create or edit project to name of only spaces no PM
+Given a user with username "SM" logs in
+When a project with name "   " is created
+Then the error message "Name can't be just spaces" is given

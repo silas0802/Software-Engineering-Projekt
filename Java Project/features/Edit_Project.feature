@@ -11,6 +11,13 @@ And the user is assigned to the project as worker
 When the user is assigned to the project as worker
 Then the error message "Worker is already assigned to a project" is given
 
+#Jesper pedersen
+Scenario: add a user to a project
+Given a user with username "tm" logs in
+And a project with name "Skat-hjemmeside" is created
+When the user is assigned to the project as worker
+Then the user is assigned to project as worker
+
 #author - Silas
 Scenario: Assign project manager
 Given a user with username "SM" logs in

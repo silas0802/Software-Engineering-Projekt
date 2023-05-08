@@ -24,3 +24,7 @@ Given the user registers 10.0 hours in WorkerTimeList
 And the user registers 17.0 hours in WorkerTimeList
 When the user gets his worked time
 Then 27.0 is returned
+
+Scenario: User checks his worked time error
+When the user gets his worked time
+Then the error message "User doesn't exist" is given

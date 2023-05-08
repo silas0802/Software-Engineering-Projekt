@@ -96,9 +96,9 @@ Scenario: edit expected work time on activity
 Given a user with username "JD" logs in
 And a project with name "SU-kontoret" is created
 And an activity with name "Calculate Money" under the project is created
-And user sets the expected work time of the activity to 20
-When the user sets the expected work time of the activity to 10
-Then the expected work time of the activity is 10
+And user sets the expected work time of the activity to 20.0
+When the user sets the expected work time of the activity to 10.0
+Then the expected work time of the activity is 10.0
 
 #jesper pedersen
 Scenario: Finish Activity

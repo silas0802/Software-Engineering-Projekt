@@ -168,3 +168,12 @@ Scenario: create or edit project to name of only spaces no PM
 Given a user with username "SM" logs in
 When a project with name "   " is created
 Then the error message "Name can't be just spaces" is given
+
+#Silas Thule
+Scenario: check expected Time
+Given a user with username "GB" logs in
+And a project with name "Destroy C language" is created
+And an activity with name "starting with the basics" under the project is created
+And the user sets the expected duration of project to 6.0
+When the user gets the expected duration of the project
+Then 6.0 is returned

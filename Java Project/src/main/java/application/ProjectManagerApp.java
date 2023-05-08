@@ -214,11 +214,7 @@ public class ProjectManagerApp {
         return userActivities.contains(activity);
 
     }   
-    //jesper pedersen
-    public List<User> getUsersWithoutActivities(){
-        return null;
-        
-    }
+    
     //jesper pedersen
     public void setActivityDescription(Activity activity, String desciption){
 

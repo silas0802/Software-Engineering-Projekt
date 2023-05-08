@@ -95,8 +95,9 @@ public class Project {
     
     //Silas Thule
     public void assignWorker(User user) throws OperationNotAllowedException{
-        if (user.getAssignedProject()!=null) {
+        if (user.getAssignedProject()==null) {
             workers.add(user);
+            user.setAssignedProject(this);
         } else {
             throw new OperationNotAllowedException("Worker is already assigned to a project");
         }

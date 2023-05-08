@@ -85,6 +85,7 @@ public class ProjectSteps {
         
         try {
 			VariablesHolder.project.assignWorkers(VariablesHolder.users);
+			VariablesHolder.user.setAssignedProject(VariablesHolder.project);
 		} catch (OperationNotAllowedException e) {
 			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -151,10 +152,10 @@ public class ProjectSteps {
     @When("the user is assigned to the project as worker")
     public void theUserIsAssignedToTheProjectAsWorker() {
         // Write code here that turns the phrase above into concrete actions
-        
+       
         try {
 			VariablesHolder.project.assignWorker(VariablesHolder.user);
-            VariablesHolder.user.setAssignedProject(VariablesHolder.project);
+            
 		} catch (OperationNotAllowedException e) {
 			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -269,5 +270,10 @@ public class ProjectSteps {
         public void theUserGetsTheExpectedDurationOfTheProject() {
             // Write code here that turns the phrase above into concrete actions
             VariablesHolder.workHours = VariablesHolder.project.getExpTime();
+        }
+
+        @Then("the user is assigned to project as worker")
+            public void theUserIsAssignedToProjectAsWorker() {
+                assertEquals(VariablesHolder.project,VariablesHolder.user.getAssignedProject());  
         }
 }

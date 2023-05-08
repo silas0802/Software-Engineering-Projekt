@@ -1,5 +1,6 @@
 package application;
 
+// Daniel
 public class StartEndTime {
     int week;
     int year;

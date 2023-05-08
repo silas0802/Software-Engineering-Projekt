@@ -3,6 +3,9 @@ package example.cucumber;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
+import application.Activity;
 import application.OperationNotAllowedException;
 import application.Project;
 import application.ProjectManagerApp;
@@ -178,6 +181,7 @@ public class ProjectSteps {
         // Write code here that turns the phrase above into concrete actions
         Project.setIdYearCounter(int1);
     }
+    
     //Daniel Henriksen
     @When("the project start time {string} is set")
         public void theProjectStartTimeIsSet(String startTime) {
@@ -187,12 +191,14 @@ public class ProjectSteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
         }
+
     //Daniel Henriksen
     @Then("the project start time becomes {string}")
         public void theProjectStartTimeBecomes(String startTime) {
             assertEquals(VariablesHolder.project.getStartTime().getWeek(), Integer.parseInt(startTime.split("-")[0]));
             assertEquals(VariablesHolder.project.getStartTime().getYear(), Integer.parseInt(startTime.split("-")[1]));
         }
+    
     //Daniel Henriksen
     @When("the project end time {string} is set")
         public void theProjectEndTimeIsSet(String endTime) {
@@ -202,10 +208,52 @@ public class ProjectSteps {
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }
         }
-        //Daniel Henriksen
+    
+    //Daniel Henriksen
     @Then("the project end time becomes {string}")
         public void theProjectEndTimeBecomes(String endTime) {
             assertEquals(VariablesHolder.project.getEndTime().getWeek(), Integer.parseInt(endTime.split("-")[0]));
             assertEquals(VariablesHolder.project.getEndTime().getYear(), Integer.parseInt(endTime.split("-")[1]));
+        }
+
+
+        //Jesper pedersen
+    @Given("activity with name {string} is finished")
+        public void activityWithNameIsFinished(String actiname) {
+        List<Activity> projectActivities =VariablesHolder.project.getActivities();
+        
+        for(Activity a: projectActivities){
+            if (a.getName().equals(actiname)) {
+                VariablesHolder.activity=a;
+            }
+        }
+        projectManagerApp.finishActivity(VariablesHolder.project, VariablesHolder.activity);
+        }
+
+        //Jesper pedersen
+    @When("the projectLeader finishes project")
+        public void theProjectLeaderFinishesProject() throws OperationNotAllowedException {
+            try{
+                projectManagerApp.finishProject(VariablesHolder.project);
+                } catch(OperationNotAllowedException e){
+                    VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+                }
+        }
+
+        //Jesper pedersen
+    @When("the user finishes project")
+        public void theUserFinishesProject() {
+            try{
+                projectManagerApp.finishProject(VariablesHolder.project);
+                } catch(OperationNotAllowedException e){
+                    VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+                }
+        }
+
+
+        //Jesper pedersen
+    @Then("the project is finished")
+        public void theProjectIsFinished() {
+            assertTrue(VariablesHolder.project.isFinished());
         }
 }

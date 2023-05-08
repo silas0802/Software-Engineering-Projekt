@@ -22,7 +22,7 @@ public class Hourssteps {
         // Write code here that turns the phrase above into concrete actions
         VariablesHolder.workHours = double1;
         try{
-            projectManagerApp.RegisterHours(VariablesHolder.activity,double1);
+            projectManagerApp.registerHours(VariablesHolder.activity,double1);
             } catch(OperationNotAllowedException e){
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }

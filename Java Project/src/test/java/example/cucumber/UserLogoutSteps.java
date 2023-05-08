@@ -39,7 +39,7 @@ public class UserLogoutSteps {
     @Given("Have registered hours")
     public void haveRegisteredHours() throws OperationNotAllowedException{
         try{
-            projectManagerApp.RegisterHours(VariablesHolder.activity,1);
+            projectManagerApp.registerHours(VariablesHolder.activity,1);
             } catch(OperationNotAllowedException e){
                 VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
             }

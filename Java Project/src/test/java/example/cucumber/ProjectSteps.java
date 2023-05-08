@@ -37,6 +37,12 @@ public class ProjectSteps {
     @When("a project with name {string} is created")
     public void aProjectWithNameIsCreated(String name) {
         // Write code here that turns the phrase above into concrete actions
+        try {
+            projectManagerApp.checkName(name);
+        } catch (OperationNotAllowedException e) {
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+        
         VariablesHolder.project = new Project(name);
         projectManagerApp.createProject(VariablesHolder.project);
        

@@ -133,6 +133,7 @@ Then the error message "Project doesn't have established start time and end time
 Scenario: edit activity end time, no project time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "16-2020" is set
 And an activity with name "Exit everything" under the project is created
 When the activity end time "15-2023" is set
 Then the error message "Project doesn't have established start time and end time: type 'back' to return" is given

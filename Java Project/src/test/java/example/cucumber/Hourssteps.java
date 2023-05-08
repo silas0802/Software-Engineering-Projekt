@@ -84,4 +84,10 @@ public class Hourssteps {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(VariablesHolder.workHours == double1);
     }
+    //Silas Thule
+    @When("the user gets his worked time")
+    public void theUserGetsHisWorkedTime() {
+        // Write code here that turns the phrase above into concrete actions
+        VariablesHolder.workHours = VariablesHolder.workerTimeList.getTimeWorked(VariablesHolder.user);
+    }
 }

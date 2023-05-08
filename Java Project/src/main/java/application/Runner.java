@@ -393,10 +393,19 @@ public class Runner {
     //jesper pedersen
     public static void createProject(){
         newPage("CREATE PROJECT");
-        // System.out.println("Creating project");
-        System.out.println("Enter project name:");
-        String name = scanner.nextLine();
-        back(name, null, 2);
+        String name;
+        while(true){
+            System.out.println("Enter project name:");
+            name = scanner.nextLine();
+            back(name, null, 2);
+            try {
+                projectManagerApp.checkName(name);
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+        }
         Project project = new Project(name);
         projectManagerApp.createProject(project);
         
@@ -414,8 +423,19 @@ public class Runner {
     //jesper pedersen
     public static void createActivity(Project project){
         newPage("CREATE ACTIVITY");
-        System.out.println("Enter activity name:");
-        String name = scanner.nextLine();
+        String name;
+        while(true){
+            System.out.println("Enter activity name:");
+            name = scanner.nextLine();
+            back(name, null, 2);
+            try {
+                projectManagerApp.checkName(name);
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+        }
         back(name, project, 2);
         Activity activity = new Activity(name);
         
@@ -1040,7 +1060,6 @@ public class Runner {
     //Anton Ekman
     public static void editProject(Project project){
         newPage("EDIT PROJECT");
-        // System.out.println("EDIT PROJECT");
         System.out.println("0. Main menu");
         System.out.println("1. Back to project details");
         System.out.println("2. Edit name");

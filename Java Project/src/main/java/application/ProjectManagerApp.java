@@ -13,24 +13,25 @@ public class ProjectManagerApp {
     ArrayList<Project> finishedProjects = new ArrayList<>(); 
     
     
-    
+    /**
+     * @author Niclas Schæffer
+     */
     public boolean isLoggedIn(){
         return loggedUser != null;
     }
-
+    //Niclas Schæffer
     public void login(User user){
         loggedUser = user;
     }
-
+    //Niclas Schæffer
     public void logout() throws OperationNotAllowedException{
         if(hasRegisteredHours()){
             loggedUser = null;
         }else {
             throw new OperationNotAllowedException("Has not registered hours");
         }
-        
     }
-
+    //Niclas Schæffer
     public void createUser(User user){
         users.add(user);
     }
@@ -64,14 +65,16 @@ public class ProjectManagerApp {
      * @throws OperationNotAllowedException
      */
     public void registerHours(Activity activity, double time) throws OperationNotAllowedException {
-        if (time % 0.5 == 0) {
+        if (time % 0.5 != 0) {
+            throw new OperationNotAllowedException("Time not rounded to nearst half hour");
+        }
+            assert time % 0.5 == 0 && activity != null;
+            double currentWorkedTime = loggedUser.getTimeWorked();
+            double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
             activity.timeWorkedList.registerTime(loggedUser, time);
             loggedUser.registerTimeWorked(time);
             registeredHours=true;
-        }
-        else{
-            throw new OperationNotAllowedException("Time not rounded to nearst half hour");
-        }
+            assert loggedUser.getTimeWorked() == currentWorkedTime+time && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
     }
     /**
      * @author Silas Thule
@@ -253,7 +256,7 @@ public class ProjectManagerApp {
 
     // Daniel Henriksen
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
-        if (activity.getStartTime().getYear() >= endTime.getYear() || (activity.getStartTime().getWeek() >= endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
+        if (activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         } else {
             activity.setEndTime(endTime);
@@ -274,7 +277,7 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
 
-        if (project.getStartTime().getYear() >= endTime.getYear() || (project.getStartTime().getWeek() >= endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
+        if (project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         } else {
             project.setEndTime(endTime);
@@ -310,4 +313,19 @@ public class ProjectManagerApp {
         return time;
     }
 
+    public void checkName(String name) throws OperationNotAllowedException{
+        int counter = 0;
+        if(name.length() == 0){
+            throw new OperationNotAllowedException("Name can't be empty");
+        }
+        for(int i = 0; i < name.length(); i++){
+            char c = name.charAt(i);
+            if(c == ' '){
+                counter++;
+            }
+        }
+        if(counter == name.length()){
+            throw new OperationNotAllowedException("Name can't be empty");
+        }
+    }
 }

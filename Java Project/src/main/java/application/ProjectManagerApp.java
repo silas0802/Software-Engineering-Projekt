@@ -259,9 +259,9 @@ public class ProjectManagerApp {
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
         if (activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
-        } else {
-            activity.setEndTime(endTime);
         }
+        activity.setEndTime(endTime);
+        
     }
 
     // Daniel Henriksen
@@ -277,12 +277,12 @@ public class ProjectManagerApp {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
-
         if (project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
-        } else {
-            project.setEndTime(endTime);
         }
+        assert loggedUser != null && project != null && endTime != null;
+        project.setEndTime(endTime);
+        assert project.getEndTime() == endTime;
     }
 
     // Daniel Henriksen

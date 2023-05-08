@@ -257,7 +257,7 @@ public class ProjectManagerApp {
         if (activity.getProject().getStartTime() == null || activity.getProject().getEndTime() == null){
             throw new OperationNotAllowedException("Project doesn't have established start time and end time: type 'back' to return");
         }
-        if ((activity.getProject().getStartTime().getYear() > startTime.getYear() && activity.getProject().getEndTime().getYear() < startTime.getYear())
+        if ((activity.getProject().getStartTime().getYear() > startTime.getYear() || activity.getProject().getEndTime().getYear() < startTime.getYear())
             || (activity.getProject().getStartTime().getYear() == startTime.getYear() && (activity.getProject().getStartTime().getWeek() > startTime.getWeek() || activity.getProject().getEndTime().getWeek() < startTime.getWeek()))){
             throw new OperationNotAllowedException("Activity time has to be within the Project time");
         }
@@ -269,7 +269,7 @@ public class ProjectManagerApp {
         if (activity.getProject().getStartTime() == null || activity.getProject().getEndTime() == null){
             throw new OperationNotAllowedException("Project doesn't have established start time and end time: type 'back' to return");
         }
-        if ((activity.getProject().getStartTime().getYear() > endTime.getYear() && activity.getProject().getEndTime().getYear() < endTime.getYear())
+        if ((activity.getProject().getStartTime().getYear() > endTime.getYear() || activity.getProject().getEndTime().getYear() < endTime.getYear())
             || (activity.getProject().getStartTime().getYear() == endTime.getYear() && (activity.getProject().getStartTime().getWeek() > endTime.getWeek() || activity.getProject().getEndTime().getWeek() < endTime.getWeek()))){
             throw new OperationNotAllowedException("Activity time has to be within the Project time");
         }

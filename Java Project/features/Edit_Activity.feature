@@ -138,3 +138,45 @@ When the activity end time "15-2023" is set
 Then the error message "Project doesn't have established start time and end time: type 'back' to return" is given
 
 
+# Daniel Henriksen
+Scenario: edit activity start time, outside project time - after
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity start time "15-2035" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity start time, outside project time - before
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity start time "15-2015" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time, outside project time - after
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity end time "15-2035" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time, outside project time - before
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity end time "15-2015" is set
+Then the error message "Activity time has to be within the Project time" is given

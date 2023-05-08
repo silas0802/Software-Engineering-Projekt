@@ -312,4 +312,19 @@ public class ProjectManagerApp {
         return time;
     }
 
+    public void checkName(String name) throws OperationNotAllowedException{
+        int counter = 0;
+        if(name.length() == 0){
+            throw new OperationNotAllowedException("Name can't be empty");
+        }
+        for(int i = 0; i < name.length(); i++){
+            char c = name.charAt(i);
+            if(c == ' '){
+                counter++;
+            }
+        }
+        if(counter == name.length()){
+            throw new OperationNotAllowedException("Name can't be empty");
+        }
+    }
 }

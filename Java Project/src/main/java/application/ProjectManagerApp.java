@@ -68,14 +68,14 @@ public class ProjectManagerApp {
         if (time % 0.5 != 0) {
             throw new OperationNotAllowedException("Time not rounded to nearst half hour");
         }
-            assert time % 0.5 == 0 && activity != null && loggedUser != null;
-            double currentWorkedTime = loggedUser.getTimeWorked();
-            double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
-            activity.timeWorkedList.registerTime(loggedUser, time);
-            loggedUser.registerTimeWorked(time);
-            registeredHours=true;
-            assert loggedUser.getTimeWorked() == currentWorkedTime+time
-            && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
+        assert time % 0.5 == 0 && activity != null && loggedUser != null;
+        double currentWorkedTime = loggedUser.getTimeWorked();
+        double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
+        activity.timeWorkedList.registerTime(loggedUser, time);
+        loggedUser.registerTimeWorked(time);
+        registeredHours=true;
+        assert loggedUser.getTimeWorked() == currentWorkedTime+time
+        && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
     }
     /**
      * @author Silas Thule
@@ -198,8 +198,10 @@ public class ProjectManagerApp {
         if (userHasActivity(activity, user)) {
             throw new OperationNotAllowedException("User is already assigned to the activity");
         }
+        assert(user != null && activity != null && user.getActivities().size() < 20 && !userHasActivity(activity, user));
         user.joinActivity(activity);
         activity.setActiveUser(user);
+        assert(userHasActivity(activity, user) && activity.getUsersOnActivity().contains(user));
     }
     //jesper pedersen
     public List<Activity> getUserActivities(User user){
@@ -235,20 +237,24 @@ public class ProjectManagerApp {
      * @throws OperationNotAllowedException
      */
     public void finishProject(Project project)throws OperationNotAllowedException{
-        if (loggedUser == project.getProjectLeader()) {
-            if (project.getActivities().isEmpty()) {
-                project.finishProject();
-                projects.remove(project);
-                finishedProjects.add(project);
-            }
-            else{
-                throw new OperationNotAllowedException("Project contains unfinished activities");
-            }
-        }
-        else{
+        
+        if (loggedUser != project.getProjectLeader()) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
+        if (!project.getActivities().isEmpty()) {
+            throw new OperationNotAllowedException("Project contains unfinished activities");
+        }
+        assert(loggedUser!=null && project.getProjectLeader()!=null && project!=null && project.getActivities()!=null&&project.getFinishedActivities()!=null);
+        assert(loggedUser==project.getProjectLeader()&&project.getActivities().size()==0);
+        project.finishProject();
+        projects.remove(project);
+        finishedProjects.add(project);
+        assert(project.isFinished()==true&&finishedProjects.contains(project)==true&&projects.contains(project)==false);
     }
+            
+        
+        
+    
 
     // Daniel Henriksen
     public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {

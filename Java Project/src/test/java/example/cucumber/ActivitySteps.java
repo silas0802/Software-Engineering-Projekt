@@ -213,20 +213,20 @@ public class ActivitySteps {
     }
 
     //jesper pedersen
-    @When("the user sets the expected work time of the activity to {int}")
-    public void theUserSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
+    @When("the user sets the expected work time of the activity to {double}")
+    public void theUserSetsTheExpectedWorkTimeOfTheActivityTo(Double exptime) {
         VariablesHolder.activity.setExpectedDuration(exptime);
     }
 
     //jesper pedersen
-    @Then("the expected work time of the activity is {int}")
-    public void theExpectedWorkTimeOfTheActivityIs(Integer exptime) {
+    @Then("the expected work time of the activity is {double}")
+    public void theExpectedWorkTimeOfTheActivityIs(Double exptime) {
         assertEquals(VariablesHolder.activity.getExpectedDuration(), exptime);
     }
 
     //jesper pedersen
-    @Given("user sets the expected work time of the activity to {int}")
-    public void userSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
+    @Given("user sets the expected work time of the activity to {double}")
+    public void userSetsTheExpectedWorkTimeOfTheActivityTo(Double exptime) {
     VariablesHolder.activity.setExpectedDuration(exptime);
     }
 
@@ -241,7 +241,7 @@ public class ActivitySteps {
     public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
         assertFalse(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
         assertEquals(VariablesHolder.project.getFinishedActivities().size(), 1);
-        assertTrue(VariablesHolder.activity.isActivityfinished());
+        assertTrue(VariablesHolder.activity.isActivityFinished());
 
     }
 
@@ -259,6 +259,15 @@ public class ActivitySteps {
         assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
     }
     
+    @Given("the actitivy start time {string} is set")
+    public void theActitivyStartTimeIsSet(String startTime) {
+        try {
+            projectManagerApp.setActivityStartTime(VariablesHolder.activity, projectManagerApp.timeInputChecker(startTime));
+        } catch (OperationNotAllowedException e) {
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
     // Daniel Henriksen
     @When("the activity start time {string} is set")
         public void theStartTimeIsSet(String startTime) {

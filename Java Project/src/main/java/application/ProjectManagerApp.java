@@ -30,10 +30,11 @@ public class ProjectManagerApp {
         }else {
             throw new OperationNotAllowedException("Has not registered hours");
         }
+        assert(loggedUser == null);
     }
     //Niclas Schæffer
     public void createUser(User user){
-        users.add(user);
+        getUsers().add(user);
     }
 
     public void createProject(Project project){
@@ -70,12 +71,12 @@ public class ProjectManagerApp {
         }
         assert time % 0.5 == 0 && activity != null && loggedUser != null;
         double currentWorkedTime = loggedUser.getTimeWorked();
-        double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
-        activity.timeWorkedList.registerTime(loggedUser, time);
+        double currentWorkedTimeActivity = activity.getTimeWorkedList().totalTimeWorked();
+        activity.getTimeWorkedList().registerTime(loggedUser, time);
         loggedUser.registerTimeWorked(time);
         registeredHours=true;
         assert loggedUser.getTimeWorked() == currentWorkedTime+time
-        && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
+        && activity.getTimeWorkedList().totalTimeWorked() == currentWorkedTimeActivity+time;
     }
     /**
      * @author Silas Thule
@@ -132,13 +133,13 @@ public class ProjectManagerApp {
 
     //jesper pedersen
     public boolean hasUser(User user){
-        return users.contains(user);
+        return getUsers().contains(user);
     }
 
 
     //jesper pedersen
     public boolean hasUserByName(String name){
-        for(User person: users){
+        for(User person: getUsers()){
             if (person.getUserName().equals(name)) {
                 return true;
             }
@@ -147,7 +148,7 @@ public class ProjectManagerApp {
     }
     //jesper pedersen
     public User getUserByName(String name){
-        for(User person: users){
+        for(User person: getUsers()){
             if (person.getUserName().equals(name)) {
                 return person;
             }
@@ -172,7 +173,7 @@ public class ProjectManagerApp {
 
 
     public User searchByName(String name){
-        for (User user : users) {
+        for (User user : getUsers()) {
             if(user.getUserName().equals(name)){
                 return user;
             }   
@@ -214,11 +215,7 @@ public class ProjectManagerApp {
         return userActivities.contains(activity);
 
     }   
-    //jesper pedersen
-    public List<User> getUsersWithoutActivities(){
-        return null;
-        
-    }
+    
     //jesper pedersen
     public void setActivityDescription(Activity activity, String desciption){
 
@@ -258,12 +255,28 @@ public class ProjectManagerApp {
 
     // Daniel Henriksen
     public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {
+        if (activity.getProject().getStartTime() == null || activity.getProject().getEndTime() == null){
+            throw new OperationNotAllowedException("Project doesn't have established start time and end time: type 'back' to return");
+        }
+        if ((activity.getProject().getStartTime().getYear() > startTime.getYear() || activity.getProject().getEndTime().getYear() < startTime.getYear())
+            || (activity.getProject().getStartTime().getYear() == startTime.getYear() && activity.getProject().getStartTime().getWeek() > startTime.getWeek())
+            || (activity.getProject().getEndTime().getYear() == startTime.getYear() && activity.getProject().getEndTime().getWeek() < startTime.getWeek())){
+            throw new OperationNotAllowedException("Activity time has to be within the Project time");
+        }
         activity.setStartTime(startTime);
     }
 
     // Daniel Henriksen
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
-        if (activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
+        if (activity.getProject().getStartTime() == null || activity.getProject().getEndTime() == null){
+            throw new OperationNotAllowedException("Project doesn't have established start time and end time: type 'back' to return");
+        }
+        if ((activity.getProject().getStartTime().getYear() > endTime.getYear() || activity.getProject().getEndTime().getYear() < endTime.getYear())
+            || (activity.getProject().getStartTime().getYear() == endTime.getYear() && activity.getProject().getStartTime().getWeek() > endTime.getWeek())
+            || (activity.getProject().getEndTime().getYear() == endTime.getYear() && activity.getProject().getEndTime().getWeek() < endTime.getWeek())){
+            throw new OperationNotAllowedException("Activity time has to be within the Project time");
+        }
+        if (activity.getStartTime() == null || activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         }
         activity.setEndTime(endTime);
@@ -283,7 +296,7 @@ public class ProjectManagerApp {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
-        if (project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
+        if (project.getStartTime() == null || project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         }
         assert loggedUser != null && project != null && endTime != null;
@@ -332,7 +345,7 @@ public class ProjectManagerApp {
             }
         }
         if(counter == name.length()){
-            throw new OperationNotAllowedException("Name can't be empty");
+            throw new OperationNotAllowedException("Name can't be just spaces");
         }
     }
 }

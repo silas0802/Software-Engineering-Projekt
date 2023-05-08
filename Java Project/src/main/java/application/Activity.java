@@ -9,14 +9,14 @@ public class Activity {
     StartEndTime endTime;
     String name;
     String description;
-    int expectedDuration;
+    double expectedDuration;
     WorkerTimeList timeWorkedList = new WorkerTimeList();
     List<User> activeUsers = new ArrayList<>();
     boolean activityFinished=false;
     
     //Silas Thule
     public double getWorkedTime(){
-        return timeWorkedList.totalTimeWorked();
+        return getTimeWorkedList().totalTimeWorked();
     }
     //jesper pedersen
     public StartEndTime getStartTime() {
@@ -35,11 +35,11 @@ public class Activity {
         this.endTime = endTime;
     }
     //jesper pedersen
-    public int getExpectedDuration() {
+    public Double getExpectedDuration() {
         return expectedDuration;
     }
     //jesper pedersen
-    public void setExpectedDuration(int expectedDuration) {
+    public void setExpectedDuration(Double expectedDuration) {
         this.expectedDuration = expectedDuration;
     }
     //jesper pedersen
@@ -83,9 +83,12 @@ public class Activity {
         activityFinished=true;
     }
     //jesper pedersen
-    public boolean isActivityfinished(){
-        return activityFinished;
-    }
+	public boolean isActivityFinished() {
+		return activityFinished;
+	}
+	public WorkerTimeList getTimeWorkedList() {
+		return timeWorkedList;
+	}
 
 }
 

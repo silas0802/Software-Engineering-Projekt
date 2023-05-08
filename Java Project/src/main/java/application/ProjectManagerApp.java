@@ -68,14 +68,14 @@ public class ProjectManagerApp {
         if (time % 0.5 != 0) {
             throw new OperationNotAllowedException("Time not rounded to nearst half hour");
         }
-            assert time % 0.5 == 0 && activity != null && loggedUser != null;
-            double currentWorkedTime = loggedUser.getTimeWorked();
-            double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
-            activity.timeWorkedList.registerTime(loggedUser, time);
-            loggedUser.registerTimeWorked(time);
-            registeredHours=true;
-            assert loggedUser.getTimeWorked() == currentWorkedTime+time
-            && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
+        assert time % 0.5 == 0 && activity != null && loggedUser != null;
+        double currentWorkedTime = loggedUser.getTimeWorked();
+        double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
+        activity.timeWorkedList.registerTime(loggedUser, time);
+        loggedUser.registerTimeWorked(time);
+        registeredHours=true;
+        assert loggedUser.getTimeWorked() == currentWorkedTime+time
+        && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
     }
     /**
      * @author Silas Thule
@@ -235,6 +235,7 @@ public class ProjectManagerApp {
      * @throws OperationNotAllowedException
      */
     public void finishProject(Project project)throws OperationNotAllowedException{
+        
         if (loggedUser == project.getProjectLeader()) {
             if (project.getActivities().isEmpty()) {
                 project.finishProject();

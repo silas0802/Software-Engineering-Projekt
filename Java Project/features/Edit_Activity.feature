@@ -120,3 +120,21 @@ When an activity with name "Homepage UI" under the project is created
 Then the project has 2 activities
 
 
+# Daniel Henriksen
+Scenario: edit activity start time, no project time
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And an activity with name "Exit everything" under the project is created
+When the activity start time "15-2023" is set
+Then the error message "Project doesn't have established start time and end time: type 'back' to return" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time, no project time
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And an activity with name "Exit everything" under the project is created
+When the activity end time "15-2023" is set
+Then the error message "Project doesn't have established start time and end time: type 'back' to return" is given
+
+

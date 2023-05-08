@@ -241,6 +241,7 @@ public class ActivitySteps {
     public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
         assertFalse(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
         assertEquals(VariablesHolder.project.getFinishedActivities().size(), 1);
+        assertTrue(VariablesHolder.activity.isActivityfinished());
 
     }
 

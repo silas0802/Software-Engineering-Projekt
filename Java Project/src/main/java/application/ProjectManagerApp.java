@@ -13,24 +13,25 @@ public class ProjectManagerApp {
     ArrayList<Project> finishedProjects = new ArrayList<>(); 
     
     
-    
+    /**
+     * @author Niclas Schæffer
+     */
     public boolean isLoggedIn(){
         return loggedUser != null;
     }
-
+    //Niclas Schæffer
     public void login(User user){
         loggedUser = user;
     }
-
+    //Niclas Schæffer
     public void logout() throws OperationNotAllowedException{
         if(hasRegisteredHours()){
             loggedUser = null;
         }else {
             throw new OperationNotAllowedException("Has not registered hours");
         }
-        
     }
-
+    //Niclas Schæffer
     public void createUser(User user){
         users.add(user);
     }
@@ -313,4 +314,19 @@ public class ProjectManagerApp {
         return time;
     }
 
+    public void checkName(String name) throws OperationNotAllowedException{
+        int counter = 0;
+        if(name.length() == 0){
+            throw new OperationNotAllowedException("Name can't be empty");
+        }
+        for(int i = 0; i < name.length(); i++){
+            char c = name.charAt(i);
+            if(c == ' '){
+                counter++;
+            }
+        }
+        if(counter == name.length()){
+            throw new OperationNotAllowedException("Name can't be empty");
+        }
+    }
 }

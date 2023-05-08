@@ -194,8 +194,10 @@ public class ProjectManagerApp {
         if (userHasActivity(activity, user)) {
             throw new OperationNotAllowedException("User is already assigned to the activity");
         }
+        assert(user != null && activity != null && user.getActivities().size() < 20 && !userHasActivity(activity, user));
         user.joinActivity(activity);
         activity.setActiveUser(user);
+        assert(userHasActivity(activity, user) && activity.getUsersOnActivity().contains(user));
     }
     //jesper pedersen
     public List<Activity> getUserActivities(User user){

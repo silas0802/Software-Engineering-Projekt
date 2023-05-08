@@ -62,13 +62,24 @@ Then the activity end time becomes "15-2023"
 
 
 # Daniel Henriksen
-Scenario: edit activity end time to a time before start time
+Scenario: edit activity end time to a time before start time - week
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 And the activity end time "20-2026" is set
 When the activity end time "15-2026" is set
+Then the error message "End time comes before Start time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time to a time before start time - year
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And an activity with name "Exit everything" under the project is created
+And the activity start time "16-2026" is set
+And the activity end time "20-2026" is set
+When the activity end time "25-2025" is set
 Then the error message "End time comes before Start time" is given
 
 

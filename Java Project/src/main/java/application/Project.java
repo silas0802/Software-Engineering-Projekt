@@ -65,7 +65,7 @@ public class Project {
     public void setEndTime(StartEndTime endTime) {
         this.endTime = endTime;
     }
-
+    //Silas Thule
     public int getExpTime() {
         int sum = 0;
         for (Activity activity : activities) {
@@ -76,6 +76,7 @@ public class Project {
     public int getId() {
         return id;
     }
+    //Silas Thule
     public double getTimeWorked() {
         int sum = 0;
         for (Activity activity : activities) {

@@ -37,6 +37,11 @@ public class ProjectSteps {
     @When("a project with name {string} is created")
     public void aProjectWithNameIsCreated(String name) {
         // Write code here that turns the phrase above into concrete actions
+        try {
+            projectManagerApp.checkName(name);
+        } catch (Exception e) {
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
         VariablesHolder.project = new Project(name);
         projectManagerApp.createProject(VariablesHolder.project);
        
@@ -102,11 +107,7 @@ public class ProjectSteps {
 			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
 		}
     }
-    //Daniel Henriksen
-    @Then("the expected work time is {int}")
-    public void the_expected_work_time_is(int expTime) {
-        assertEquals(VariablesHolder.project.getExpTime(), expTime);
-    }
+    
 
     
     //Daniel Henriksen
@@ -255,5 +256,17 @@ public class ProjectSteps {
     @Then("the project is finished")
         public void theProjectIsFinished() {
             assertTrue(VariablesHolder.project.isFinished());
+        }
+        //Silas Thule
+        @Given("the user sets the expected duration of project to {double}")
+        public void theUserSetsTheExpectedDurationOfProjectTo(Double double1) {
+            // Write code here that turns the phrase above into concrete actions
+            VariablesHolder.activity.setExpectedDuration(double1);
+        }
+        //Silas Thule
+        @When("the user gets the expected duration of the project")
+        public void theUserGetsTheExpectedDurationOfTheProject() {
+            // Write code here that turns the phrase above into concrete actions
+            VariablesHolder.workHours = VariablesHolder.project.getExpTime();
         }
 }

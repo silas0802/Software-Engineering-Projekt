@@ -9,7 +9,7 @@ public class Activity {
     StartEndTime endTime;
     String name;
     String description;
-    int expectedDuration;
+    double expectedDuration;
     WorkerTimeList timeWorkedList = new WorkerTimeList();
     List<User> activeUsers = new ArrayList<>();
     boolean activityFinished=false;
@@ -35,11 +35,11 @@ public class Activity {
         this.endTime = endTime;
     }
     //jesper pedersen
-    public int getExpectedDuration() {
+    public Double getExpectedDuration() {
         return expectedDuration;
     }
     //jesper pedersen
-    public void setExpectedDuration(int expectedDuration) {
+    public void setExpectedDuration(Double expectedDuration) {
         this.expectedDuration = expectedDuration;
     }
     //jesper pedersen

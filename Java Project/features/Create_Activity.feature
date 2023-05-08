@@ -130,5 +130,5 @@ Scenario: Set expected work time on activity
 Given a user with username "JD" logs in
 And a project with name "SU-kontoret" is created
 And an activity with name "Calculate Money" under the project is created
-When the user sets the expected work time of the activity to 20
-Then the expected work time of the activity is 20
+When the user sets the expected work time of the activity to 20.0
+Then the expected work time of the activity is 20.0

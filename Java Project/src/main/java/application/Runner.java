@@ -1001,13 +1001,13 @@ public class Runner {
             //exp dur
             else if(ans == 4){
                 String weekString;
-                int weekInt;
+                Double weekInt;
                 System.out.println("Enter expected number of hours? ex 2");
                 while(true){
                     weekString = scanner.nextLine();
                     back(weekString, activity, 1);
                     try {
-                        weekInt = Integer.parseInt(weekString);
+                        weekInt = Double.parseDouble(weekString);
                     } catch (Exception e) {
                         System.out.println("Please enter a whole number:");
                         continue;

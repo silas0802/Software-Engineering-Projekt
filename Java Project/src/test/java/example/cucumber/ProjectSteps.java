@@ -102,11 +102,7 @@ public class ProjectSteps {
 			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
 		}
     }
-    //Daniel Henriksen
-    @Then("the expected work time is {int}")
-    public void the_expected_work_time_is(int expTime) {
-        assertEquals(VariablesHolder.project.getExpTime(), expTime);
-    }
+    
 
     
     //Daniel Henriksen

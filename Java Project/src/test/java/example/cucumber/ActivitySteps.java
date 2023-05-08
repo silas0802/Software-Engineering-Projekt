@@ -213,20 +213,20 @@ public class ActivitySteps {
     }
 
     //jesper pedersen
-    @When("the user sets the expected work time of the activity to {int}")
-    public void theUserSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
+    @When("the user sets the expected work time of the activity to {double}")
+    public void theUserSetsTheExpectedWorkTimeOfTheActivityTo(Double exptime) {
         VariablesHolder.activity.setExpectedDuration(exptime);
     }
 
     //jesper pedersen
-    @Then("the expected work time of the activity is {int}")
-    public void theExpectedWorkTimeOfTheActivityIs(Integer exptime) {
+    @Then("the expected work time of the activity is {double}")
+    public void theExpectedWorkTimeOfTheActivityIs(Double exptime) {
         assertEquals(VariablesHolder.activity.getExpectedDuration(), exptime);
     }
 
     //jesper pedersen
-    @Given("user sets the expected work time of the activity to {int}")
-    public void userSetsTheExpectedWorkTimeOfTheActivityTo(Integer exptime) {
+    @Given("user sets the expected work time of the activity to {double}")
+    public void userSetsTheExpectedWorkTimeOfTheActivityTo(Double exptime) {
     VariablesHolder.activity.setExpectedDuration(exptime);
     }
 

@@ -25,11 +25,11 @@ public class ProjectManagerApp {
     }
     //Niclas Schæffer
     public void logout() throws OperationNotAllowedException{
-        if(hasRegisteredHours()){
-            loggedUser = null;
-        }else {
+        if(!hasRegisteredHours()){
             throw new OperationNotAllowedException("Has not registered hours");
         }
+        assert(loggedUser != null && hasRegisteredHours() == true);
+        loggedUser = null;
         assert(loggedUser == null);
     }
     //Niclas Schæffer

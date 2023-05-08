@@ -332,7 +332,7 @@ public class ProjectManagerApp {
             }
         }
         if(counter == name.length()){
-            throw new OperationNotAllowedException("Name can't be empty");
+            throw new OperationNotAllowedException("Name can't be just spaces");
         }
     }
 }

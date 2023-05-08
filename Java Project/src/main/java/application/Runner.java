@@ -452,6 +452,8 @@ public class Runner {
         if(yesNo("Assign "+user.getUserName()+" to activity?")){
             try {
                 projectManagerApp.assignActivityToUser(user, activity);
+                user.setAssignedProject(project);
+                project.assignWorker(user);
             } catch (OperationNotAllowedException e) {
                 System.out.println(e.getMessage());
                 seeActiveActivities(project);

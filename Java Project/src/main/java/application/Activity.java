@@ -16,7 +16,7 @@ public class Activity {
     
     //Silas Thule
     public double getWorkedTime(){
-        return timeWorkedList.totalTimeWorked();
+        return getTimeWorkedList().totalTimeWorked();
     }
     //jesper pedersen
     public StartEndTime getStartTime() {
@@ -83,9 +83,12 @@ public class Activity {
         activityFinished=true;
     }
     //jesper pedersen
-    public boolean isActivityfinished(){
-        return activityFinished;
-    }
+	public boolean isActivityFinished() {
+		return activityFinished;
+	}
+	public WorkerTimeList getTimeWorkedList() {
+		return timeWorkedList;
+	}
 
 }
 

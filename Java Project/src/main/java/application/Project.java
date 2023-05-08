@@ -80,7 +80,7 @@ public class Project {
     public double getTimeWorked() {
         int sum = 0;
         for (Activity activity : activities) {
-            sum += activity.timeWorkedList.totalTimeWorked();
+            sum += activity.getTimeWorkedList().totalTimeWorked();
         }
         return sum;
     }

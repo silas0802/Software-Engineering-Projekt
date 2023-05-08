@@ -34,7 +34,7 @@ public class ProjectManagerApp {
     }
     //Niclas Schæffer
     public void createUser(User user){
-        users.add(user);
+        getUsers().add(user);
     }
 
     public void createProject(Project project){
@@ -71,12 +71,12 @@ public class ProjectManagerApp {
         }
         assert time % 0.5 == 0 && activity != null && loggedUser != null;
         double currentWorkedTime = loggedUser.getTimeWorked();
-        double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
-        activity.timeWorkedList.registerTime(loggedUser, time);
+        double currentWorkedTimeActivity = activity.getTimeWorkedList().totalTimeWorked();
+        activity.getTimeWorkedList().registerTime(loggedUser, time);
         loggedUser.registerTimeWorked(time);
         registeredHours=true;
         assert loggedUser.getTimeWorked() == currentWorkedTime+time
-        && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
+        && activity.getTimeWorkedList().totalTimeWorked() == currentWorkedTimeActivity+time;
     }
     /**
      * @author Silas Thule
@@ -133,13 +133,13 @@ public class ProjectManagerApp {
 
     //jesper pedersen
     public boolean hasUser(User user){
-        return users.contains(user);
+        return getUsers().contains(user);
     }
 
 
     //jesper pedersen
     public boolean hasUserByName(String name){
-        for(User person: users){
+        for(User person: getUsers()){
             if (person.getUserName().equals(name)) {
                 return true;
             }
@@ -148,7 +148,7 @@ public class ProjectManagerApp {
     }
     //jesper pedersen
     public User getUserByName(String name){
-        for(User person: users){
+        for(User person: getUsers()){
             if (person.getUserName().equals(name)) {
                 return person;
             }
@@ -173,7 +173,7 @@ public class ProjectManagerApp {
 
 
     public User searchByName(String name){
-        for (User user : users) {
+        for (User user : getUsers()) {
             if(user.getUserName().equals(name)){
                 return user;
             }   

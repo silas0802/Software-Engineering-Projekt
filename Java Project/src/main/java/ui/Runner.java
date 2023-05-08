@@ -1,8 +1,15 @@
-package application;
+package ui;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Scanner;
+
+import application.Activity;
+import application.OperationNotAllowedException;
+import application.Project;
+import application.ProjectManagerApp;
+import application.StartEndTime;
+import application.User;
 
 public class Runner {
 
@@ -184,7 +191,7 @@ public class Runner {
         System.out.println("1. Back");
         System.out.println("2. Edit activity");
         System.out.println("3. Register time worked");
-        if (activity.getProject().getProjectLeader() == user && activity.isActivityfinished() == false) {
+        if (activity.getProject().getProjectLeader() == user && activity.isActivityFinished() == false) {
             System.out.println("4. Users assigned to activity");   
             System.out.println("5. See total time worked");
             System.out.println("6. Finish activity");
@@ -230,7 +237,7 @@ public class Runner {
                 System.out.println("Time is Registered");
                 viewActivity(activity);
             
-            } else if(activity.getProject().getProjectLeader() == user && activity.activityFinished == false){
+            } else if(activity.getProject().getProjectLeader() == user && activity.isActivityFinished() == false){
                 if(ans==4){
                     usersAssignedToActivity(activity, activity.getProject());
                 }else if(ans==5){
@@ -338,10 +345,10 @@ public class Runner {
 
         newPage("TIME WORKED");
         System.out.println("Time worked per User");
-        System.out.println(activity.timeWorkedList.toString());
+        System.out.println(activity.getTimeWorkedList().toString());
 
         System.out.println("Expected time: "+activity.getExpectedDuration());
-        System.out.println("Total time Used: "+activity.timeWorkedList.totalTimeWorked());
+        System.out.println("Total time Used: "+activity.getTimeWorkedList().totalTimeWorked());
         System.out.println("0. Main menu");
         System.out.println("1. Back to activity");
         while(true){
@@ -365,7 +372,7 @@ public class Runner {
 
     //jesper pedersen
     public static void activityDetails(Activity activity){
-        if(activity.isActivityfinished()){
+        if(activity.isActivityFinished()){
             System.out.println("***FINISHED***");
         }
         System.out.println("Name: "+activity.getName());
@@ -663,7 +670,7 @@ public class Runner {
         newPage("ASSIGN USERS TO PROJECT");
         System.out.println("PROJECT: " + project.getName());
         
-        if(projectManagerApp.users.size()==0){
+        if(projectManagerApp.getUsers().size()==0){
             System.out.println("No users registered");
             System.out.println("0. Main menu");
             System.out.println("1. Back");
@@ -695,7 +702,7 @@ public class Runner {
             } else if(ans==1){
                 workersAssignedToProject(project);
             } else{
-                user=projectManagerApp.users.get(ans-2);
+                user=projectManagerApp.getUsers().get(ans-2);
                 try {
                     user.setAssignedProject(project);
                     project.assignWorker(user);

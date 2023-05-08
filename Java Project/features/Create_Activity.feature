@@ -70,6 +70,8 @@ Then the Description is added to the activity
 Scenario: set activity start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "01-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 When the activity start time "15-2023" is set
 Then the activity start time becomes "15-2023"
@@ -94,6 +96,8 @@ Then the error message "Please enter a week number between 1 and 53" is given
 Scenario: set activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "01-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 And the activity start time "15-2020" is set
 When the activity end time "15-2023" is set
@@ -119,6 +123,8 @@ Then the error message "Please enter a week number between 1 and 53" is given
 Scenario: activity end time is set before start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "01-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 When the activity end time "15-2026" is set

@@ -44,6 +44,8 @@ Then the Description "need usernames of min 8 chars" is on the activity
 Scenario: edit activity start time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 When the activity start time "15-2023" is set
@@ -54,6 +56,8 @@ Then the activity start time becomes "15-2023"
 Scenario: edit activity end time
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2020" is set
 And the activity end time "16-2026" is set
@@ -65,6 +69,8 @@ Then the activity end time becomes "15-2023"
 Scenario: edit activity end time to a time before start time - week
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 And the activity end time "20-2026" is set
@@ -76,6 +82,8 @@ Then the error message "End time comes before Start time" is given
 Scenario: edit activity end time to a time before start time - year
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 And the activity start time "16-2026" is set
 And the activity end time "20-2026" is set
@@ -110,3 +118,5 @@ And the user is assigned to the project as leader
 And an activity with name "Log in UI" under the project is created
 When an activity with name "Homepage UI" under the project is created
 Then the project has 2 activities
+
+

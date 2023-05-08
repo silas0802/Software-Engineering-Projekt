@@ -15,16 +15,7 @@ public class StartEndTime {
         return week;
     }
 
-    public void setWeek(int week) {
-        this.week = week;
-    }
-
     public int getYear() {
         return year;
     }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
 }

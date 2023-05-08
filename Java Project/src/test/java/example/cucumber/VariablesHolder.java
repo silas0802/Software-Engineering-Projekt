@@ -12,5 +12,7 @@ public class VariablesHolder {
    public static double workHours;
    public static String description;
    public static ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+   public static WorkerTimeList workerTimeList = new WorkerTimeList();
+   public static WorkerTime[] workerTimes;
     
 }

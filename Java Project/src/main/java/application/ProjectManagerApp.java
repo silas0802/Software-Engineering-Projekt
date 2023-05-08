@@ -198,8 +198,10 @@ public class ProjectManagerApp {
         if (userHasActivity(activity, user)) {
             throw new OperationNotAllowedException("User is already assigned to the activity");
         }
+        assert(user != null && activity != null && user.getActivities().size() < 20 && !userHasActivity(activity, user));
         user.joinActivity(activity);
         activity.setActiveUser(user);
+        assert(userHasActivity(activity, user) && activity.getUsersOnActivity().contains(user));
     }
     //jesper pedersen
     public List<Activity> getUserActivities(User user){
@@ -236,20 +238,23 @@ public class ProjectManagerApp {
      */
     public void finishProject(Project project)throws OperationNotAllowedException{
         
-        if (loggedUser == project.getProjectLeader()) {
-            if (project.getActivities().isEmpty()) {
-                project.finishProject();
-                projects.remove(project);
-                finishedProjects.add(project);
-            }
-            else{
-                throw new OperationNotAllowedException("Project contains unfinished activities");
-            }
-        }
-        else{
+        if (loggedUser != project.getProjectLeader()) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
+        if (!project.getActivities().isEmpty()) {
+            throw new OperationNotAllowedException("Project contains unfinished activities");
+        }
+        assert(loggedUser!=null && project.getProjectLeader()!=null && project!=null && project.getActivities()!=null&&project.getFinishedActivities()!=null);
+        assert(loggedUser==project.getProjectLeader()&&project.getActivities().size()==0);
+        project.finishProject();
+        projects.remove(project);
+        finishedProjects.add(project);
+        assert(project.isFinished()==true&&finishedProjects.contains(project)==true&&projects.contains(project)==false);
     }
+            
+        
+        
+    
 
     // Daniel Henriksen
     public void setActivityStartTime (Activity activity, StartEndTime startTime) throws OperationNotAllowedException {
@@ -260,9 +265,9 @@ public class ProjectManagerApp {
     public void setActivityEndTime (Activity activity, StartEndTime endTime) throws OperationNotAllowedException {
         if (activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
-        } else {
-            activity.setEndTime(endTime);
         }
+        activity.setEndTime(endTime);
+        
     }
 
     // Daniel Henriksen
@@ -278,12 +283,12 @@ public class ProjectManagerApp {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
-
         if (project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
-        } else {
-            project.setEndTime(endTime);
         }
+        assert loggedUser != null && project != null && endTime != null;
+        project.setEndTime(endTime);
+        assert project.getEndTime() == endTime;
     }
 
     // Daniel Henriksen

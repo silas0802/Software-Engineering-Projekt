@@ -241,7 +241,7 @@ public class ActivitySteps {
     public void theActivityIsMovedToFinishedActivitiesUnderTheProject() {
         assertFalse(projectManagerApp.hasActivity(VariablesHolder.project, VariablesHolder.activity));
         assertEquals(VariablesHolder.project.getFinishedActivities().size(), 1);
-        assertTrue(VariablesHolder.activity.isActivityfinished());
+        assertTrue(VariablesHolder.activity.isActivityFinished());
 
     }
 
@@ -259,6 +259,15 @@ public class ActivitySteps {
         assertTrue(projectManagerApp.userHasActivity(VariablesHolder.activity, VariablesHolder.user));
     }
     
+    @Given("the actitivy start time {string} is set")
+    public void theActitivyStartTimeIsSet(String startTime) {
+        try {
+            projectManagerApp.setActivityStartTime(VariablesHolder.activity, projectManagerApp.timeInputChecker(startTime));
+        } catch (OperationNotAllowedException e) {
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
     // Daniel Henriksen
     @When("the activity start time {string} is set")
         public void theStartTimeIsSet(String startTime) {

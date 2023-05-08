@@ -140,7 +140,7 @@ Then the error message "Project doesn't have established start time and end time
 
 
 # Daniel Henriksen
-Scenario: edit activity start time, outside project time - after
+Scenario: edit activity start time, outside project time - after year
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And the project start time "16-2020" is set
@@ -151,7 +151,7 @@ Then the error message "Activity time has to be within the Project time" is give
 
 
 # Daniel Henriksen
-Scenario: edit activity start time, outside project time - before
+Scenario: edit activity start time, outside project time - before year
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And the project start time "16-2020" is set
@@ -162,7 +162,7 @@ Then the error message "Activity time has to be within the Project time" is give
 
 
 # Daniel Henriksen
-Scenario: edit activity end time, outside project time - after
+Scenario: edit activity end time, outside project time - after year
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And the project start time "16-2020" is set
@@ -173,7 +173,7 @@ Then the error message "Activity time has to be within the Project time" is give
 
 
 # Daniel Henriksen
-Scenario: edit activity end time, outside project time - before
+Scenario: edit activity end time, outside project time - before year
 Given a user with username "TH" logs in
 And a project with name "I hate this" is created
 And the project start time "16-2020" is set
@@ -181,3 +181,60 @@ And the project end time "21-2030" is set
 And an activity with name "Exit everything" under the project is created
 When the activity end time "15-2015" is set
 Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity start time, outside project time - after week
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity start time "51-2030" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity start time, outside project time - before week
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity start time "01-2020" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time, outside project time - after week
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2025" is set
+And an activity with name "Exit everything" under the project is created
+And the actitivy start time "17-2020" is set
+When the activity end time "30-2025" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time, outside project time - before week
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+And the actitivy start time "17-2020" is set
+When the activity end time "01-2020" is set
+Then the error message "Activity time has to be within the Project time" is given
+
+
+# Daniel Henriksen
+Scenario: edit activity end time, no start time
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+And the project start time "16-2020" is set
+And the project end time "21-2030" is set
+And an activity with name "Exit everything" under the project is created
+When the activity end time "01-2025" is set
+Then the error message "End time comes before Start time" is given

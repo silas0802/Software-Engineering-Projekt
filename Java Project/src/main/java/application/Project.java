@@ -80,7 +80,7 @@ public class Project {
     public double getTimeWorked() {
         int sum = 0;
         for (Activity activity : activities) {
-            sum += activity.timeWorkedList.totalTimeWorked();
+            sum += activity.getTimeWorkedList().totalTimeWorked();
         }
         return sum;
     }
@@ -95,8 +95,9 @@ public class Project {
     
     //Silas Thule
     public void assignWorker(User user) throws OperationNotAllowedException{
-        if (user.getAssignedProject()!=null) {
+        if (user.getAssignedProject()==null) {
             workers.add(user);
+            user.setAssignedProject(this);
         } else {
             throw new OperationNotAllowedException("Worker is already assigned to a project");
         }

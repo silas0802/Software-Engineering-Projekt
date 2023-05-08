@@ -88,6 +88,10 @@ public class Hourssteps {
     @When("the user gets his worked time")
     public void theUserGetsHisWorkedTime() {
         // Write code here that turns the phrase above into concrete actions
-        VariablesHolder.workHours = VariablesHolder.workerTimeList.getTimeWorked(VariablesHolder.user);
+        try {
+            VariablesHolder.workHours = VariablesHolder.workerTimeList.getTimeWorked(VariablesHolder.user);
+        } catch (Exception e) {
+            VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
 }

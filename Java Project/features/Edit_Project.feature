@@ -177,3 +177,10 @@ And an activity with name "starting with the basics" under the project is create
 And the user sets the expected duration of project to 6.0
 When the user gets the expected duration of the project
 Then 6.0 is returned
+
+# Daniel Henriksen
+Scenario: edit project end time, no start time
+Given a user with username "TH" logs in
+And a project with name "I hate this" is created
+When the project end time "20-2025" is set
+Then the error message "End time comes before Start time" is given

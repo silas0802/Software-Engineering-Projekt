@@ -258,7 +258,8 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("Project doesn't have established start time and end time: type 'back' to return");
         }
         if ((activity.getProject().getStartTime().getYear() > startTime.getYear() || activity.getProject().getEndTime().getYear() < startTime.getYear())
-            || (activity.getProject().getStartTime().getYear() == startTime.getYear() && (activity.getProject().getStartTime().getWeek() > startTime.getWeek() || activity.getProject().getEndTime().getWeek() < startTime.getWeek()))){
+            || (activity.getProject().getStartTime().getYear() == startTime.getYear() && activity.getProject().getStartTime().getWeek() > startTime.getWeek())
+            || (activity.getProject().getEndTime().getYear() == startTime.getYear() && activity.getProject().getEndTime().getWeek() < startTime.getWeek())){
             throw new OperationNotAllowedException("Activity time has to be within the Project time");
         }
         activity.setStartTime(startTime);
@@ -270,10 +271,11 @@ public class ProjectManagerApp {
             throw new OperationNotAllowedException("Project doesn't have established start time and end time: type 'back' to return");
         }
         if ((activity.getProject().getStartTime().getYear() > endTime.getYear() || activity.getProject().getEndTime().getYear() < endTime.getYear())
-            || (activity.getProject().getStartTime().getYear() == endTime.getYear() && (activity.getProject().getStartTime().getWeek() > endTime.getWeek() || activity.getProject().getEndTime().getWeek() < endTime.getWeek()))){
+            || (activity.getProject().getStartTime().getYear() == endTime.getYear() && activity.getProject().getStartTime().getWeek() > endTime.getWeek())
+            || (activity.getProject().getEndTime().getYear() == endTime.getYear() && activity.getProject().getEndTime().getWeek() < endTime.getWeek())){
             throw new OperationNotAllowedException("Activity time has to be within the Project time");
         }
-        if (activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
+        if (activity.getStartTime() == null || activity.getStartTime().getYear() > endTime.getYear() || (activity.getStartTime().getWeek() > endTime.getWeek() && activity.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         }
         activity.setEndTime(endTime);
@@ -293,7 +295,7 @@ public class ProjectManagerApp {
         if (!(loggedUser == project.getProjectLeader() || project.getProjectLeader() == null)) {
             throw new OperationNotAllowedException("User doesn't have permission");
         }
-        if (project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
+        if (project.getStartTime() == null || project.getStartTime().getYear() > endTime.getYear() || (project.getStartTime().getWeek() > endTime.getWeek() && project.getStartTime().getYear() == endTime.getYear())) {
             throw new OperationNotAllowedException("End time comes before Start time");
         }
         assert loggedUser != null && project != null && endTime != null;

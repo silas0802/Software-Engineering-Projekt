@@ -699,6 +699,7 @@ public class Runner {
                     project.assignWorker(user);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
+                    continue;
                 }
                 
                 assignUserToProject(project);

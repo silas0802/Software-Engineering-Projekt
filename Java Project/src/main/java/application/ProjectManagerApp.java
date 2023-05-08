@@ -73,7 +73,8 @@ public class ProjectManagerApp {
             activity.timeWorkedList.registerTime(loggedUser, time);
             loggedUser.registerTimeWorked(time);
             registeredHours=true;
-            assert loggedUser.getTimeWorked() == currentWorkedTime+time && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
+            assert loggedUser.getTimeWorked() == currentWorkedTime+time
+            && activity.timeWorkedList.totalTimeWorked() == currentWorkedTimeActivity+time;
     }
     /**
      * @author Silas Thule

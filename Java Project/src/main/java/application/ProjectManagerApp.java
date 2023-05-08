@@ -68,7 +68,7 @@ public class ProjectManagerApp {
         if (time % 0.5 != 0) {
             throw new OperationNotAllowedException("Time not rounded to nearst half hour");
         }
-            assert time % 0.5 == 0 && activity != null;
+            assert time % 0.5 == 0 && activity != null && loggedUser != null;
             double currentWorkedTime = loggedUser.getTimeWorked();
             double currentWorkedTimeActivity = activity.timeWorkedList.totalTimeWorked();
             activity.timeWorkedList.registerTime(loggedUser, time);

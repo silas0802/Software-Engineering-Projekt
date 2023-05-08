@@ -30,6 +30,7 @@ public class ProjectManagerApp {
         }else {
             throw new OperationNotAllowedException("Has not registered hours");
         }
+        assert(loggedUser == null);
     }
     //Niclas Schæffer
     public void createUser(User user){

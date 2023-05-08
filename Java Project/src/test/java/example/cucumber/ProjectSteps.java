@@ -154,6 +154,7 @@ public class ProjectSteps {
         
         try {
 			VariablesHolder.project.assignWorker(VariablesHolder.user);
+            VariablesHolder.user.setAssignedProject(VariablesHolder.project);
 		} catch (OperationNotAllowedException e) {
 			VariablesHolder.errorMessageHolder.setErrorMessage(e.getMessage());
 		}

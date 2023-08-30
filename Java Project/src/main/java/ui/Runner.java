@@ -683,7 +683,7 @@ public class Runner {
                 if(projectManagerApp.userHasProject(projectManagerApp.getUsers().get(i), project)||project.getProjectLeader()==projectManagerApp.getUsers().get(i)){
                     continue;
                 }
-                System.out.println(i+1+". "+projectManagerApp.getUsers().get(i).getUserName());            
+                System.out.println(i+2+". "+projectManagerApp.getUsers().get(i).getUserName());            
             }
         }
         User user;
